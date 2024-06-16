@@ -9,7 +9,10 @@ import {
 import { classNames } from "../../utils/string";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 
-export default function DeviceMenu() {
+export default function DeviceMenu({menu}:{menu: {
+    name: string;
+    action: any
+}[]}) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -29,16 +32,7 @@ export default function DeviceMenu() {
       >
         <MenuItems className="absolute right-0 z-40 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {[
-              {
-                name: "Un Register",
-                action: () => {},
-              },
-              {
-                name: "Terminate",
-                action: () => {},
-              },
-            ].map((menuItems) => {
+            {menu.map((menuItems) => {
               return (
                 <MenuItem>
                   {({ focus }) => (

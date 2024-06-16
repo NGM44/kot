@@ -16,7 +16,7 @@ const people = [
 const stats = [
   { name: "Registered", value: "88", change: "+88%" },
   { name: "Production", value: "10", change: "+10%" },
-  { name: "Returned", value: "2", change: "2%" },
+  { name: "Un Registered", value: "2", change: "2%" },
   { name: "Terminated", value: "0", change: "0%" },
 ];
 
@@ -34,7 +34,13 @@ export default function DevicePage() {
             }}
             className={`flex cursor-pointer flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8 ${
               selected === stat.name ? "border-b-2 border-indigo-600" : ""
-            }`}
+            }  ${
+                stat.name === "Registered"
+                  ? "rounded-s-md"
+                  : stat.name === "Terminated"
+                  ? "rounded-e-md"
+                  : ""
+              }`}
           >
             <dt className="text-sm font-medium leading-6 text-gray-500">
               {stat.name}
@@ -48,14 +54,20 @@ export default function DevicePage() {
           </div>
         ))}
       </dl>
-      <div className="px-4 sm:px-6 lg:px-8 bg-white pt-6 border border-borderColor shadow-sm">
+      <div className="px-4 sm:px-6 lg:px-8 bg-white pt-6 border border-borderColor shadow-sm rounded-md">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-base font-semibold leading-6 text-gray-900">
               Device Information
             </h1>
             <p className="mt-2 text-sm text-gray-700">
-              A list of all the device available
+              {selected === "Registered"
+                ? "A list of all the device available in inventory"
+                : selected === "Production"
+                ? "A list of all the device rolled out to production"
+                : selected === "Un Registered"
+                ? "A list of product got unregister from client"
+                : "A list of product which are terminated"}
             </p>
           </div>
           {selected === "Registered" && (
@@ -132,7 +144,57 @@ export default function DevicePage() {
                         >
                           Edit<span className="sr-only">, {person.name}</span>
                         </a> */}
-                        <DeviceMenu />
+                        <DeviceMenu
+                          menu={
+                            selected === "Registered"
+                              ? [
+                                  {
+                                    name: "Un Register",
+                                    action: () => {},
+                                  },
+                                  {
+                                    name: "Terminate",
+                                    action: () => {},
+                                  },
+                                ]
+                              : selected === "Production"
+                              ? [
+                                  {
+                                    name: "Un Register",
+                                    action: () => {},
+                                  },
+                                  {
+                                    name: "Block",
+                                    action: () => {},
+                                  },
+                                  {
+                                    name: "Terminate",
+                                    action: () => {},
+                                  },
+                                ]
+                              : selected === "Un Registered"
+                              ? [
+                                  {
+                                    name: "Register",
+                                    action: () => {},
+                                  },
+                                  {
+                                    name: "Block",
+                                    action: () => {},
+                                  },
+                                  {
+                                    name: "Terminate",
+                                    action: () => {},
+                                  },
+                                ]
+                              : [
+                                  {
+                                    name: "Register",
+                                    action: () => {},
+                                  },
+                                ]
+                          }
+                        />
                       </td>
                     </tr>
                   ))}
