@@ -48,6 +48,6 @@ export const useAuthStore = createStore<AuthStore>(
           id: undefined,
         }));
       },
-    })
-  )
+    }),
+  ),
 );

@@ -35,12 +35,12 @@ export default function DevicePage() {
             className={`flex cursor-pointer flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8 ${
               selected === stat.name ? "border-b-2 border-indigo-600" : ""
             }  ${
-                stat.name === "Registered"
-                  ? "rounded-s-md"
-                  : stat.name === "Terminated"
+              stat.name === "Registered"
+                ? "rounded-s-md"
+                : stat.name === "Terminated"
                   ? "rounded-e-md"
                   : ""
-              }`}
+            }`}
           >
             <dt className="text-sm font-medium leading-6 text-gray-500">
               {stat.name}
@@ -64,10 +64,10 @@ export default function DevicePage() {
               {selected === "Registered"
                 ? "A list of all the device available in inventory"
                 : selected === "Production"
-                ? "A list of all the device rolled out to production"
-                : selected === "Un Registered"
-                ? "A list of product got unregister from client"
-                : "A list of product which are terminated"}
+                  ? "A list of all the device rolled out to production"
+                  : selected === "Un Registered"
+                    ? "A list of product got unregister from client"
+                    : "A list of product which are terminated"}
             </p>
           </div>
           {selected === "Registered" && (
@@ -158,41 +158,41 @@ export default function DevicePage() {
                                   },
                                 ]
                               : selected === "Production"
-                              ? [
-                                  {
-                                    name: "Un Register",
-                                    action: () => {},
-                                  },
-                                  {
-                                    name: "Block",
-                                    action: () => {},
-                                  },
-                                  {
-                                    name: "Terminate",
-                                    action: () => {},
-                                  },
-                                ]
-                              : selected === "Un Registered"
-                              ? [
-                                  {
-                                    name: "Register",
-                                    action: () => {},
-                                  },
-                                  {
-                                    name: "Block",
-                                    action: () => {},
-                                  },
-                                  {
-                                    name: "Terminate",
-                                    action: () => {},
-                                  },
-                                ]
-                              : [
-                                  {
-                                    name: "Register",
-                                    action: () => {},
-                                  },
-                                ]
+                                ? [
+                                    {
+                                      name: "Un Register",
+                                      action: () => {},
+                                    },
+                                    {
+                                      name: "Block",
+                                      action: () => {},
+                                    },
+                                    {
+                                      name: "Terminate",
+                                      action: () => {},
+                                    },
+                                  ]
+                                : selected === "Un Registered"
+                                  ? [
+                                      {
+                                        name: "Register",
+                                        action: () => {},
+                                      },
+                                      {
+                                        name: "Block",
+                                        action: () => {},
+                                      },
+                                      {
+                                        name: "Terminate",
+                                        action: () => {},
+                                      },
+                                    ]
+                                  : [
+                                      {
+                                        name: "Register",
+                                        action: () => {},
+                                      },
+                                    ]
                           }
                         />
                       </td>

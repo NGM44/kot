@@ -1,45 +1,51 @@
 import {
-  ForgotPasswordDetailModel,
-  ResetPasswordDetailModel,
-  ResetPostPasswordDetailModel,
+  UserEmailModel,
   SignInDetailsModel,
   SignResponseModel,
-  SignUpModel,
-  SignUpResponseModel,
+  UserData,
+  ResetPasswordDetailModel,
 } from "../types/auth";
 import api from "../queries/api";
 
-export async function forgotPassword(
-  forgotPasswordDetail: ForgotPasswordDetailModel
-): Promise<{ message: string; data: any }> {
-  return api
-    .post(`v1/auth/forgotPassword`, forgotPasswordDetail)
-    .then((res) => res.data);
-}
+export type CustomResponse<T> = {
+  message: string;
+  data: T;
+};
 
 export async function signIn(
-  signInDetails: SignInDetailsModel
-): Promise<{ message: string; data: SignResponseModel }> {
-  return api.post(`v1/auth/login`, signInDetails).then((res) => res.data);
+  signInDetails: SignInDetailsModel,
+): Promise<CustomResponse<SignResponseModel>> {
+  return api.post(`user/login`, signInDetails).then((res) => res.data);
 }
 
-export async function signUp(
-  signUpDetails: SignUpModel
-): Promise<{ message: string; data: SignUpResponseModel }> {
+export async function generateCredentials(userDetails: UserEmailModel) {
   return api
-    .post(`v1/auth/globalSignUp`, signUpDetails)
+    .post("user/generateCredentials", userDetails)
     .then((res) => res.data);
 }
 
-export async function resetPassword(
-    resetPasswordDetail: ResetPostPasswordDetailModel
-  ): Promise<{ message: string; data: any }> {
-    return api.post(
-      `v1/auth/resetPassword`,
-      resetPasswordDetail,
-      {
-        headers: { authorization: resetPasswordDetail.jwt },
-      }
-    );
-  }
-  
+export async function deleteUser() {
+  api.delete("user/", { params: { id: "1" } }).then((res) => res.data);
+}
+
+export async function getAllUsers(): Promise<CustomResponse<UserData[]>> {
+  return api.get("user/all").then((res) => res.data);
+}
+
+export async function deactiveUser(deactiveUserDetails: UserEmailModel) {
+  return api.get(
+    `user/deactive?email=${deactiveUserDetails.email}?deactivated=true`,
+  );
+}
+
+export async function activateUser(deactiveUserDetails: UserEmailModel) {
+  return api.get(
+    `user/deactive?email=${deactiveUserDetails.email}?deactivated=false`,
+  );
+}
+
+export async function changePassword(
+  resetPasswordDetail: ResetPasswordDetailModel,
+): Promise<CustomResponse<string>> {
+  return api.post(`user/changePassword`, resetPasswordDetail);
+}

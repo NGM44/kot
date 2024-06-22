@@ -46,12 +46,12 @@ module.exports = {
         preference10: "#DE716B",
         preference11: "#CC60A6",
         primary: "#0168FA",
-        // primary: {
-        //   100: "#D1E6FA",
-        //   300: "#D1E6FA",
-        //   500: "#69B2F8",
-        //   800: "#0168FA",
-        // },
+        primary: {
+          100: "#D1E6FA",
+          300: "#D1E6FA",
+          500: "#69B2F8",
+          800: "#0168FA",
+        },
         secondary: "#0C224A",
         primaryText: "#464E5F",
         secondaryText: "#737385",
