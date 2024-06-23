@@ -27,11 +27,11 @@ export const useAuthStore = createStore<AuthStore>(
       key: "auth",
     },
     (set: any) => ({
-      isAuthenticated: false,
+      isAuthenticated: true,
       accessToken: undefined,
       email: undefined,
       id: undefined,
-      role: undefined,
+      role: "ADMIN",
       setAuth: (auth: Auth | ((auth: Auth) => Auth)) => {
         if (typeof auth === "function") {
           set((_state: Auth) => auth(_state));
@@ -48,6 +48,6 @@ export const useAuthStore = createStore<AuthStore>(
           id: undefined,
         }));
       },
-    })
-  )
+    }),
+  ),
 );

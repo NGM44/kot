@@ -5,7 +5,6 @@ import {
 } from "@heroicons/react/20/solid";
 import { classNames } from "../utils/string";
 
-
 const timeline = [
   {
     id: 1,
@@ -77,7 +76,7 @@ export default function NotificationList() {
                   <span
                     className={classNames(
                       event.iconBackground,
-                      "h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
+                      "h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white",
                     )}
                   >
                     <event.icon

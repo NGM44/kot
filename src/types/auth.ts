@@ -1,40 +1,30 @@
 export interface ResetPasswordDetailModel {
-    emailId: string;
-    id: string;
-    newPassword: string;
-    confirmPassword: string;
-  }
-  export interface ResetPostPasswordDetailModel {
-    emailId: string;
-    passwordNew: string;
-    jwt: string;
-  }
-  
-  export interface ForgotPasswordDetailModel {
-    email: string;
-    id: string;
-    senderOrigin: string;
-  }
-  
-  export interface SignInDetailsModel {
-    email: string;
-    password: string;
-  }
-  
-  export interface SignResponseModel {
-    id: string;
-    setPassword: string;
-    token: string;
-  }
-  
-  export interface SignUpModel {
-    email: string;
-    password: string;
-    confirmPassword: string;
-    fullName: string;
-  }
-  
-  export interface SignUpResponseModel {
-    userId: bigint | string | number;
-  }
-  
+  newPassword: string;
+  currentPassword: string;
+}
+
+export interface SignInDetailsModel {
+  email: string;
+  password: string;
+}
+
+export interface UserEmailModel {
+  email: string;
+}
+
+export interface SignResponseModel {
+  id: string;
+  token: string;
+}
+
+export enum Role {
+  ADMIN = "ADMIN",
+  USER = "USER",
+}
+
+export interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  role: Role;
+}

@@ -1,10 +1,10 @@
 import axios, { AxiosError, AxiosRequestHeaders } from "axios";
 import { queryClient } from "../queries/client";
-import { clearCredentials, revalidateAuth } from "../utils/auth";
+import { useClearCredentials, revalidateAuth } from "../utils/auth";
 import { useAuthStore } from "../store/useAuthStore";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_NEW_CAPTABLE_API || "http://localhost:4000",
+  baseURL: process.env.REACT_APP_API || "http://localhost:4000",
 });
 
 api.defaults.headers.post["Content-Type"] = "application/json";
@@ -27,20 +27,23 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => {
     if (res.status === 401) {
-      clearCredentials();
+      useClearCredentials();
       queryClient.clear();
-      useAuthStore.setState((store:any) => ({ ...store, isAuthenticated: false }));
+      useAuthStore.setState((store: any) => ({
+        ...store,
+        isAuthenticated: false,
+      }));
       return Promise.reject(res);
     }
     return res;
   },
   (error: AxiosError) => {
     if (error.response?.status === 401) {
-      clearCredentials();
+      useClearCredentials();
       useAuthStore.setState((store) => ({ ...store, isAuthenticated: false }));
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

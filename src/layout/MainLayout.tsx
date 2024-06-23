@@ -12,10 +12,9 @@
   }
   ```
 */
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import {
-  Dialog,
   DialogPanel,
   Menu,
   MenuButton,
@@ -23,6 +22,7 @@ import {
   MenuItems,
   Transition,
   TransitionChild,
+  Dialog,
 } from "@headlessui/react";
 import {
   ArrowPathIcon,
@@ -30,75 +30,93 @@ import {
   ArrowTopRightOnSquareIcon,
   Bars3Icon,
   BellIcon,
-  CalendarIcon,
   ChartPieIcon,
   ChatBubbleBottomCenterIcon,
   Cog6ToothIcon,
-  Cog8ToothIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
   HomeIcon,
   RectangleGroupIcon,
   UserCircleIcon,
-  UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import {
-  ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import { classNames } from "../utils/string";
-import { TableCellsIcon } from "@heroicons/react/24/solid";
 import { useLocation, useNavigate } from "react-router-dom";
-
-const navigation = [
-  { name: "User", href: "/user", icon: HomeIcon, current: true },
-  { name: "Device", href: "/device", icon: ChartPieIcon, current: false },
-];
-const teams = [
-  {
-    id: 1,
-    name: "Manual",
-    href: "#",
-    icon: ArrowTopRightOnSquareIcon,
-    initial: "M",
-    current: false,
-  },
-  {
-    id: 2,
-    name: "Demo",
-    href: "#",
-    icon: ArrowTopRightOnSquareIcon,
-    initial: "D",
-    current: false,
-  },
-];
+import AlertDialog from "../component/shared/AlertDialog";
+import { useAuthStore } from "../store/useAuthStore";
+import NavLayout from "./NavLayout";
 const userNavigation = [
   // { name: "Your profile", href: "" },
   { name: "Log out", href: "#" },
 ];
 
-export default function AdminLayout() {
+export default function MainLayout() {
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  //   useEffect(() => {
-  //     const scroller = document.querySelector("#outlet");
-  //     scroller?.scrollTo(0, 0);
-  //   }, []);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  return (
-    <>
-      {/*
-        This example requires updating your template:
+  useEffect(() => {
+    if(pathname === "/"){
+      if(role?.toUpperCase() === "ADMIN"){
+        navigate("admin/user");
+      }else{
+        navigate("user/dashboard");
+      }
+    }
+  },[]);
 
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
+  const  {clear, role, email} = useAuthStore();
+  const [dialog, setDialog] = useState(false);
+  const navigation = role?.toUpperCase() === "ADMIN" ? [
+    { name: "User", href: "/admin/user", icon: HomeIcon, current: true },
+    { name: "Device", href: "/admin/device", icon: ChartPieIcon, current: false },
+  ]:
+  [
+    { name: "Dashboard", href: "/user/dashboard", icon: HomeIcon, current: true },
+    { name: "Analytics", href: "/user/analytics", icon: ChartPieIcon, current: false },
+    { name: "Grid", href: "/user/grid", icon: RectangleGroupIcon, current: false },
+    {
+      name: "Profile",
+      href: "/user/profile",
+      icon: UserCircleIcon,
+      current: false,
+    },
+    { name: "Settings", href: "/user/settings", icon: Cog6ToothIcon, current: false },
+    { name: "Updates", href: "/user/updates", icon: ArrowPathIcon, current: false },
+    {
+      name: "Support",
+      href: "/user/support",
+      icon: ChatBubbleBottomCenterIcon,
+      current: false,
+    },
+  ];
+  const resources = [
+    {
+      id: 1,
+      name: "Manual",
+      href: "/manual",
+      icon: ArrowTopRightOnSquareIcon,
+      initial: "M",
+      current: false,
+    },
+    {
+      id: 2,
+      name: "Demo",
+      href: "/demo",
+      icon: ArrowTopRightOnSquareIcon,
+      initial: "D",
+      current: false,
+    },
+  ];
+  return (
+    
       <div>
         <Transition show={sidebarOpen}>
-          <Dialog className="relative z-50 lg:hidden" onClose={setSidebarOpen}>
+          <Dialog
+            className="relative z-50 lg:hidden"
+            onClose={setSidebarOpen}
+          >
             <TransitionChild
               enter="transition-opacity ease-linear duration-300"
               enterFrom="opacity-0"
@@ -157,95 +175,7 @@ export default function AdminLayout() {
                         alt="Vayuguna"
                       />
                     </div>
-                    <nav className="flex flex-1 flex-col">
-                      <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                        <li>
-                          <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.map((item) => (
-                              <li key={item.name} className="cursor-pointer">
-                                <a
-                                  //   href={item.href}
-                                  onClick={() => {
-                                    navigate(item.href);
-                                  }}
-                                  className={classNames(
-                                    item.href === pathname
-                                      ? "bg-gray-50 text-indigo-600"
-                                      : "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
-                                    "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
-                                  )}
-                                >
-                                  <item.icon
-                                    className={classNames(
-                                      item.href === pathname
-                                        ? "text-indigo-600"
-                                        : "text-gray-400 group-hover:text-indigo-600",
-                                      "h-6 w-6 shrink-0"
-                                    )}
-                                    aria-hidden="true"
-                                  />
-                                  {item.name}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                        <li>
-                          <div className="text-xs font-semibold leading-6 text-gray-400">
-                            Other Resources
-                          </div>
-                          <ul role="list" className="-mx-2 mt-2 space-y-1">
-                            {teams.map((team) => (
-                              <li key={team.name} className="cursor-pointer">
-                                <a
-                                  //   href={team.href}
-                                  onClick={() => {
-                                    navigate(team.href);
-                                  }}
-                                  className={classNames(
-                                    team.href === pathname
-                                      ? "bg-gray-50 text-indigo-600"
-                                      : "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
-                                    "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
-                                  )}
-                                >
-                                  <span
-                                    className={classNames(
-                                      team.href === pathname
-                                        ? "border-indigo-600 text-indigo-600"
-                                        : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600",
-                                      "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium"
-                                    )}
-                                  >
-                                    {team.initial}
-                                  </span>
-                                  <span className="truncate">{team.name}</span>
-                                  <team.icon
-                                    className={classNames(
-                                      "text-gray-400 group-hover:text-indigo-600",
-                                      "h-6 w-6 shrink-0"
-                                    )}
-                                    aria-hidden="true"
-                                  />
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                        <li className="mt-auto">
-                          <a
-                            href="#"
-                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
-                          >
-                            <Cog6ToothIcon
-                              className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
-                              aria-hidden="true"
-                            />
-                            Settings
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
+                    <NavLayout navigation={navigation} resources={resources}/>
                   </div>
                 </DialogPanel>
               </TransitionChild>
@@ -308,15 +238,16 @@ export default function AdminLayout() {
                     Other Resources
                   </div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
-                    {teams.map((team) => (
-                      <li key={team.name} className="cursor-pointer">
+                    {resources.map((resource) => (
+                      <li key={resource.name} className="cursor-pointer">
                         <a
                           //   href={team.href}
-                          onClick={() => {
-                            navigate(team.href);
-                          }}
+                          onClick={()=>window.open(`${resource.href}`,'_blank')}
+                          // onClick={() => {
+                          //   navigate(resource.href);
+                          // }}
                           className={classNames(
-                            team.href === pathname
+                            resource.href === pathname
                               ? "bg-gray-50 text-indigo-600"
                               : "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
                             "group flex gap-x-3 justify-between rounded-md p-2 text-sm font-semibold leading-6"
@@ -325,17 +256,17 @@ export default function AdminLayout() {
                           <div className="flex flex-row gap-x-3">
                             <span
                               className={classNames(
-                                team.href === pathname
+                                resource.href === pathname
                                   ? "border-indigo-600 text-indigo-600"
                                   : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600",
                                 "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium"
                               )}
                             >
-                              {team.initial}
+                              {resource.initial}
                             </span>
-                            <span className="truncate">{team.name}</span>
+                            <span className="truncate">{resource.name}</span>
                           </div>
-                          <team.icon
+                          <resource.icon
                             className={classNames(
                               "text-gray-400 group-hover:text-indigo-600",
                               "h-5 w-5 shrink-0"
@@ -484,7 +415,7 @@ export default function AdminLayout() {
                           className="ml-4 text-sm font-semibold leading-0 text-gray-900"
                           aria-hidden="true"
                         >
-                          Tom Cook
+                          {email} | {role}
                         </span>
                       </div>
                     </div>
@@ -503,9 +434,7 @@ export default function AdminLayout() {
                           {({ focus }) => (
                             <a
                               //   href={item.href}
-                              onClick={() => {
-                                navigate(item.href);
-                              }}
+                              onClick={() => {setDialog(true)}}
                               className={classNames(
                                 focus ? "bg-gray-50" : "",
                                 "block px-3 py-1 text-sm leading-6 text-gray-900"
@@ -517,7 +446,27 @@ export default function AdminLayout() {
                         </MenuItem>
                       ))}
                     </MenuItems>
+                   
                   </Transition>
+                  <Dialog open={dialog} onClose={() => setDialog(false)}>
+                      {dialog && (
+                        <AlertDialog
+                          message={`Are you sure you want to logout ?`}
+                          primaryActionText="Logout"
+                          onClose={() => setDialog(false)}
+                          secondaryActionText="Cancel"
+                          onPrimaryAction={() => {
+                            clear();
+                            localStorage.clear();
+                            navigate("/");
+                          }}
+                          onSecondaryAction={() => {
+                            setDialog(false);
+                          }}
+                          open={dialog}
+                        />
+                      )}
+                    </Dialog>
                 </Menu>
               </div>
             </div>
@@ -531,6 +480,5 @@ export default function AdminLayout() {
           </main>
         </div>
       </div>
-    </>
   );
 }

@@ -1,15 +1,10 @@
-import { Fragment, useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogPanel,
-  DialogTitle,
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import {
-  ExclamationTriangleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
 import AddClient from "./AddClient";
 
 export default function DialogBox({ isOpen }: { isOpen: boolean }) {

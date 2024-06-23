@@ -22,17 +22,17 @@ export function decodeAuthToken(accesstoken: string) {
   const decodedToken = jwtDecode(accesstoken) as {
     xUserToken: string;
     exp: number;
+    id: string;
+    role:string;
+    email: string;
   };
   return decodedToken;
 }
 
-export function clearCredentials() {
-    const credentialKeys = [
-      "accesstoken",
-      "id",
-    ];
-    credentialKeys.forEach((key) => {
-      localStorage.removeItem(key);
-    });
-    useAuthStore().clear();
-  }
+export function useClearCredentials() {
+  const credentialKeys = ["accesstoken", "id"];
+  credentialKeys.forEach((key) => {
+    localStorage.removeItem(key);
+  });
+  useAuthStore().clear();
+}

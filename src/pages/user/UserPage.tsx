@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { classNames } from "../../utils/string";
 import DialogBox from "./Dialog";
-import AddClient from "./AddClient";
 
 const people = [
   {
@@ -24,7 +23,7 @@ export default function UserPage() {
   const [openAddDevice, setOpenAddDevice] = useState(false);
   return (
     <div className="flex flex-col gap-8">
-    <DialogBox isOpen={openAddDevice} />
+      <DialogBox isOpen={openAddDevice} />
       <dl className="w-full mx-auto grid grid-cols-1 gap-px bg-gray-900/5 sm:grid-cols-2 lg:grid-cols-4 border border-borderColor shadow-sm rounded-lg">
         {stats.map((stat) => (
           <div
@@ -34,8 +33,8 @@ export default function UserPage() {
                 stat.name === "No. of Clients"
                   ? "rounded-s-md"
                   : stat.name === "Mesh"
-                  ? "rounded-e-md"
-                  : ""
+                    ? "rounded-e-md"
+                    : ""
               }
               `}
           >

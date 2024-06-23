@@ -3,7 +3,7 @@ import { useAuthStore } from "./store/useAuthStore";
 import { jwtDecode } from "jwt-decode";
 
 export const AmplitudeInit = () => {
-  init(process.env.REACT_APP_CAPTABLE_AMPLITUDE_KEY || "");
+  init(process.env.REACT_APP_AMPLITUDE_KEY || "");
 };
 
 export function handleEventForTracking({
@@ -25,17 +25,14 @@ export function handleEventForTracking({
   // const suffixText =
   //   eventType === "API" ? (success ? " Success" : " Failure") : "";
   // const eventNameDetail = `${prefixText}${eventName}${suffixText}`;
-
   // if (accesstokenData) {
   //   let { emailId } = decodeAuthToken(accesstokenData);
-
   //   emailId = emailId?.padStart(10, "_");
   //   setUserId(emailId);
   // }
   // const width = window.innerWidth;
   // const height = window.innerHeight;
   // const deviceType = getDeviceType();
-
   // track(
   //   eventNameDetail,
   //   {
@@ -70,7 +67,6 @@ export function handleClickForTracking(event: any) {
   //     (event.target as HTMLElement).getAttribute("event-name") ||
   //     (event.target as HTMLElement).getAttribute("navigation-name");
   //   const actionName = (eventDetail || event.target.innerText) ?? "";
-
   //   const screen = window.location.pathname;
   //   const eventName = `${actionName} Clicked`;
   //   const accesstokenData =
@@ -80,17 +76,14 @@ export function handleClickForTracking(event: any) {
   //     (useAuthStore.getState().id ||
   //       localStorage.getItem("id")) ??
   //     "";
-
   //   if (accesstokenData) {
   //     let { emailId } = decodeAuthToken(accesstokenData);
-
   //     emailId = emailId?.padStart(10, "_");
   //     setUserId(emailId);
   //   }
   //   const width = window.innerWidth;
   //   const height = window.innerHeight;
   //   const deviceType = getDeviceType();
-
   //   track(
   //     eventName,
   //     {
@@ -124,7 +117,6 @@ export function handlePageLoadForTracking(event: any) {
   // const width = window.innerWidth;
   // const height = window.innerHeight;
   // const deviceType = getDeviceType();
-
   // track(
   //   eventName,
   //   {
@@ -175,12 +167,4 @@ function getDeviceType() {
   } else {
     return "xs"; // Or any default you want for smaller screens
   }
-}
-
-function decodeAuthToken(accesstoken: string) {
-  const decodedToken = jwtDecode(accesstoken) as {
-    id: string;
-    emailId: string;
-  };
-  return decodedToken;
 }

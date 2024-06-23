@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import {
   Menu,
   MenuButton,
@@ -9,10 +8,14 @@ import {
 import { classNames } from "../../utils/string";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 
-export default function DeviceMenu({menu}:{menu: {
+export default function DeviceMenu({
+  menu,
+}: {
+  menu: {
     name: string;
-    action: any
-}[]}) {
+    action: any;
+  }[];
+}) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -36,15 +39,14 @@ export default function DeviceMenu({menu}:{menu: {
               return (
                 <MenuItem>
                   {({ focus }) => (
-                    <a
-                      href="#"
+                    <div
                       className={classNames(
                         focus ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
+                        "block px-4 py-2 text-sm",
                       )}
                     >
                       {menuItems.name}
-                    </a>
+                    </div>
                   )}
                 </MenuItem>
               );
