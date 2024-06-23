@@ -58,7 +58,7 @@ export default function MainLayout() {
   const navigate = useNavigate();
   useEffect(() => {
     if(pathname === "/"){
-      if(role === "ADMIN"){
+      if(role?.toUpperCase() === "ADMIN"){
         navigate("admin/user");
       }else{
         navigate("user/dashboard");
@@ -68,7 +68,7 @@ export default function MainLayout() {
 
   const  {clear, role, email} = useAuthStore();
   const [dialog, setDialog] = useState(false);
-  const navigation = role === "ADMIN" ? [
+  const navigation = role?.toUpperCase() === "ADMIN" ? [
     { name: "User", href: "/admin/user", icon: HomeIcon, current: true },
     { name: "Device", href: "/admin/device", icon: ChartPieIcon, current: false },
   ]:
@@ -91,11 +91,11 @@ export default function MainLayout() {
       current: false,
     },
   ];
-  const teams = [
+  const resources = [
     {
       id: 1,
       name: "Manual",
-      href: "#",
+      href: "/manual",
       icon: ArrowTopRightOnSquareIcon,
       initial: "M",
       current: false,
@@ -103,7 +103,7 @@ export default function MainLayout() {
     {
       id: 2,
       name: "Demo",
-      href: "#",
+      href: "/demo",
       icon: ArrowTopRightOnSquareIcon,
       initial: "D",
       current: false,
@@ -175,7 +175,7 @@ export default function MainLayout() {
                         alt="Vayuguna"
                       />
                     </div>
-                    <NavLayout navigation={navigation} teams={teams}/>
+                    <NavLayout navigation={navigation} resources={resources}/>
                   </div>
                 </DialogPanel>
               </TransitionChild>
@@ -238,15 +238,16 @@ export default function MainLayout() {
                     Other Resources
                   </div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
-                    {teams.map((team) => (
-                      <li key={team.name} className="cursor-pointer">
+                    {resources.map((resource) => (
+                      <li key={resource.name} className="cursor-pointer">
                         <a
                           //   href={team.href}
-                          onClick={() => {
-                            navigate(team.href);
-                          }}
+                          onClick={()=>window.open(`${resource.href}`,'_blank')}
+                          // onClick={() => {
+                          //   navigate(resource.href);
+                          // }}
                           className={classNames(
-                            team.href === pathname
+                            resource.href === pathname
                               ? "bg-gray-50 text-indigo-600"
                               : "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
                             "group flex gap-x-3 justify-between rounded-md p-2 text-sm font-semibold leading-6"
@@ -255,17 +256,17 @@ export default function MainLayout() {
                           <div className="flex flex-row gap-x-3">
                             <span
                               className={classNames(
-                                team.href === pathname
+                                resource.href === pathname
                                   ? "border-indigo-600 text-indigo-600"
                                   : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600",
                                 "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium"
                               )}
                             >
-                              {team.initial}
+                              {resource.initial}
                             </span>
-                            <span className="truncate">{team.name}</span>
+                            <span className="truncate">{resource.name}</span>
                           </div>
-                          <team.icon
+                          <resource.icon
                             className={classNames(
                               "text-gray-400 group-hover:text-indigo-600",
                               "h-5 w-5 shrink-0"

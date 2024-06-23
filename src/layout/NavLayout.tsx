@@ -12,7 +12,7 @@ interface Navigation {
   >;
   current: boolean;
 };
-interface Teams {
+interface Resources {
   id: number;
   name: string;
   href: string;
@@ -27,10 +27,10 @@ interface Teams {
 };
 export default function NavLayout({
   navigation,
-  teams,
+  resources,
 }: {
   navigation: Navigation[];
-  teams: Teams[];
+  resources: Resources[];
 }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -73,15 +73,16 @@ export default function NavLayout({
             Other Resources
           </div>
           <ul role="list" className="-mx-2 mt-2 space-y-1">
-            {teams.map((team) => (
-              <li key={team.name} className="cursor-pointer">
+            {resources.map((resource) => (
+              <li key={resource.name} className="cursor-pointer">
                 <a
-                  //   href={team.href}
-                  onClick={() => {
-                    navigate(team.href);
-                  }}
+                  // href={resource.href}
+                  // onClick={() => {
+                  //   navigate(resource.href);
+                  // }}
+                  onClick={()=>window.open(`${resource.href}`,'_blank', 'rel=noopener noreferrer')}
                   className={classNames(
-                    team.href === pathname
+                    resource.href === pathname
                       ? "bg-gray-50 text-indigo-600"
                       : "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
                     "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
@@ -89,16 +90,16 @@ export default function NavLayout({
                 >
                   <span
                     className={classNames(
-                      team.href === pathname
+                      resource.href === pathname
                         ? "border-indigo-600 text-indigo-600"
                         : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600",
                       "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium"
                     )}
                   >
-                    {team.initial}
+                    {resource.initial}
                   </span>
-                  <span className="truncate">{team.name}</span>
-                  <team.icon
+                  <span className="truncate">{resource.name}</span>
+                  <resource.icon
                     className={classNames(
                       "text-gray-400 group-hover:text-indigo-600",
                       "h-6 w-6 shrink-0"

@@ -12,9 +12,12 @@ import ProfilePage from "./pages/Profile/ProfilePage";
 import MainLayout from "./layout/MainLayout";
 import { useAuthStore } from "./store/useAuthStore";
 import Login from "./pages/auth/Login";
+import { ManualPage } from "./pages/manual/manualPage";
+import { Layout } from "./pages/demo/Layout";
 
 export default function Router() {
   const { isAuthenticated, role } = useAuthStore();
+  console.log(isAuthenticated, role);
   return useRoutes([
     {
       path: "/login",
@@ -32,61 +35,70 @@ export default function Router() {
       path: "/forgotpassword",
       element: <p>Forgot Password</p>,
     },
+    // {
+    //   path: "/",
+    //   element: isAuthenticated ? <MainLayout/> : <Login/>,
+    //   children: [
     {
-      path: "/",
-      element: isAuthenticated ? <MainLayout/> : <Login/>,
-      children: [
-        {
-          path: role === "ADMIN" ? "admin" : "user",
-          element: isAuthenticated ? <MainLayout /> : <Login />,
-          children: role === "ADMIN" 
-            ? [
-                {
-                  path: "user",
-                  element: <UserPage />,
-                },
-                {
-                  path: "user/:id",
-                  element: <DashboardPage />,
-                },
-                {
-                  path: "device",
-                  element: <DevicePage />,
-                },
-              ]
-            : [
-                {
-                  path: "dashboard",
-                  element: <DashboardPage />,
-                },
-                {
-                  path: "analytics",
-                  element: <AnalyticsPage />,
-                },
-                {
-                  path: "grid",
-                  element: <GridPage />,
-                },
-                {
-                  path: "settings",
-                  element: <SettingsPage />,
-                },
-                {
-                  path: "support",
-                  element: <SupportPage />,
-                },
-                {
-                  path: "updates",
-                  element: <UpdatePage />,
-                },
-                {
-                  path: "profile",
-                  element: <ProfilePage />,
-                },
-              ],
-        },
-      ],
-    },    
+      path: role?.toUpperCase() === "ADMIN" ? "/admin" : "/user",
+      element: isAuthenticated ? <MainLayout /> : <Login />,
+      children:
+        role?.toUpperCase() === "ADMIN"
+          ? [
+              {
+                path: "user",
+                element: <UserPage />,
+              },
+              {
+                path: "user/:id",
+                element: <DashboardPage />,
+              },
+              {
+                path: "device",
+                element: <DevicePage />,
+              },
+            ]
+          : [
+              {
+                path: "dashboard",
+                element: <DashboardPage />,
+              },
+              {
+                path: "analytics",
+                element: <AnalyticsPage />,
+              },
+              {
+                path: "grid",
+                element: <GridPage />,
+              },
+              {
+                path: "settings",
+                element: <SettingsPage />,
+              },
+              {
+                path: "support",
+                element: <SupportPage />,
+              },
+              {
+                path: "updates",
+                element: <UpdatePage />,
+              },
+              {
+                path: "profile",
+                element: <ProfilePage />,
+              },
+            ],
+    },
+    //   ],
+    // },
+    {
+      path: "/manual",
+      element: <ManualPage />,
+    },
+    {
+      path: "/demo",
+      element: <Layout children={undefined} />,
+    },
     {
       path: "/404",
       element: <Page404 />,
