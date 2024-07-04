@@ -45,7 +45,7 @@ module.exports = {
         preference9: "#B263B6",
         preference10: "#DE716B",
         preference11: "#CC60A6",
-        primary: "#0168FA",
+        primary: "#69B2F8",
         primary: {
           100: "#D1E6FA",
           300: "#D1E6FA",

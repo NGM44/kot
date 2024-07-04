@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { classNames } from "../../utils/string";
 import DeviceMenu from "./DeviceMenu";
+import RegisterDeviceModal from "../../modal/RegisterDeviceModal";
 
 const people = [
   {
@@ -21,10 +22,19 @@ const stats = [
 ];
 
 export default function DevicePage() {
-  const [openAddDevice, setOpenAddDevice] = useState(false);
+  const [dialog, setDialog] = useState(false);
   const [selected, setSelected] = useState("Registered");
   return (
     <div className="flex flex-col gap-8">
+      
+      {dialog && (
+        <RegisterDeviceModal
+          isOpen={dialog}
+          onClose={() => {
+            setDialog(false);
+          }}
+        />
+      )}
       <dl className="w-full mx-auto grid grid-cols-1 gap-px bg-gray-900/5 sm:grid-cols-2 lg:grid-cols-4 border border-borderColor shadow-sm">
         {stats.map((stat) => (
           <div
@@ -38,8 +48,8 @@ export default function DevicePage() {
               stat.name === "Registered"
                 ? "rounded-s-md"
                 : stat.name === "Terminated"
-                  ? "rounded-e-md"
-                  : ""
+                ? "rounded-e-md"
+                : ""
             }`}
           >
             <dt className="text-sm font-medium leading-6 text-gray-500">
@@ -58,16 +68,22 @@ export default function DevicePage() {
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-base font-semibold leading-6 text-gray-900">
-              Device Information
+              {selected === "Registered"
+                ? "Registered Devices"
+                : selected === "Production"
+                ? "Production Devices"
+                : selected === "Un Registered"
+                ? "Unregistered Devices"
+                : "Terminated Devices"}
             </h1>
             <p className="mt-2 text-sm text-gray-700">
               {selected === "Registered"
                 ? "A list of all the device available in inventory"
                 : selected === "Production"
-                  ? "A list of all the device rolled out to production"
-                  : selected === "Un Registered"
-                    ? "A list of product got unregister from client"
-                    : "A list of product which are terminated"}
+                ? "A list of all the device rolled out to production"
+                : selected === "Un Registered"
+                ? "A list of product got unregister from client"
+                : "A list of product which are terminated"}
             </p>
           </div>
           {selected === "Registered" && (
@@ -75,7 +91,7 @@ export default function DevicePage() {
               <button
                 type="button"
                 onClick={() => {
-                  setOpenAddDevice(true);
+                  setDialog(true);
                 }}
                 className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
@@ -158,41 +174,41 @@ export default function DevicePage() {
                                   },
                                 ]
                               : selected === "Production"
-                                ? [
-                                    {
-                                      name: "Un Register",
-                                      action: () => {},
-                                    },
-                                    {
-                                      name: "Block",
-                                      action: () => {},
-                                    },
-                                    {
-                                      name: "Terminate",
-                                      action: () => {},
-                                    },
-                                  ]
-                                : selected === "Un Registered"
-                                  ? [
-                                      {
-                                        name: "Register",
-                                        action: () => {},
-                                      },
-                                      {
-                                        name: "Block",
-                                        action: () => {},
-                                      },
-                                      {
-                                        name: "Terminate",
-                                        action: () => {},
-                                      },
-                                    ]
-                                  : [
-                                      {
-                                        name: "Register",
-                                        action: () => {},
-                                      },
-                                    ]
+                              ? [
+                                  {
+                                    name: "Un Register",
+                                    action: () => {},
+                                  },
+                                  {
+                                    name: "Block",
+                                    action: () => {},
+                                  },
+                                  {
+                                    name: "Terminate",
+                                    action: () => {},
+                                  },
+                                ]
+                              : selected === "Un Registered"
+                              ? [
+                                  {
+                                    name: "Register",
+                                    action: () => {},
+                                  },
+                                  {
+                                    name: "Block",
+                                    action: () => {},
+                                  },
+                                  {
+                                    name: "Terminate",
+                                    action: () => {},
+                                  },
+                                ]
+                              : [
+                                  {
+                                    name: "Register",
+                                    action: () => {},
+                                  },
+                                ]
                           }
                         />
                       </td>

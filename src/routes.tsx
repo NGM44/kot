@@ -14,14 +14,26 @@ import { useAuthStore } from "./store/useAuthStore";
 import Login from "./pages/auth/Login";
 import { ManualPage } from "./pages/manual/manualPage";
 import { Layout } from "./pages/demo/Layout";
+import LandingPage from "./pages/landing/page";
+import Login2 from "./pages/auth/Login2";
+import NewLandingPage from "./pages/landing2";
+import CompanyDashboard from "./pages/user/CompanyPage";
 
 export default function Router() {
   const { isAuthenticated, role } = useAuthStore();
   console.log(isAuthenticated, role);
   return useRoutes([
     {
+      path: "/",
+      element: <NewLandingPage />,
+    },
+    {
       path: "/login",
-      element: isAuthenticated ? <MainLayout /> : <Login />,
+      element: <Login2 />,
+    },
+    {
+      path: "/login2",
+      element: <Login />,
     },
     {
       path: "/signup",
@@ -51,7 +63,7 @@ export default function Router() {
               },
               {
                 path: "user/:id",
-                element: <DashboardPage />,
+                element: <CompanyDashboard />,
               },
               {
                 path: "device",

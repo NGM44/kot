@@ -68,14 +68,14 @@ export default function MainLayout() {
 
   const  {clear, role, email} = useAuthStore();
   const [dialog, setDialog] = useState(false);
-  const navigation = role?.toUpperCase() === "ADMIN" ? [
+  const navigation = role?.toUpperCase() !== "ADMIN" ? [
     { name: "User", href: "/admin/user", icon: HomeIcon, current: true },
     { name: "Device", href: "/admin/device", icon: ChartPieIcon, current: false },
   ]:
   [
     { name: "Dashboard", href: "/user/dashboard", icon: HomeIcon, current: true },
-    { name: "Analytics", href: "/user/analytics", icon: ChartPieIcon, current: false },
-    { name: "Grid", href: "/user/grid", icon: RectangleGroupIcon, current: false },
+    { name: "Data Analysis", href: "/user/analytics", icon: ChartPieIcon, current: false },
+    { name: "Sensor map", href: "/user/grid", icon: RectangleGroupIcon, current: false },
     {
       name: "Profile",
       href: "/user/profile",

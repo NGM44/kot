@@ -7,11 +7,16 @@ import {
 } from "@headlessui/react";
 import AddClient from "./AddClient";
 
-export default function DialogBox({ isOpen }: { isOpen: boolean }) {
-  const [open, setOpen] = useState(true);
+export default function DialogBox({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   return (
-    <Transition show={open}>
-      <Dialog className="relative z-10" onClose={setOpen}>
+    <Transition show={isOpen}>
+      <Dialog className="relative z-50" onClose={onClose}>
         <TransitionChild
           enter="ease-out duration-300"
           enterFrom="opacity-0"

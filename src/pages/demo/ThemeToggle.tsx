@@ -1,5 +1,3 @@
-'use client'
-
 import { useEffect, useState } from 'react'
 
 function ThemeIcon(props: React.ComponentPropsWithoutRef<'svg'>) {

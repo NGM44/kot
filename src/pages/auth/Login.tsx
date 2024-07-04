@@ -12,26 +12,7 @@ function Login() {
   const navigate = useNavigate();
   const { mutate: login } = useLogin();
   const { setAuth } = useAuthStore();
-  // const [temperature, setTemperature] = useState(0);
-  // const [humidity, setHumidity] = useState(0);
 
-  // useEffect(() => {
-  //   const ws = new WebSocket('ws://localhost:8080');
-
-  //   ws.onopen = () => {
-  //     console.log('Connected to WebSocket server');
-  //   };
-
-  //   ws.onmessage = event => {
-  //     const data = JSON.parse(event.data);
-  //     setTemperature(data.temperature);
-  //     setHumidity(data.humidity);
-  //   };
-
-  //   return () => {
-  //     ws.close();
-  //   };
-  // }, []);
 
   function handleLogin() {
     const loginDto: SignInDetailsModel = { email, password };
@@ -136,10 +117,7 @@ function Login() {
                   Sign in
                 </button>
               </div>
-              <div>
-                {/* <p>Temperature: {temperature}</p>
-        <p>Humidity: {humidity}</p> */}
-              </div>
+              <div></div>
             </div>
           </div>
         </div>

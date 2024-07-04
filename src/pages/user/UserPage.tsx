@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { classNames } from "../../utils/string";
 import DialogBox from "./Dialog";
+import { useNavigate } from "react-router-dom";
+import AddCompanyModal from "../../modal/AddCompanyModal";
 
 const people = [
   {
@@ -20,10 +22,18 @@ const stats = [
 ];
 
 export default function UserPage() {
-  const [openAddDevice, setOpenAddDevice] = useState(false);
+  const navigate = useNavigate();
+  const [dialog, setDialog] = useState(false);
   return (
     <div className="flex flex-col gap-8">
-      <DialogBox isOpen={openAddDevice} />
+      {dialog && (
+        <AddCompanyModal
+          isOpen={dialog}
+          onClose={() => {
+            setDialog(false);
+          }}
+        />
+      )}
       <dl className="w-full mx-auto grid grid-cols-1 gap-px bg-gray-900/5 sm:grid-cols-2 lg:grid-cols-4 border border-borderColor shadow-sm rounded-lg">
         {stats.map((stat) => (
           <div
@@ -33,8 +43,8 @@ export default function UserPage() {
                 stat.name === "No. of Clients"
                   ? "rounded-s-md"
                   : stat.name === "Mesh"
-                    ? "rounded-e-md"
-                    : ""
+                  ? "rounded-e-md"
+                  : ""
               }
               `}
           >
@@ -65,7 +75,7 @@ export default function UserPage() {
               <button
                 type="button"
                 onClick={() => {
-                  setOpenAddDevice(true);
+                  setDialog(true);
                 }}
                 className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
@@ -114,7 +124,13 @@ export default function UserPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {people.map((person) => (
-                    <tr key={person.email}>
+                    <tr
+                      onClick={() => {
+                        navigate("/admin/user/asdasd");
+                      }}
+                      className="cursor-pointer"
+                      key={person.email}
+                    >
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                         {person.name}
                       </td>
