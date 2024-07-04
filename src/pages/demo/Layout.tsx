@@ -1,10 +1,11 @@
-import { useId } from 'react'
+import { useId } from "react";
 
-import { Intro, IntroFooter } from './Intro'
-import { StarField } from './StarFeild'
+import { Intro, IntroFooter } from "./Intro";
+import { StarField } from "./StarFeild";
+import ContentPage from "./ContentPage";
 
 function Timeline() {
-  let id = useId()
+  let id = useId();
 
   return (
     <div className="pointer-events-none absolute inset-0 z-50 overflow-hidden lg:right-[calc(max(2rem,50%-38rem)+40rem)] lg:min-w-[32rem] lg:overflow-visible">
@@ -24,11 +25,11 @@ function Timeline() {
         <rect width="100%" height="100%" fill={`url(#${id})`} />
       </svg>
     </div>
-  )
+  );
 }
 
 function Glow() {
-  let id = useId()
+  let id = useId();
 
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden bg-gray-950 lg:right-[calc(max(2rem,50%-38rem)+40rem)] lg:min-w-[32rem]">
@@ -63,15 +64,15 @@ function Glow() {
       </svg>
       <div className="absolute inset-x-0 bottom-0 right-0 h-px bg-white mix-blend-overlay lg:left-auto lg:top-0 lg:h-auto lg:w-px" />
     </div>
-  )
+  );
 }
 
 function FixedSidebar({
   main,
   footer,
 }: {
-  main: React.ReactNode
-  footer: React.ReactNode
+  main: React.ReactNode;
+  footer: React.ReactNode;
 }) {
   return (
     <div className="relative flex-none overflow-hidden px-6 lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex lg:px-0">
@@ -90,10 +91,10 @@ function FixedSidebar({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout() {
   return (
     <>
       <FixedSidebar main={<Intro />} footer={<IntroFooter />} />
@@ -102,9 +103,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div className="relative flex-auto">
         <Timeline />
         <main className="space-y-20 py-20 sm:space-y-32 sm:py-32">
-          {children}
+          {<ContentPage />}
         </main>
       </div>
     </>
-  )
+  );
 }
