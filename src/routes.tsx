@@ -14,7 +14,6 @@ import { useAuthStore } from "./store/useAuthStore";
 import Login from "./pages/auth/Login";
 import { ManualPage } from "./pages/manual/manualPage";
 import { Layout } from "./pages/demo/Layout";
-import LandingPage from "./pages/landing/page";
 import Login2 from "./pages/auth/Login2";
 import NewLandingPage from "./pages/landing2";
 import CompanyDashboard from "./pages/user/CompanyPage";

@@ -1,5 +1,5 @@
 import React from "react";
-import { CompanyModel, UserModel } from "./CompanyPage";
+import { CompanyModel } from "./CompanyPage";
 
 const CompanyCard = ({ companyDetails }: { companyDetails: CompanyModel }) => {
   return (

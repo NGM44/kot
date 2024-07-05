@@ -1,6 +1,4 @@
-import { init, setUserId, track } from "@amplitude/analytics-browser";
-import { useAuthStore } from "./store/useAuthStore";
-import { jwtDecode } from "jwt-decode";
+import { init} from "@amplitude/analytics-browser";
 
 export const AmplitudeInit = () => {
   init(process.env.REACT_APP_AMPLITUDE_KEY || "");
@@ -129,42 +127,4 @@ export function handlePageLoadForTracking(event: any) {
   //   },
   //   {}
   // );
-}
-
-function extractFirstTwoSegments(url: string) {
-  // Split the URL on '/' separators
-  const segments = url.split("/");
-
-  // Remove empty segments that might result if the URL starts or ends with a '/'
-  const filteredSegments = segments.filter((segment) => segment !== "");
-
-  // Check if the third segment is "create"
-  if (filteredSegments.length >= 3 && filteredSegments[2] === "create") {
-    // Include the first three segments
-    const firstThree = filteredSegments.slice(0, 3);
-    return firstThree.join("/");
-  } else {
-    // Get the standard first two segments
-    const firstTwo = filteredSegments.slice(0, 2);
-    return firstTwo.join("/");
-  }
-}
-
-function getDeviceType() {
-  const screenWidth = window.innerWidth; // Get the current screen width
-
-  // Check against your breakpoints
-  if (screenWidth >= 1536) {
-    return "2xl";
-  } else if (screenWidth >= 1280) {
-    return "xl";
-  } else if (screenWidth >= 1024) {
-    return "lg";
-  } else if (screenWidth >= 768) {
-    return "md";
-  } else if (screenWidth >= 640) {
-    return "sm";
-  } else {
-    return "xs"; // Or any default you want for smaller screens
-  }
 }

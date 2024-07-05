@@ -36,12 +36,12 @@ export default function NavLayout({
   const { pathname } = useLocation();
   return (
     <nav className="flex flex-1 flex-col">
-      <ul role="list" className="flex flex-1 flex-col gap-y-7">
+      <ul className="flex flex-1 flex-col gap-y-7">
         <li>
-          <ul role="list" className="-mx-2 space-y-1">
+          <ul className="-mx-2 space-y-1">
             {navigation.map((item) => (
               <li key={item.name} className="cursor-pointer">
-                <a
+                <button
                   //   href={item.href}
                   onClick={() => {
                     navigate(item.href);
@@ -63,7 +63,7 @@ export default function NavLayout({
                     aria-hidden="true"
                   />
                   {item.name}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
@@ -72,10 +72,10 @@ export default function NavLayout({
           <div className="text-xs font-semibold leading-6 text-gray-400">
             Other Resources
           </div>
-          <ul role="list" className="-mx-2 mt-2 space-y-1">
+          <ul className="-mx-2 mt-2 space-y-1">
             {resources.map((resource) => (
               <li key={resource.name} className="cursor-pointer">
-                <a
+                <button
                   // href={resource.href}
                   // onClick={() => {
                   //   navigate(resource.href);
@@ -106,14 +106,14 @@ export default function NavLayout({
                     )}
                     aria-hidden="true"
                   />
-                </a>
+                </button>
               </li>
             ))}
           </ul>
         </li>
         <li className="mt-auto">
-          <a
-            href="#"
+          <button
+            onClick={() => {navigate("/settings")}}
             className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
           >
             <Cog6ToothIcon
@@ -121,7 +121,7 @@ export default function NavLayout({
               aria-hidden="true"
             />
             Settings
-          </a>
+          </button>
         </li>
       </ul>
     </nav>

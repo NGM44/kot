@@ -56,6 +56,8 @@ export default function MainLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const  {clear, role, email} = useAuthStore();
   useEffect(() => {
     if(pathname === "/"){
       if(role?.toUpperCase() === "ADMIN"){
@@ -64,9 +66,7 @@ export default function MainLayout() {
         navigate("user/dashboard");
       }
     }
-  },[]);
-
-  const  {clear, role, email} = useAuthStore();
+  },[navigate, pathname,role]);
   const [dialog, setDialog] = useState(false);
   const navigation = role?.toUpperCase() !== "ADMIN" ? [
     { name: "User", href: "/admin/user", icon: HomeIcon, current: true },
@@ -201,12 +201,12 @@ export default function MainLayout() {
               />
             </div>
             <nav className="flex flex-1 flex-col">
-              <ul role="list" className="flex flex-1 flex-col gap-y-7">
+              <ul className="flex flex-1 flex-col gap-y-7">
                 <li>
-                  <ul role="list" className="-mx-2 space-y-1">
+                  <ul className="-mx-2 space-y-1">
                     {navigation.map((item) => (
                       <li key={item.name} className="cursor-pointer">
-                        <a
+                        <button
                           //   href={item.href}
                           onClick={() => {
                             navigate(item.href);
@@ -228,7 +228,7 @@ export default function MainLayout() {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -237,10 +237,10 @@ export default function MainLayout() {
                   <div className="text-xs font-semibold leading-6 text-gray-400">
                     Other Resources
                   </div>
-                  <ul role="list" className="-mx-2 mt-2 space-y-1">
+                  <ul className="-mx-2 mt-2 space-y-1">
                     {resources.map((resource) => (
                       <li key={resource.name} className="cursor-pointer">
-                        <a
+                        <button
                           //   href={team.href}
                           onClick={()=>window.open(`${resource.href}`,'_blank')}
                           // onClick={() => {
@@ -273,7 +273,7 @@ export default function MainLayout() {
                             )}
                             aria-hidden="true"
                           />
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -319,7 +319,7 @@ export default function MainLayout() {
                         {userNavigation.map((item) => (
                           <MenuItem key={item.name}>
                             {({ focus }) => (
-                              <a
+                              <button
                                 //   href={item.href}
                                 onClick={() => {
                                   navigate(item.href);
@@ -330,7 +330,7 @@ export default function MainLayout() {
                                 )}
                               >
                                 {item.name}
-                              </a>
+                              </button>
                             )}
                           </MenuItem>
                         ))}
@@ -432,7 +432,7 @@ export default function MainLayout() {
                       {userNavigation.map((item) => (
                         <MenuItem key={item.name}>
                           {({ focus }) => (
-                            <a
+                            <button
                               //   href={item.href}
                               onClick={() => {setDialog(true)}}
                               className={classNames(
@@ -441,7 +441,7 @@ export default function MainLayout() {
                               )}
                             >
                               {item.name}
-                            </a>
+                            </button>
                           )}
                         </MenuItem>
                       ))}

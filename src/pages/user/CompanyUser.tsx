@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { UserModel } from "./CompanyPage";
-import DialogBox from "./Dialog";
-import AddCompanyModel from "../../modal/AddCompanyModal";
 import AddUserModal from "../../modal/AddUserModal";
 import DeviceMenu from "../device/DeviceMenu";
 

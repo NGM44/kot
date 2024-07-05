@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { classNames } from "../../utils/string";
-import DialogBox from "./Dialog";
 import { useNavigate } from "react-router-dom";
 import AddCompanyModal from "../../modal/AddCompanyModal";
 
