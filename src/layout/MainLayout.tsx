@@ -68,7 +68,7 @@ export default function MainLayout() {
     }
   },[navigate, pathname,role]);
   const [dialog, setDialog] = useState(false);
-  const navigation = role?.toUpperCase() !== "ADMIN" ? [
+  const navigation = role?.toUpperCase() === "ADMIN" ? [
     { name: "User", href: "/admin/user", icon: HomeIcon, current: true },
     { name: "Device", href: "/admin/device", icon: ChartPieIcon, current: false },
   ]:

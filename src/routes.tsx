@@ -51,10 +51,10 @@ export default function Router() {
     //   element: isAuthenticated ? <MainLayout/> : <Login/>,
     //   children: [
     {
-      path: role?.toUpperCase() !== "ADMIN" ? "/admin" : "/user",
+      path: role?.toUpperCase() === "ADMIN" ? "/admin" : "/user",
       element: isAuthenticated ? <MainLayout /> : <Login />,
       children:
-        role?.toUpperCase() !== "ADMIN"
+        role?.toUpperCase() === "ADMIN"
           ? [
               {
                 path: "user",

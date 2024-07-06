@@ -4,6 +4,7 @@ import {
   SignResponseModel,
   UserData,
   ResetPasswordDetailModel,
+  SignUpDetailsModel,
 } from "../types/auth";
 import api from "../queries/api";
 
@@ -13,9 +14,15 @@ export type CustomResponse<T> = {
 };
 
 export async function signIn(
-  signInDetails: SignInDetailsModel,
+  signInDetails: SignInDetailsModel
 ): Promise<CustomResponse<SignResponseModel>> {
   return api.post(`user/login`, signInDetails).then((res) => res.data);
+}
+
+export async function signUp(
+  signUpDetailsModel: SignUpDetailsModel
+): Promise<CustomResponse<SignResponseModel>> {
+  return api.post(`user/signUp`, signUpDetailsModel).then((res) => res.data);
 }
 
 export async function generateCredentials(userDetails: UserEmailModel) {
@@ -34,18 +41,18 @@ export async function getAllUsers(): Promise<CustomResponse<UserData[]>> {
 
 export async function deactiveUser(deactiveUserDetails: UserEmailModel) {
   return api.get(
-    `user/deactive?email=${deactiveUserDetails.email}?deactivated=true`,
+    `user/deactive?email=${deactiveUserDetails.email}?deactivated=true`
   );
 }
 
 export async function activateUser(deactiveUserDetails: UserEmailModel) {
   return api.get(
-    `user/deactive?email=${deactiveUserDetails.email}?deactivated=false`,
+    `user/deactive?email=${deactiveUserDetails.email}?deactivated=false`
   );
 }
 
 export async function changePassword(
-  resetPasswordDetail: ResetPasswordDetailModel,
+  resetPasswordDetail: ResetPasswordDetailModel
 ): Promise<CustomResponse<string>> {
   return api.post(`user/changePassword`, resetPasswordDetail);
 }

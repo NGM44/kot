@@ -5,7 +5,7 @@ import { SignInDetailsModel } from "../../types/auth";
 import { useAuthStore } from "../../store/useAuthStore";
 import { decodeAuthToken } from "../../utils/auth";
 
-function Login() {
+function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -126,4 +126,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUpPage;

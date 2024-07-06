@@ -8,6 +8,19 @@ export interface SignInDetailsModel {
   password: string;
 }
 
+export interface SignUpDetailsModel {
+  email: string;
+  name: string;
+  clientId: string;
+}
+
+export interface DeviceDetailsModel {
+  deviceId: string;
+  deviceType: string;
+  deviceName: string;
+  clientId: string;
+}
+
 export interface UserEmailModel {
   email: string;
 }
