@@ -43,9 +43,9 @@ import {
 } from "@heroicons/react/20/solid";
 import { classNames } from "../utils/string";
 import { useLocation, useNavigate } from "react-router-dom";
-import AlertDialog from "../component/shared/AlertDialog";
 import { useAuthStore } from "../store/useAuthStore";
 import NavLayout from "./NavLayout";
+import LogoutModal from "../modal/LogoutModal";
 const userNavigation = [
   // { name: "Your profile", href: "" },
   { name: "Log out", href: "#" },
@@ -57,7 +57,7 @@ export default function MainLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const  {clear, role, email} = useAuthStore();
+  const  {role, email} = useAuthStore();
   useEffect(() => {
     if(pathname === "/"){
       if(role?.toUpperCase() === "ADMIN"){
@@ -302,6 +302,7 @@ export default function MainLayout() {
                         <span
                           className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                           aria-hidden="true"
+                          onClick={() => setDialog(true)}
                         >
                           Log out
                         </span>
@@ -322,7 +323,11 @@ export default function MainLayout() {
                               <button
                                 //   href={item.href}
                                 onClick={() => {
-                                  navigate(item.href);
+                                  if(item.name === "Log out"){
+                                    setDialog(true);
+                                  }else{
+                                    navigate(item.href);
+                                  }
                                 }}
                                 className={classNames(
                                   focus ? "bg-gray-50" : "",
@@ -366,7 +371,7 @@ export default function MainLayout() {
                   Search
                 </label>
                 <MagnifyingGlassIcon
-                  className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
+                  className="pointer-events-none absolute inset-y-0 left-2 h-full w-5 text-gray-400"
                   aria-hidden="true"
                 />
                 <input
@@ -450,21 +455,7 @@ export default function MainLayout() {
                   </Transition>
                   <Dialog open={dialog} onClose={() => setDialog(false)}>
                       {dialog && (
-                        <AlertDialog
-                          message={`Are you sure you want to logout ?`}
-                          primaryActionText="Logout"
-                          onClose={() => setDialog(false)}
-                          secondaryActionText="Cancel"
-                          onPrimaryAction={() => {
-                            clear();
-                            localStorage.clear();
-                            navigate("/");
-                          }}
-                          onSecondaryAction={() => {
-                            setDialog(false);
-                          }}
-                          open={dialog}
-                        />
+                        <LogoutModal isOpen={dialog} onClose={() => setDialog(false)}/>
                       )}
                     </Dialog>
                 </Menu>

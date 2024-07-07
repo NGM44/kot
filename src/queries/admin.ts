@@ -1,5 +1,4 @@
 import { useMutation } from "react-query";
-import { signIn, signUp } from "../api/auth";
 import { handleEventForTracking } from "../analytics";
 import { addDeviceToAdmin } from "../api/admin";
 export function useAddDeviceToClient() {

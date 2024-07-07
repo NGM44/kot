@@ -27,7 +27,7 @@ export const useAuthStore = createStore<AuthStore>(
       key: "auth",
     },
     (set: any) => ({
-      isAuthenticated: true,
+      isAuthenticated: false,
       accessToken: undefined,
       email: undefined,
       id: undefined,
@@ -40,7 +40,7 @@ export const useAuthStore = createStore<AuthStore>(
         }
       },
       clear: () => {
-        set((_state: any) => ({
+        set((_state: Auth) => ({
           isAuthenticated: false,
           accessToken: undefined,
           email: undefined,

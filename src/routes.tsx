@@ -11,11 +11,9 @@ import UpdatePage from "./pages/updates/UpdatePage";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import MainLayout from "./layout/MainLayout";
 import { useAuthStore } from "./store/useAuthStore";
-import Login from "./pages/auth/Login";
 import { ManualPage } from "./pages/manual/manualPage";
 import { Layout } from "./pages/demo/Layout";
 import Login2 from "./pages/auth/Login2";
-import NewLandingPage from "./pages/landing2";
 import CompanyDashboard from "./pages/user/CompanyPage";
 
 export default function Router() {
@@ -24,15 +22,11 @@ export default function Router() {
   return useRoutes([
     {
       path: "/",
-      element: <NewLandingPage />,
+      element: isAuthenticated ? <MainLayout />: <Navigate to="/login" replace/>,
     },
     {
       path: "/login",
       element: <Login2 />,
-    },
-    {
-      path: "/login2",
-      element: <Login />,
     },
     {
       path: "/signup",
@@ -52,7 +46,7 @@ export default function Router() {
     //   children: [
     {
       path: role?.toUpperCase() === "ADMIN" ? "/admin" : "/user",
-      element: isAuthenticated ? <MainLayout /> : <Login />,
+      element: isAuthenticated ? <MainLayout /> : <Navigate to ="/login" replace />,
       children:
         role?.toUpperCase() === "ADMIN"
           ? [
