@@ -8,41 +8,39 @@ import { useState } from "react";
 
 const faqs = [
   {
-    question: "What are alternative investments?",
+    question:
+      "Is it possible to configure air quality monitoring devices to measure specific pollutants or parameters?",
     answer:
-      "Alternative investments are assets that fall outside the traditional categories of stocks, bonds, and cash. Examples include private equity, venture capital, hedge funds, real estate, commodities, and collectibles.",
+      "Yes, we provide customized solution according to need of the customer.",
   },
   {
-    question: "Why consider alternative investments?",
+    question:
+      "What types of air quality parameters or pollutants is the Vayuguna system currently capable of monitoring?",
     answer:
-      "There are several reasons to consider alternatives. They can offer: \n Diversification: Reduce reliance on traditional markets and potentially lower portfolio risk. \nPotential for higher returns: Some alternatives have the potential for higher returns than stocks and bonds.\nAccess to unique asset classes: Invest in areas not readily available through traditional means.",
+      "We are currently supporting Temprature, relative humidity, Barometric Pressure, Indoor Air Quality Index, Carbon Dioxide, Particulate Matters, Volatile Organic Compounds(VOC), Nitric Oxides(NOx), Ambient Light(Lux), Noise Levels, Altitude, Building Structural Health, Carbon Monoxide, Formaldehyde , Nitrogen Dioxide,Ozone, Sulfur Dioxide , Hydrogen Sulfide, Nitric Oxide, Oxygen , Ammonia.",
   },
   {
-    question: "What are the risks of alternative investments?",
+    question: "What is Sense Node ?",
     answer:
-      "While alternatives offer potential benefits, they also come with risks:\nLower liquidity: May be difficult or time-consuming to sell an investment quickly.\nHigher fees: Management fees for some alternatives can be significant.\nHigher complexity: Some alternatives require a higher level of investment knowledge.\nLess regulation: May have fewer investor protections compared to traditional investments.\nWhat are some common types of alternative investments?\nPrivate Equity: Investing in companies not publicly traded on stock exchanges.\nVenture Capital: Providing funding to early-stage, high-growth companies.\nHedge Funds: Employing various investment strategies to potentially achieve high returns.\nReal Estate: Investing in physical property or real estate investment trusts (REITs).\nCommodities: Investing in raw materials like oil, gold, or agricultural products. \nCollectibles: Investing in items like art, antiques, or rare coins.",
+      "A compact wall mount device designed to monitor Temperature and humidity  with precision, adhering to industry standards.",
   },
   {
-    question: "How much should I invest in alternatives?",
+    question:
+      "Is it possible to deploy a network of air quality monitoring devices to cover and assess a large area?",
     answer:
-      "The appropriate allocation to alternatives depends on your investment goals, risk tolerance, and investment horizon. It's wise to consult a financial advisor for personalized advice.",
+      "We Have developed a Mesh system which utilizes a network of multiple air quality monitoring devices to capture data over a large area. These devices work together to cumulatively collect and aggregate air quality information, providing comprehensive coverage and analysis for extensive spaces.",
   },
   {
-    question: "How do I invest in alternative investments?",
-    answer:
-      "Investment minimums for some alternatives can be high.  Some options include: \nInvesting through specialized funds or platforms. \nUsing a financial advisor who can access these investments. \nAre alternative investments right for me?\nAlternatives may be suitable for investors seeking diversification and potentially higher returns. However, they require a longer investment horizon and tolerance for higher risk.",
-  },
-  {
-    question: "Where can I learn more about alternative investments?",
-    answer:
-      "There are many resources available online and from financial professionals. Consider speaking to a qualified financial advisor to determine if alternatives are suitable for your portfolio.",
+    question: "Can multiple user access vayuguna dashboard ?",
+    answer: "Yes",
   },
 ];
 
 export default function FAQ() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   return (
-    <div className={`relative isolate ${dark ? "bg-gray-900" : "bg-white"}`}>
+    <div id="faq" className={`relative isolate ${dark ? "bg-gray-900" : "bg-white"}`}>
+     
       <div
         className="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl"
         aria-hidden="true"
@@ -77,13 +75,21 @@ export default function FAQ() {
             >
               Frequently asked questions
             </h2>
-            <dl className={`mt-10 space-y-6 divide-y  ${ dark ? "divide-white/10" : "divide-black/10"}`}>
+            <dl
+              className={`mt-10 space-y-6 divide-y  ${
+                dark ? "divide-white/10" : "divide-black/10"
+              }`}
+            >
               {faqs.map((faq) => (
                 <Disclosure as="div" key={faq.question} className="pt-6">
                   {({ open }) => (
                     <>
                       <dt>
-                        <DisclosureButton className={`flex w-full items-start justify-between text-left ${ dark ? "text-white" : "text-gray-900"}`}>
+                        <DisclosureButton
+                          className={`flex w-full items-start justify-between text-left ${
+                            dark ? "text-white" : "text-gray-900"
+                          }`}
+                        >
                           <span className="text-base font-semibold leading-7">
                             {faq.question}
                           </span>
@@ -103,7 +109,11 @@ export default function FAQ() {
                         </DisclosureButton>
                       </dt>
                       <DisclosurePanel as="dd" className="mt-2 pr-12">
-                        <p className={`text-base leading-7 ${ dark ? "text-gray-300" : "text-gray-800"}`}>
+                        <p
+                          className={`text-base leading-7 ${
+                            dark ? "text-gray-300" : "text-gray-800"
+                          }`}
+                        >
                           {faq.answer}
                         </p>
                       </DisclosurePanel>

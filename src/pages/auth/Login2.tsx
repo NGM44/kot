@@ -13,9 +13,18 @@ export default function Login2() {
   const navigate = useNavigate();
   const { mutate: login } = useLogin();
   const { setAuth } = useAuthStore();
+  let demo = true;
 
   function handleLogin() {
     const loginDto: SignInDetailsModel = { email, password };
+    if (demo) {
+      setAuth({
+        isAuthenticated: true,
+        email: "dummy@gmail.com",
+        role: "ADMIN",
+      });
+      navigate("/admin/user");
+    }
     login(loginDto, {
       onSuccess(data) {
         const accessToken = data.data.token;

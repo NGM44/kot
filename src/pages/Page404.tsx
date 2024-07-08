@@ -20,7 +20,7 @@ export default function Page404() {
             >
               Go back home
             </button>
-            <a href="mailto:nikhilgmudakavi@gmail.com" className="text-sm font-semibold text-gray-900">
+            <a  href="mailto:gkm.hello@gmail.com" className="text-sm font-semibold text-gray-900">
               Contact support <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
