@@ -22,9 +22,9 @@ const SupportLanding = () => {
   return (
     <div className="mx-auto">
       <div className="bg-gray-900 shadow-lg h-screen mx-8 my-8 rounded-lg overflow-hidden">
-        <div className="px-6 py-8">
-          <div className="grid grid-cols-10">
-            <div className="bg-gray-800/80 shadow-2xl  col-span-6 rounded-lg p-6 mr-4">
+        <div className="sm:px-6 py-8">
+          <div className="sm:grid sm:grid-cols-10">
+            <div className="bg-gray-800/80 shadow-2xl  col-span-6 rounded-lg p-6 sm:mr-4">
               <h3 className="text-lg font-semibold text-white mb-4">
                 Drop Enquiry
               </h3>
