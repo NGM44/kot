@@ -342,13 +342,13 @@ export default function MainLayout() {
                   <MenuButton className="-m-1.5 flex items-center justify-between w-full p-1.5">
                     <span className="sr-only">Open user menu</span>
 
-                    <span className="hidden lg:flex lg:items-center">
+                    <span className="hidden lg:flex w-full lg:items-center">
                       <ArrowRightEndOnRectangleIcon
                         className="ml-2 h-5 w-5 text-gray-600"
                         aria-hidden="true"
                       />
                       <span
-                        className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                        className="ml-4 text-sm w-full font-semibold leading-6 text-gray-900"
                         aria-hidden="true"
                       >
                         Log out

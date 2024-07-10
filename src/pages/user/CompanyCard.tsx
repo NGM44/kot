@@ -1,7 +1,7 @@
 import React from "react";
-import { CompanyModel } from "./CompanyPage";
+import { ICompanyModel } from "./CompanyPage";
 
-const CompanyCard = ({ companyDetails }: { companyDetails: CompanyModel }) => {
+const CompanyCard = ({ companyDetails }: { companyDetails: ICompanyModel }) => {
   return (
     <div className="bg-white rounded-sm shadow-md mb-8 p-6">
       <div className="flex items-center justify-between mb-4">
@@ -28,12 +28,14 @@ const CompanyCard = ({ companyDetails }: { companyDetails: CompanyModel }) => {
         <div className="flex space-x-8 gap-8">
           <div className="text-center">
             <p className="text-sm text-gray-600">Users</p>
-            <p className="text-xl font-semibold">{companyDetails.usersCount}</p>
+            <p className="text-xl font-semibold">
+              {companyDetails.devices.length}
+            </p>
           </div>
           <div className="text-center">
             <p className="text-sm text-gray-600">Devices</p>
             <p className="text-xl font-semibold">
-              {companyDetails.deviceCount}
+              {companyDetails.devices.length}
             </p>
           </div>
         </div>

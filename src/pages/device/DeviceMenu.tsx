@@ -40,9 +40,10 @@ export default function DeviceMenu({
                 <MenuItem>
                   {({ focus }) => (
                     <div
+                      onClick={menuItems.action}
                       className={classNames(
                         focus ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm",
+                        "block px-4 py-2 text-sm"
                       )}
                     >
                       {menuItems.name}

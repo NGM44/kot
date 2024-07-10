@@ -5,8 +5,9 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import { useState } from "react";
-import { useRegisterDevice } from "../queries/device";
+import { useRegisterDevice } from "../queries/admin";
 import { toast } from "react-toastify";
+import { queryClient } from "../queries/client";
 
 export default function RegisterDeviceModal({
   isOpen,
@@ -25,6 +26,7 @@ export default function RegisterDeviceModal({
       {
         onSuccess: () => {
           toast("Registered successfully");
+          queryClient.invalidateQueries("get-all-devices");
           onClose();
         },
       }
@@ -55,7 +57,12 @@ export default function RegisterDeviceModal({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                <div>
+                <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4">
+                  <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                    Add Device
+                  </h2>
+                </div>
+                <div className="space-y-6">
                   <div className="flex flex-col">
                     <div>Device Name</div>
                     <input

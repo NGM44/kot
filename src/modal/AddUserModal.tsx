@@ -8,6 +8,8 @@ import { SignUpDetailsModel } from "../types/auth";
 import { useSignUp } from "../queries/auth";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { queryClient } from "../queries/client";
 
 export default function AddUserModal({
   isOpen,
@@ -18,6 +20,8 @@ export default function AddUserModal({
 }) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const { id } = useParams();
+
   const [showSuccess, setShowSuccess] = useState(false);
   const { mutate: signUp } = useSignUp();
 
@@ -31,12 +35,13 @@ export default function AddUserModal({
     }
     return () => clearTimeout(timer);
   }, [showSuccess, onClose]);
-  const clientId = "";
 
   function handleSignUp() {
-    const addUserDto: SignUpDetailsModel = { email, name, clientId };
+    const addUserDto: SignUpDetailsModel = { email, name, clientId: id ?? "" };
     signUp(addUserDto, {
       onSuccess() {
+        queryClient.invalidateQueries("get-client-detail");
+        queryClient.refetchQueries("get-client-detail");
         setShowSuccess(true);
       },
     });

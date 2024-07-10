@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { DeviceModel } from "./CompanyPage";
+import { IDeviceModel } from "./CompanyPage";
 import AddDeviceModal from "../../modal/AddDeviceModal";
 import DeviceMenu from "../device/DeviceMenu";
 
-const CompanyDevice = ({ deviceList }: { deviceList: DeviceModel[] }) => {
+const CompanyDevice = ({ deviceList }: { deviceList: IDeviceModel[] }) => {
   const [dialog, setDialog] = useState(false);
   return (
     <div className="px-4 sm:px-6 col-span-2 lg:px-8 bg-white pt-6 border border-borderColor shadow-md rounded-md">
@@ -83,10 +83,10 @@ const CompanyDevice = ({ deviceList }: { deviceList: DeviceModel[] }) => {
                       {device.name}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {device.modelName}
+                      {device.identifier}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {device.type}
+                      {device.modelType}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {device.status}

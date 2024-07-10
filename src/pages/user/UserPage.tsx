@@ -24,7 +24,7 @@ const stats = [
 export default function UserPage() {
   const navigate = useNavigate();
   const { data: clientDetails } = useGetAllClients();
-
+console.log(clientDetails);
   const [dialog, setDialog] = useState(false);
   return (
     <div className="flex flex-col gap-8">
@@ -96,25 +96,25 @@ export default function UserPage() {
                       scope="col"
                       className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8"
                     >
-                      Device Name
+                      Company Name
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Device ID
+                      Mail Id
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Model Type
+                      Contact Number
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Status
+                      Website
                     </th>
                     <th
                       scope="col"
@@ -125,25 +125,25 @@ export default function UserPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {people.map((person) => (
+                  {(clientDetails ?? []).map((client) => (
                     <tr
                       onClick={() => {
-                        navigate("/admin/user/asdasd");
+                        navigate(`/admin/user/${client.id}`);
                       }}
                       className="cursor-pointer"
-                      key={person.email}
+                      key={client.email}
                     >
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                        {person.name}
+                        {client.name}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.title}
+                        {client.email}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.email}
+                        {client.phone}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.role}
+                        {client.website}
                       </td>
                       <td className="whitespace-nowrap absolute z-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                         {/* <a

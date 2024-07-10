@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { UserModel } from "./CompanyPage";
 import AddUserModal from "../../modal/AddUserModal";
 import DeviceMenu from "../device/DeviceMenu";
+import { IUserModel } from "./CompanyPage";
 
-const CompanyUser = ({ users }: { users: UserModel[] }) => {
+const CompanyUser = ({ users }: { users: IUserModel[] }) => {
   const [dialog, setDialog] = useState(false);
 
   return (
