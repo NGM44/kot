@@ -50,22 +50,6 @@ export default function Router() {
     },
 
     {
-      path: "/signup",
-      element: <p>signup</p>,
-    },
-    {
-      path: "/resetpassword/",
-      element: <p>Reset Password</p>,
-    },
-    {
-      path: "/forgotpassword",
-      element: <p>Forgot Password</p>,
-    },
-    // {
-    //   path: "/",
-    //   element: isAuthenticated ? <MainLayout/> : <Login/>,
-    //   children: [
-    {
       path: role?.toUpperCase() === "ADMIN" ? "/admin" : "/user",
       element: isAuthenticated ? (
         <MainLayout />
@@ -119,8 +103,7 @@ export default function Router() {
               },
             ],
     },
-    //   ],
-    // },
+
     {
       path: "/manual",
       element: <ManualPage />,

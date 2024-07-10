@@ -2,8 +2,10 @@ import { useMutation, useQuery } from "react-query";
 import { handleEventForTracking } from "../analytics";
 import {
   addClient,
-  addDeviceToAdmin,
   changeDeviceState,
+  connectDeviceWithClient,
+  deleteUser,
+  generateCredentials,
   getAllClients,
   getAllDevices,
   getClientDetail,
@@ -13,7 +15,7 @@ import {
 export function useAddDeviceToClient() {
   return useMutation({
     mutationKey: "add-device-to-client",
-    mutationFn: addDeviceToAdmin,
+    mutationFn: connectDeviceWithClient,
     onSuccess: () => {
       handleEventForTracking({
         eventName: "add-device-to-client",
@@ -30,6 +32,29 @@ export function useAddDeviceToClient() {
     },
   });
 }
+
+export function useConnectDeviceWithClient() {
+  return useMutation({
+    mutationKey: "connect-device-with-client",
+    mutationFn: connectDeviceWithClient,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "connect-device-with-client",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "connect-device-with-client",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+
 
 export function useAddClient() {
   return useMutation({
@@ -108,6 +133,47 @@ export function useGetClientsDetail(id: string) {
     onError: () => {
       handleEventForTracking({
         eventName: "get-client-detail",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useDeleteUser() {
+  return useMutation({
+    mutationKey: "delete-user",
+    mutationFn: deleteUser,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "delete-user",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "delete-user",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+export function useGenerateCredentials() {
+  return useMutation({
+    mutationKey: "generate-credentials",
+    mutationFn: generateCredentials,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "generate-credentials",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "generate-credentials",
         success: false,
         eventType: "API",
       });

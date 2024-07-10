@@ -7,7 +7,10 @@ import {
 } from "@headlessui/react";
 import { DeviceDetailsModel } from "../types/auth";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { useAddDeviceToClient } from "../queries/admin";
+import { useAddDeviceToClient, useGetAllDevices } from "../queries/admin";
+import { ConnectDeviceModel } from "../types/device";
+import { queryClient } from "../queries/client";
+import { useParams } from "react-router-dom";
 
 export default function AddDeviceModal({
   isOpen,
@@ -21,6 +24,7 @@ export default function AddDeviceModal({
   const [deviceId, setDeviceId] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
   const { mutate: addDeviceToClient } = useAddDeviceToClient();
+  const { id } = useParams();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -33,18 +37,19 @@ export default function AddDeviceModal({
     return () => clearTimeout(timer);
   }, [showSuccess, onClose]);
 
-  const clientId = "";
+  const { data: deviceDetails } = useGetAllDevices();
 
   function handleAddDevice() {
-    const deviceDetails: DeviceDetailsModel = {
+    const deviceDetails: ConnectDeviceModel = {
       deviceId,
-      deviceType,
-      deviceName,
-      clientId,
+      modelType: deviceType,
+      name: deviceName,
+      clientId: id ?? "",
     };
     addDeviceToClient(deviceDetails, {
       onSuccess() {
         setShowSuccess(true);
+        queryClient.invalidateQueries("get-client-detail");
       },
     });
   }
@@ -139,8 +144,10 @@ export default function AddDeviceModal({
                           onChange={(e) => setDeviceType(e.target.value)}
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                         >
-                          <option>Node Sense</option>
-                          <option>Node gate</option>
+                          <option>--Select Device Type---</option>
+                          {deviceDetails?.map((options) => (
+                            <option>{options.modelType}</option>
+                          ))}
                         </select>
                       </div>
                       <div>
@@ -157,11 +164,10 @@ export default function AddDeviceModal({
                           onChange={(e) => setDeviceId(e.target.value)}
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                         >
-                          {["Device1", "Device2", "Device3", "Device4"].map(
-                            (options) => (
-                              <option>{options}</option>
-                            )
-                          )}
+                          <option>--Select Device ID---</option>
+                          {deviceDetails?.map((options) => (
+                            <option>{options.id}</option>
+                          ))}
                         </select>
                       </div>
 

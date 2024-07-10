@@ -144,7 +144,7 @@ export default function DevicePage() {
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {(deviceDetails ?? [])
-                    .filter((device) => device.status === EStatus.REGISTERED)
+                    .filter((device) => true)
                     .map((device) => (
                       <tr key={device.id}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">

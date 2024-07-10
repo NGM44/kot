@@ -18,3 +18,10 @@ export enum EStatus {
   UNREGISTERED = "UNREGISTERED",
   TERMINATED = "TERMINATED",
 }
+
+export interface ConnectDeviceModel {
+  deviceId: string;
+  name: string;
+  modelType: string;
+  clientId: string;
+}
