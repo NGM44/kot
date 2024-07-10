@@ -15,6 +15,10 @@ import { ManualPage } from "./pages/manual/manualPage";
 import { Layout } from "./pages/demo/Layout";
 import Login2 from "./pages/auth/Login2";
 import CompanyDashboard from "./pages/user/CompanyPage";
+import LandingLayout from "./pages/landing2/Layout";
+import SupportLanding from "./pages/landing2/Support";
+import NewLandingPage from "./pages/landing2";
+import Login from "./pages/auth/Login";
 
 export default function Router() {
   const { isAuthenticated, role } = useAuthStore();
@@ -22,12 +26,21 @@ export default function Router() {
   return useRoutes([
     {
       path: "/",
-      element: isAuthenticated ? <MainLayout />: <Navigate to="/login" replace/>,
+      element: <LandingLayout />,
+      children: [{ path: "", element: <NewLandingPage /> }, {
+        path: "/support",
+        element: <SupportLanding />,
+      },],
     },
     {
       path: "/login",
       element: <Login2 />,
     },
+    {
+      path: "/login2",
+      element: <Login />,
+    },
+   
     {
       path: "/signup",
       element: <p>signup</p>,
