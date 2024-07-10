@@ -44,6 +44,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import NavLayout from "./NavLayout";
 import LogoutModal from "../modal/LogoutModal";
+import AddUserModal from "../modal/AddUserModal";
 const userNavigation = [
   // { name: "Your profile", href: "" },
   { name: "Log out", href: "#" },
@@ -51,6 +52,8 @@ const userNavigation = [
 ];
 
 export default function MainLayout() {
+  const [dialogLogout, setDialogLogout] = useState(false);
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -150,6 +153,14 @@ export default function MainLayout() {
   ];
   return (
     <div>
+      {dialogLogout && (
+        <LogoutModal
+          isOpen={dialogLogout}
+          onClose={() => {
+            setDialogLogout(false);
+          }}
+        />
+      )}
       <Transition show={sidebarOpen}>
         <Dialog className="relative z-50 lg:hidden" onClose={setSidebarOpen}>
           <TransitionChild
@@ -359,17 +370,7 @@ export default function MainLayout() {
                             <button
                               //   href={item.href}
                               onClick={() => {
-                                // if (item.name === "Change User") {
-                                navigate("users/dashboard");
-                                setAuth({
-                                  isAuthenticated: true,
-                                  email: "dummy@gmail.com",
-                                  role: "ADMIN",
-                                });
-                                navigate("/admin/user");
-                                // } else {
-                                //   navigate(item.href);
-                                // }
+                                setDialogLogout(true);
                               }}
                               className={classNames(
                                 focus ? "bg-gray-50" : "",
@@ -404,8 +405,8 @@ export default function MainLayout() {
           {/* Separator */}
           <div className="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true" />
 
-          <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-            <form className="relative flex flex-1" action="#" method="GET">
+          <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 justify-end">
+            {/* <form className="relative flex flex-1" action="#" method="GET">
               <label htmlFor="search-field" className="sr-only">
                 Search
               </label>
@@ -420,7 +421,7 @@ export default function MainLayout() {
                 type="search"
                 name="search"
               />
-            </form>
+            </form> */}
             <div className="flex items-center gap-x-4 lg:gap-x-6">
               <button
                 type="button"
@@ -479,23 +480,7 @@ export default function MainLayout() {
                           <button
                             //   href={item.href}
                             onClick={() => {
-                              if (role?.toUpperCase() !== "ADMIN") {
-                                navigate("/admin/user");
-                                setAuth({
-                                  isAuthenticated: true,
-                                  email: "dummy@gmail.com",
-                                  role: "admin",
-                                });
-                              } else {
-                                setAuth({
-                                  isAuthenticated: true,
-                                  email: "dummy@gmail.com",
-                                  role: "user",
-                                });
-                                navigate("/user/dashboard");
-                              }
-
-                              // setDialog(true);
+                              setDialogLogout(true);
                             }}
                             className={classNames(
                               focus ? "bg-gray-50" : "",
@@ -509,25 +494,6 @@ export default function MainLayout() {
                     ))}
                   </MenuItems>
                 </Transition>
-                {/* <Dialog open={dialog} onClose={() => setDialog(false)}> */}
-                  {/* {dialog && (
-                    <AlertDialog
-                      message={`Are you sure you want to logout ?`}
-                      primaryActionText="Logout"
-                      onClose={() => setDialog(false)}
-                      secondaryActionText="Cancel"
-                      onPrimaryAction={() => {
-                        clear();
-                        localStorage.clear();
-                        navigate("/");
-                      }}
-                      onSecondaryAction={() => {
-                        setDialog(false);
-                      }}
-                      open={dialog}
-                    />
-                  )} */}
-                {/* </Dialog> */}
               </Menu>
             </div>
           </div>

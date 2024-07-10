@@ -5,7 +5,7 @@ import { SignInDetailsModel } from "../../types/auth";
 import { useAuthStore } from "../../store/useAuthStore";
 import { decodeAuthToken } from "../../utils/auth";
 
-export default function Login2() {
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,18 +13,9 @@ export default function Login2() {
   const navigate = useNavigate();
   const { mutate: login } = useLogin();
   const { setAuth } = useAuthStore();
-  let demo = true;
 
   function handleLogin() {
     const loginDto: SignInDetailsModel = { email, password };
-    if (demo) {
-      setAuth({
-        isAuthenticated: true,
-        email: "dummy@gmail.com",
-        role: "ADMIN",
-      });
-      navigate("/admin/user");
-    }
     login(loginDto, {
       onSuccess(data) {
         const accessToken = data.data.token;
@@ -38,7 +29,7 @@ export default function Login2() {
         });
         setEmail("");
         setPassword("");
-        navigate("/");
+        navigate("/admin/user");
       },
     });
   }
@@ -119,7 +110,12 @@ export default function Login2() {
                       Show Password
                     </label>
                   </div>
-                  <div className="text-sm font-semibold underline text-primary cursor-pointer">
+                  <div
+                    onClick={() => {
+                      navigate("/forgotPassword");
+                    }}
+                    className="text-sm font-semibold underline text-primary cursor-pointer"
+                  >
                     Forgot Password?
                   </div>
                 </div>

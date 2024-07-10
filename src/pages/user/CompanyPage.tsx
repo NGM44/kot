@@ -2,6 +2,8 @@ import React from "react";
 import CompanyDevice from "./CompanyDevice";
 import CompanyUser from "./CompanyUser";
 import CompanyCard from "./CompanyCard";
+import { useGetClientsDetail } from "../../queries/admin";
+import { useParams } from "react-router-dom";
 
 export type UserModel = {
   id: string;
@@ -31,6 +33,8 @@ export type CompanyModel = {
 };
 
 const CompanyDashboard = () => {
+  const { id } = useParams();
+  const { data: clientDetails } = useGetClientsDetail(id ?? "");
   const usersList: UserModel[] = [
     { id: "12312312", name: "John Doe", email: "john@techcorp.com" },
     { id: "12312323", name: "Jane Smith", email: "jane@techcorp.com" },

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { classNames } from "../../utils/string";
 import { useNavigate } from "react-router-dom";
 import AddCompanyModal from "../../modal/AddCompanyModal";
+import { useAddClient, useGetAllClients } from "../../queries/admin";
 
 const people = [
   {
@@ -22,6 +23,8 @@ const stats = [
 
 export default function UserPage() {
   const navigate = useNavigate();
+  const { data: clientDetails } = useGetAllClients();
+
   const [dialog, setDialog] = useState(false);
   return (
     <div className="flex flex-col gap-8">

@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { signIn, signUp } from "../api/auth";
+import { changePassword, forgotPassword, signIn, signUp } from "../api/auth";
 import { handleEventForTracking } from "../analytics";
 
 export function useLogin() {
@@ -22,6 +22,48 @@ export function useLogin() {
     },
   });
 }
+export function useChangePassword() {
+  return useMutation({
+    mutationKey: "changePassword",
+    mutationFn: changePassword,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "changePassword",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "changePassword",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useForgotPassword() {
+  return useMutation({
+    mutationKey: "forgotPassword",
+    mutationFn: forgotPassword,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "forgotPassword",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "forgotPassword",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
 
 export function useSignUp() {
   return useMutation({

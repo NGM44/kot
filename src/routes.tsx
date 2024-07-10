@@ -13,12 +13,13 @@ import MainLayout from "./layout/MainLayout";
 import { useAuthStore } from "./store/useAuthStore";
 import { ManualPage } from "./pages/manual/manualPage";
 import { Layout } from "./pages/demo/Layout";
-import Login2 from "./pages/auth/Login2";
+import LoginPage from "./pages/auth/LoginPage";
 import CompanyDashboard from "./pages/user/CompanyPage";
 import LandingLayout from "./pages/landing2/Layout";
 import SupportLanding from "./pages/landing2/Support";
 import NewLandingPage from "./pages/landing2";
-import Login from "./pages/auth/Login";
+import ForgotPasswordPage from "./pages/auth/ForgotPassword";
+import ChangePasswordPage from "./pages/auth/ChangePassword";
 
 export default function Router() {
   const { isAuthenticated, role } = useAuthStore();
@@ -27,20 +28,27 @@ export default function Router() {
     {
       path: "/",
       element: <LandingLayout />,
-      children: [{ path: "", element: <NewLandingPage /> }, {
-        path: "/support",
-        element: <SupportLanding />,
-      },],
+      children: [
+        { path: "", element: <NewLandingPage /> },
+        {
+          path: "/support",
+          element: <SupportLanding />,
+        },
+      ],
     },
     {
       path: "/login",
-      element: <Login2 />,
+      element: <LoginPage />,
     },
     {
-      path: "/login2",
-      element: <Login />,
+      path: "/forgotPassword",
+      element: <ForgotPasswordPage />,
     },
-   
+    {
+      path: "/changePassword",
+      element: <ChangePasswordPage />,
+    },
+
     {
       path: "/signup",
       element: <p>signup</p>,
@@ -59,7 +67,11 @@ export default function Router() {
     //   children: [
     {
       path: role?.toUpperCase() === "ADMIN" ? "/admin" : "/user",
-      element: isAuthenticated ? <MainLayout /> : <Navigate to ="/login" replace />,
+      element: isAuthenticated ? (
+        <MainLayout />
+      ) : (
+        <Navigate to="/login" replace />
+      ),
       children:
         role?.toUpperCase() === "ADMIN"
           ? [

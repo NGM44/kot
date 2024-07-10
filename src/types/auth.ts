@@ -41,3 +41,12 @@ export interface UserData {
   email: string;
   role: Role;
 }
+
+export interface ClientModel {
+  name: string;
+  logo: string;
+  address: string;
+  email: string;
+  phone: string;
+  website: string;
+}

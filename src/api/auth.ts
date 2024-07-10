@@ -56,3 +56,8 @@ export async function changePassword(
 ): Promise<CustomResponse<string>> {
   return api.post(`user/changePassword`, resetPasswordDetail);
 }
+export async function forgotPassword(
+  email: string
+): Promise<CustomResponse<string>> {
+  return api.post(`user/forgotPassword`, email);
+}
