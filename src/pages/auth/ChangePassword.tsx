@@ -6,6 +6,8 @@ import { useAuthStore } from "../../store/useAuthStore";
 import { decodeAuthToken } from "../../utils/auth";
 
 export default function ChangePasswordPage() {
+  const token = window.location.href.split("=");
+  const jwt = token[1];
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
