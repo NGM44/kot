@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useChangePassword, useLogin } from "../../queries/auth";
-import { ResetPasswordDetailModel, SignInDetailsModel } from "../../types/auth";
-import { useAuthStore } from "../../store/useAuthStore";
-import { decodeAuthToken } from "../../utils/auth";
+import { useChangePassword } from "../../queries/auth";
+import { ResetPasswordDetailModel } from "../../types/auth";
 
 export default function ChangePasswordPage() {
   const token = window.location.href.split("=");
