@@ -25,7 +25,10 @@ export default function RegisterDeviceModal({
       { identifier, modelType, name },
       {
         onSuccess: () => {
-          toast("Registered successfully");
+          toast("Registered successfully", {
+            autoClose: 2000,
+            type: "success",
+          });
           queryClient.invalidateQueries("get-all-devices");
           onClose();
         },

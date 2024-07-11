@@ -51,12 +51,18 @@ export async function activateUser(deactiveUserDetails: UserEmailModel) {
   );
 }
 
-export async function changePassword(
+export async function resetPassword(
   resetPasswordDetail: ResetPasswordDetailModel
 ): Promise<CustomResponse<string>> {
-  return api.post(`user/changePassword`, resetPasswordDetail, {
+  return api.post(`user/resetPassword`, resetPasswordDetail, {
     headers: { authorization: resetPasswordDetail.jwt },
   });
+}
+
+export async function changePassword(
+  resetPasswordDetail: ResetPasswordDetailModel,
+): Promise<CustomResponse<string>> {
+  return api.post(`user/changePassword`, resetPasswordDetail);
 }
 
 export async function forgotPassword(

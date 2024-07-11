@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useChangePassword } from "../../queries/auth";
+import { useChangePassword, useResetPassword } from "../../queries/auth";
 import { ResetPasswordDetailModel } from "../../types/auth";
+import { toast } from "react-toastify";
 
 export default function ChangePasswordPage() {
   const token = window.location.href.split("=");
@@ -10,21 +11,26 @@ export default function ChangePasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { mutate: changePassword } = useChangePassword();
+  const { mutate: resetPassword } = useResetPassword();
 
   function handleChangePassword() {
-    const passwordDto: ResetPasswordDetailModel = {
-      newPassword: newPassword,
-      currentPassword: confirmPassword,
-      jwt,
-    };
-    changePassword(passwordDto, {
-      onSuccess(data) {
-        setNewPassword("");
-        setConfirmPassword("");
-        navigate("/login");
-      },
-    });
+    if (confirmPassword === newPassword && jwt) {
+      const passwordDto: ResetPasswordDetailModel = {
+        newPassword,
+        jwt,
+      };
+      resetPassword(passwordDto, {
+        onSuccess() {
+          setNewPassword("");
+          setConfirmPassword("");
+          toast("Password changed successfully", {
+            type: "success",
+            autoClose: 2000,
+          });
+          navigate("/login");
+        },
+      });
+    }
   }
 
   return (

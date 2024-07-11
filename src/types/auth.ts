@@ -1,7 +1,11 @@
 export interface ResetPasswordDetailModel {
   newPassword: string;
-  currentPassword: string;
   jwt: string;
+}
+
+export interface ChangePasswordDetailModel {
+  newPassword: string;
+  currentPassword: string;
 }
 
 export interface SignInDetailsModel {

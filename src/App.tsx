@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import Router from "./routes";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import {
   AmplitudeInit,

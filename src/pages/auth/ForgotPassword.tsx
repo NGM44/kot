@@ -9,7 +9,10 @@ export default function ForgotPasswordPage() {
   function handleForgotPassword() {
     forgotPassword(email, {
       onSuccess(data) {
-        toast("Email sent for the registered mail");
+        toast("Email sent for the registered mail", {
+          type: "success",
+          autoClose: 2000,
+        });
       },
     });
   }

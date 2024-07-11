@@ -224,14 +224,18 @@ export default function AddCompanyModal({
                         e.preventDefault();
                         addClient(clientModel, {
                           onSuccess: (data) => {
-                            toast("Client Added Successfully");
-                            toast("Badobadi badobadi");
+                            toast("Client Added Successfully", {
+                              type: "success",
+                              autoClose: 2000,
+                            });
                           },
                           onError: (data: any) => {
-                            toast(data?.error ?? "Something went wrong!");
+                            toast(data?.error ?? "Something went wrong!", {
+                              type: "error",
+                              autoClose: 5000,
+                            });
                           },
                         });
-                        console.log(clientModel);
                       }}
                       className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
