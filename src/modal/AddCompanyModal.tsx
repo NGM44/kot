@@ -4,7 +4,6 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useAddClient } from "../queries/admin";
 import { ClientModel } from "../types/auth";
 import { useState } from "react";

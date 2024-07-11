@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useChangePassword, useResetPassword } from "../../queries/auth";
+import { useResetPassword } from "../../queries/auth";
 import { ResetPasswordDetailModel } from "../../types/auth";
 import { toast } from "react-toastify";
 
