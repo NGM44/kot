@@ -54,8 +54,11 @@ export async function activateUser(deactiveUserDetails: UserEmailModel) {
 export async function changePassword(
   resetPasswordDetail: ResetPasswordDetailModel
 ): Promise<CustomResponse<string>> {
-  return api.post(`user/changePassword`, resetPasswordDetail);
+  return api.post(`user/changePassword`, resetPasswordDetail, {
+    headers: { authorization: resetPasswordDetail.jwt },
+  });
 }
+
 export async function forgotPassword(
   email: string
 ): Promise<CustomResponse<string>> {

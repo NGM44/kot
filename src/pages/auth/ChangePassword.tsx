@@ -16,6 +16,7 @@ export default function ChangePasswordPage() {
     const passwordDto: ResetPasswordDetailModel = {
       newPassword: newPassword,
       currentPassword: confirmPassword,
+      jwt,
     };
     changePassword(passwordDto, {
       onSuccess(data) {
