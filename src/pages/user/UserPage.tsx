@@ -2,30 +2,19 @@ import { useState } from "react";
 import { classNames } from "../../utils/string";
 import { useNavigate } from "react-router-dom";
 import AddCompanyModal from "../../modal/AddCompanyModal";
-import { useAddClient, useGetAllClients } from "../../queries/admin";
-
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
-  // More people...
-];
-
-const stats = [
-  { name: "No. of Clients", value: "88", change: "+88%" },
-  { name: "No. of User", value: "2", change: "2%" },
-  { name: "Total Device", value: "10", change: "+10%" },
-  { name: "Mesh", value: "0", change: "0%" },
-];
+import { useGetAllClients } from "../../queries/admin";
 
 export default function UserPage() {
   const navigate = useNavigate();
   const { data: clientDetails } = useGetAllClients();
-console.log(clientDetails);
   const [dialog, setDialog] = useState(false);
+  //TODO: get details from clientDetails
+  const stats = [
+    { name: "No. of Clients", value: "88", change: "+88%" },
+    { name: "No. of User", value: "2", change: "2%" },
+    { name: "Total Device", value: "10", change: "+10%" },
+    { name: "Mesh", value: "0", change: "0%" },
+  ];
   return (
     <div className="flex flex-col gap-8">
       {dialog && (

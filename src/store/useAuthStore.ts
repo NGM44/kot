@@ -31,7 +31,7 @@ export const useAuthStore = createStore<AuthStore>(
       accessToken: undefined,
       email: undefined,
       id: undefined,
-      role: "ADMIN",
+      role: undefined,
       setAuth: (auth: Auth | ((auth: Auth) => Auth)) => {
         if (typeof auth === "function") {
           set((_state: Auth) => auth(_state));
