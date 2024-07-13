@@ -1,5 +1,4 @@
 import GradientWrapper from "./GradientWrapper";
-import HeroImg from "./hero.svg";
 import LayoutEffect from "./LayoutEffect";
 
 const Hero = () => (

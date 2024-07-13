@@ -38,13 +38,11 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { classNames } from "../utils/string";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import NavLayout from "./NavLayout";
 import LogoutModal from "../modal/LogoutModal";
-import AddUserModal from "../modal/AddUserModal";
 const userNavigation = [
   // { name: "Your profile", href: "" },
   { name: "Log out", href: "#" },
@@ -58,7 +56,7 @@ export default function MainLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const { clear, role, email } = useAuthStore();
+  const { role, email } = useAuthStore();
   useEffect(() => {
     if (pathname === "/") {
       if (role?.toUpperCase() === "ADMIN") {
@@ -68,8 +66,6 @@ export default function MainLayout() {
       }
     }
   }, [navigate, pathname, role]);
-  const { setAuth } = useAuthStore();
-  const [dialog, setDialog] = useState(false);
   const navigation =
     role?.toUpperCase() === "ADMIN"
       ? [

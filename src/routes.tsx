@@ -23,7 +23,6 @@ import ChangePasswordPage from "./pages/auth/ChangePassword";
 
 export default function Router() {
   const { isAuthenticated, role } = useAuthStore();
-  console.log(isAuthenticated, role);
   return useRoutes([
     {
       path: "/",

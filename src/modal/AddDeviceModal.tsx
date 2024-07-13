@@ -5,7 +5,6 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { DeviceDetailsModel } from "../types/auth";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { useAddDeviceToClient, useGetAllDevices } from "../queries/admin";
 import { ConnectDeviceModel } from "../types/device";

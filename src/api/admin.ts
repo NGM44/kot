@@ -1,4 +1,4 @@
-import { ClientModel, DeviceDetailsModel } from "../types/auth";
+import { ClientModel } from "../types/auth";
 import { CustomResponse } from "./auth";
 import api from "../queries/api";
 import { QueryFunctionContext } from "react-query";

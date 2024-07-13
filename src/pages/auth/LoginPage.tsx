@@ -25,11 +25,16 @@ export default function LoginPage() {
           isAuthenticated: true,
           email: decodedJwt.email,
           id: decodedJwt.id,
-          role: "ADMIN",
+          role: decodedJwt.role,
         });
         setEmail("");
         setPassword("");
-        navigate("/admin/user");
+        if(decodedJwt.role === "ADMIN"){
+          navigate("/admin/user");
+
+        }else{
+          navigate("/user/dashboard");
+        }
       },
     });
   }

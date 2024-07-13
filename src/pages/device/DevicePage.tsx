@@ -7,28 +7,20 @@ import { useChangeDeviceState, useGetAllDevices } from "../../queries/admin";
 import { EStatus } from "../../types/device";
 import { queryClient } from "../../queries/client";
 
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
-  // More people...
-];
 
-const stats = [
-  { name: "Registered", value: "88", change: "+88%" },
-  { name: "Production", value: "10", change: "+10%" },
-  { name: "Un Registered", value: "2", change: "2%" },
-  { name: "Terminated", value: "0", change: "0%" },
-];
 
 export default function DevicePage() {
   const [dialog, setDialog] = useState(false);
   const [selected, setSelected] = useState("Registered");
   const { data: deviceDetails } = useGetAllDevices();
   const { mutate: changeStatus } = useChangeDeviceState();
+  //TODO: get stat details from deviceDetails
+  const stats = [
+    { name: "Registered", value: "88", change: "+88%" },
+    { name: "Production", value: "10", change: "+10%" },
+    { name: "Un Registered", value: "2", change: "2%" },
+    { name: "Terminated", value: "0", change: "0%" },
+  ];
   return (
     <div className="flex flex-col gap-8">
       {dialog && (

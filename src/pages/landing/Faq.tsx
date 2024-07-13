@@ -37,7 +37,8 @@ const faqs = [
 ];
 
 export default function FAQ() {
-  const [dark, setDark] = useState(true);
+  //TODO: get dark mode 
+  const [dark] = useState(true);
   return (
     <div id="faq" className={`relative isolate ${dark ? "bg-gray-900" : "bg-white"}`}>
      
