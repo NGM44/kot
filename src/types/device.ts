@@ -25,3 +25,9 @@ export interface ConnectDeviceModel {
   modelType: string;
   clientId: string;
 }
+
+export interface IWeatherData {
+  temperature: number;
+  humidity: number;
+  dateString: string;
+}

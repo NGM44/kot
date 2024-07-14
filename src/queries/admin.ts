@@ -9,6 +9,7 @@ import {
   getAllClients,
   getAllDevices,
   getClientDetail,
+  getWeatherData,
   registerDevice,
 } from "../api/admin";
 
@@ -216,6 +217,29 @@ export function useChangeDeviceState() {
     onError: () => {
       handleEventForTracking({
         eventName: "change-device-state",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useWeatherData(deviceId: string) {
+  return useQuery({
+    queryKey: ["get-weather-data", deviceId],
+    queryFn: getWeatherData,
+    staleTime: 10000000,
+    cacheTime: 10000000,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "get-weather-data",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "get-weather-data",
         success: false,
         eventType: "API",
       });

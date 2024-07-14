@@ -6,6 +6,7 @@ import { ICompanyModel, IDeviceModel } from "../pages/user/CompanyPage";
 import {
   ChangeDeviceModel,
   ConnectDeviceModel,
+  IWeatherData,
   RegisterDeviceDto,
 } from "../types/device";
 
@@ -61,4 +62,12 @@ export async function changeDeviceState(
   deviceModel: ChangeDeviceModel
 ): Promise<CustomResponse<any>> {
   return api.put(`/device/updateStatus`, deviceModel).then((res) => res.data);
+}
+
+export async function getWeatherData(context: QueryFunctionContext): Promise<IWeatherData[]> {
+  const deviceId = context.queryKey[1] as string;
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(endDate.getDate() - 90);
+  return api.get(`/weather/data/${deviceId}/${startDate.toISOString()}/${endDate.toISOString()}`).then(res => res.data.data)
 }

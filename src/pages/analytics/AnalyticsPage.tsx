@@ -1,30 +1,23 @@
-import { addDays } from "date-fns";
 import {EChartOption} from "echarts";
 import ReactECharts from "echarts-for-react";
 import _ from "lodash";
+import { useWeatherData } from "../../queries/admin";
 
 const AnalyticsPage = () => {
-  const data = [];
-    const currentDate = new Date();
-    while (currentDate < addDays(new Date(), 90)) {
-      data.push({
-        timestamp: new Date(currentDate),
-        temperature: parseFloat((Math.random() * 15 + 10).toFixed(2)),
-        humidity:parseFloat((Math.random() * 30 + 40).toFixed(2)),
-      });
-      currentDate.setSeconds(currentDate.getSeconds() + 10);
-    }
-  const minTemperatureValue = _.min(data.map(d => d.temperature));
-  const maxTemperatureValue = _.max(data.map(d => d.temperature));
-  const minHumidityValue = _.min(data.map(d => d.humidity));
-  const maxHumidityValue = _.max(data.map(d => d.humidity));
+  const deviceId = '01J2RWJH8HF0C6ZQYFJ9HHC9ZP';
+  const {data: _weatherData} = useWeatherData(deviceId);
+  const weatherData = _weatherData || [];
+  const minTemperatureValue = _.min(weatherData.map(d => d.temperature));
+  const maxTemperatureValue = _.max(weatherData.map(d => d.temperature));
+  const minHumidityValue = _.min(weatherData.map(d => d.humidity));
+  const maxHumidityValue = _.max(weatherData.map(d => d.humidity));
   const temperature : EChartOption = {
     tooltip: {
       trigger: 'axis',
     },
     xAxis: {
       type: 'category',
-      data: data.map(d => d.timestamp.toDateString() +" "+  d.timestamp.toTimeString().split(" ")[0]),
+      data: weatherData.map(d => d.dateString),
     },
     visualMap: [{
       seriesIndex: 0,
@@ -47,7 +40,7 @@ const AnalyticsPage = () => {
     series: [
       {
         type: 'line',
-        data: data.map(d => d.temperature),
+        data: weatherData.map(d => d.temperature),
       },
     ],
     dataZoom:[
@@ -70,7 +63,7 @@ const AnalyticsPage = () => {
     },
     xAxis: {
       type: 'category',
-      data: data.map(d => d.timestamp.toDateString() +" "+  d.timestamp.toTimeString().split(" ")[0]),
+      data: weatherData.map(d => d.dateString),
     },
     yAxis: {
       type: 'value',
@@ -80,7 +73,7 @@ const AnalyticsPage = () => {
     series: [
       {
         type: 'line',
-        data: data.map(d => d.humidity),
+        data: weatherData.map(d => d.humidity),
       },
     ],
     visualMap: [{

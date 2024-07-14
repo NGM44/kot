@@ -55,7 +55,7 @@ export async function resetPassword(
   resetPasswordDetail: ResetPasswordDetailModel
 ): Promise<CustomResponse<string>> {
   return api.post(`user/resetPassword`, resetPasswordDetail, {
-    headers: { authorization: resetPasswordDetail.jwt },
+    headers: { accessToken: `Bearer ${resetPasswordDetail.jwt}` },
   });
 }
 
