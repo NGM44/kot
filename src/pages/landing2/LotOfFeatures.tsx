@@ -139,7 +139,7 @@ const LotOfFeatures = () => {
               Measure what matters
             </h2>
             <p className="mt-3">
-              At Vayuguna we provide flexiblity to measure the air quality
+              At Sensor Magics we provide flexiblity to measure the air quality
               values which matters the most for you.
             </p>
           </div>

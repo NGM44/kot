@@ -140,7 +140,7 @@ export default function MainLayout() {
     },
     {
       id: 3,
-      name: "Vayuguna",
+      name: "Sensor Magics",
       href: "/",
       icon: ArrowTopRightOnSquareIcon,
       initial: "V",
@@ -214,7 +214,7 @@ export default function MainLayout() {
                       src="/logo.png"
                       className="h-4 w-auto"
                       //   className="h-44 my-5 w-56 mx-auto"
-                      alt="Vayuguna"
+                      alt="Sensor Magics"
                     />
                   </div>
                   <NavLayout navigation={navigation} resources={resources} />
@@ -239,7 +239,7 @@ export default function MainLayout() {
               src="/logo.png"
               className="h-6 w-auto"
               //   className="h-44 my-5 w-56 mx-auto"
-              alt="Vayuguna"
+              alt="Sensor Magics"
             />
           </div>
           <nav className="flex flex-1 flex-col">
