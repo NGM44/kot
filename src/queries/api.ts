@@ -4,8 +4,7 @@ import { useClearCredentials, revalidateAuth } from "../utils/auth";
 import { useAuthStore } from "../store/useAuthStore";
 
 const api = axios.create({
-  baseURL: "http://128.199.21.134:80"
-  //process.env.REACT_APP_API,
+  baseURL: process.env.REACT_APP_API,
 });
 
 api.defaults.headers.post["Content-Type"] = "application/json";
