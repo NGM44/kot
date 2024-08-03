@@ -4,7 +4,7 @@ import { useClearCredentials, revalidateAuth } from "../utils/auth";
 import { useAuthStore } from "../store/useAuthStore";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API,
+  baseURL: process.env.REACT_APP_API ?? "https://api.sensormagics.com",
 });
 
 api.defaults.headers.post["Content-Type"] = "application/json";
