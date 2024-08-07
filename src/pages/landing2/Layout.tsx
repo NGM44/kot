@@ -5,11 +5,11 @@ import Navbar from "./Navbar";
 const LandingLayout = () => {
   return (
     <main className="bg-gray-900 overflow-hidden">
-      <Navbar />
+      {/* <Navbar /> */}
       <main>
       <Outlet />
         </main>
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 };
