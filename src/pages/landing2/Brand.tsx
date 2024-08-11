@@ -1,7 +1,7 @@
 const Brand = ({ ...props }) => (
   <img
     src="/logotemp.png"
-    alt="Vayuguna Logo"
+    alt="Sensor Magics Logo"
     {...props}
     width={110}
     height={50}

@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="custom-screen">
         <div className="mt-10 py-8 border-t border-gray-800 items-center justify-between sm:flex">
           <p className="text-gray-400 text-center">
-            © 2024 Vayuguna Inc. All rights reserved.
+            © 2024 Sensor Magics Inc. All rights reserved.
           </p>
           <div className="flex items-center justify-center gap-x-6 text-gray-500 mt-6 sm:mt-0">
             <a href="/" target="_blank" aria-label="social media">

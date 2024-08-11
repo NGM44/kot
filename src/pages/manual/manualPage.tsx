@@ -11,7 +11,7 @@ function Testimonial() {
       </div>
       <blockquote className="mt-2">
         <p className="font-display text-xl font-medium text-slate-900">
-          "Clean and precise instruction guidelines for the vayuguna product,
+          "Clean and precise instruction guidelines for the Sensor Magics product,
           Intuitive Manual"
         </p>
       </blockquote>
@@ -53,11 +53,11 @@ export function ManualPage() {
         <div className="bg-white pt-16 lg:col-span-7 lg:bg-transparent lg:pl-16 lg:pt-0 xl:pl-20">
           <div className="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4 lg:px-0">
             <h1 className="font-display text-5xl font-extrabold text-slate-900 sm:text-6xl">
-              Everything about Vayuguna.
+              Everything about Sensor Magics.
             </h1>
             <p className="mt-4 text-3xl text-slate-600">
               A manual which helps you clear all doubts and teaches you how to
-              use vayuguna.
+              use Sensor Magics.
             </p>
             <div className="mt-8 flex gap-4">
               <Button href="#free-chapters" color="gray">

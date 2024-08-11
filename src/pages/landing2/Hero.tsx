@@ -23,7 +23,7 @@ const Hero = () => (
               Managing your indoor environment made easy
             </h1>
             <p className="max-w-xl mx-auto text-gray-300">
-              Go beyond air quality monitoring with vayuguna's smart actionable
+              Go beyond air quality monitoring with Sensor Magics's smart actionable
               insights optimized your builing performance,enhance work place
               well-being and achieve sustainability milestones.
             </p>

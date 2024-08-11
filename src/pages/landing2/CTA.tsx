@@ -18,10 +18,10 @@ const CTA = () => (
           <div className="relative z-10">
             <div className="max-w-xl mx-auto text-center">
               <h2 className="text-gray-50 text-3xl font-semibold sm:text-4xl">
-                Start Tracking Air Quality with Vayuguna
+                Start Tracking Air Quality with Sensor Magics
               </h2>
               <p className="mt-5 text-gray-300">
-                Vayuguna empowers you to enhance and control the air quality in
+                Sensor Magics empowers you to enhance and control the air quality in
                 every indoor environment. Whether it's critical infrastructure
                 like server rooms and battery storage areas, or the everyday
                 spaces where your team works, we help you create healthier, more

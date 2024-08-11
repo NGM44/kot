@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     question:
-      "What types of air quality parameters or pollutants is the Vayuguna system currently capable of monitoring?",
+      "What types of air quality parameters or pollutants is the Sensor Magics system currently capable of monitoring?",
     answer:
       "We are currently supporting Temprature, relative humidity, Barometric Pressure, Indoor Air Quality Index, Carbon Dioxide, Particulate Matters, Volatile Organic Compounds(VOC), Nitric Oxides(NOx), Ambient Light(Lux), Noise Levels, Altitude, Building Structural Health, Carbon Monoxide, Formaldehyde , Nitrogen Dioxide,Ozone, Sulfur Dioxide , Hydrogen Sulfide, Nitric Oxide, Oxygen , Ammonia.",
   },
@@ -31,7 +31,7 @@ const faqs = [
       "We Have developed a Mesh system which utilizes a network of multiple air quality monitoring devices to capture data over a large area. These devices work together to cumulatively collect and aggregate air quality information, providing comprehensive coverage and analysis for extensive spaces.",
   },
   {
-    question: "Can multiple user access vayuguna dashboard ?",
+    question: "Can multiple user access Sensor Magics dashboard ?",
     answer: "Yes",
   },
 ];
