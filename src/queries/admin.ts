@@ -9,6 +9,7 @@ import {
   getAllClients,
   getAllDevices,
   getClientDetail,
+  getUserDevices,
   getWeatherData,
   registerDevice,
 } from "../api/admin";
@@ -113,6 +114,26 @@ export function useGetAllDevices() {
     onError: () => {
       handleEventForTracking({
         eventName: "get-all-devices",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+export function useGetUserDevices() {
+  return useQuery({
+    queryKey: "get-all-devices",
+    queryFn: getUserDevices,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "get-user-devices",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "get-user-devices",
         success: false,
         eventType: "API",
       });

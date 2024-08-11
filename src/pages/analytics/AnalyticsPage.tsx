@@ -2,6 +2,8 @@ import {EChartOption} from "echarts";
 import ReactECharts from "echarts-for-react";
 import _ from "lodash";
 import { useWeatherData } from "../../queries/admin";
+import { useState } from "react";
+import ReportModal from "../../modal/ReportModal";
 
 const AnalyticsPage = () => {
   const deviceId = '01J2RWJH8HF0C6ZQYFJ9HHC9ZP';
@@ -100,10 +102,12 @@ const AnalyticsPage = () => {
       },
     ],
   };
-
+  const [dialog, setDialog] = useState(false);
   return <>
+  <div onClick={() => setDialog(true)}>Download Report</div>
   <ReactECharts option={temperature} />
   <ReactECharts option={humidity} />
+  {dialog && <ReportModal isOpen={dialog} onClose={() => setDialog(false)} deviceId = {deviceId} />}
   </>;
 }
 

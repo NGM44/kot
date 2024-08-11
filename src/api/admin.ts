@@ -25,6 +25,10 @@ export async function getAllDevices(): Promise<IDeviceModel[]> {
   return api.get(`/device/all`).then((res) => res.data.data);
 }
 
+export async function getUserDevices(): Promise<IDeviceModel[]> {
+  return api.get(`/device/user`).then((res) => res.data.data);
+}
+
 export async function getClientDetail(
   context: QueryFunctionContext
 ): Promise<ICompanyModel> {
