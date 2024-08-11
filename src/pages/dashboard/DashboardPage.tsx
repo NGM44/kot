@@ -1,7 +1,7 @@
-import React from "react";
+import RabbitMQConsumer from "./RabbitMQConsumer";
 
 const DashboardPage = () => {
-  return <div>DashboardPage</div>;
+  return <div><RabbitMQConsumer/></div>;
 };
 
 export default DashboardPage;
