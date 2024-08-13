@@ -18,7 +18,8 @@ const RabbitMQConsumer = () => {
     };
 
     return () => {
-      ws.close();
+      if(ws.readyState === 1)
+        {ws.close();}
     };
   }, []);
 
