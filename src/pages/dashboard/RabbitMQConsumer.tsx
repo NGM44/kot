@@ -6,7 +6,7 @@ const RabbitMQConsumer = () => {
   const [messages, setMessages] = useState<IWeatherData>();
 
   useEffect(() => {
-    const ws = new WebSocket(`wss://128.199.21.134:8080`);
+    const ws = new WebSocket(`wss://api.sensormagics.com:51001`);
 
     ws.onopen = () => {
       console.log('Connected to WebSocket server');
