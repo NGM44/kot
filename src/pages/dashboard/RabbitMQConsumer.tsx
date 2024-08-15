@@ -13,15 +13,27 @@ const RabbitMQConsumer = () => {
     };
 
     ws.onmessage = event => {
-      const data: IWeatherData = JSON.parse(event.data);
-      setMessages(data);
+      try {
+        const data: IWeatherData = JSON.parse(event.data);
+        setMessages(data);
+      } catch (error) {
+        console.error('Failed to parse message:', error);
+      }
     };
-
+  
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+  
+    ws.onclose = (event) => {
+      console.log('WebSocket connection closed:', event.reason);
+    };  
     return () => {
       if(ws.readyState === 1)
         {ws.close();}
     };
   }, []);
+  
 
   return (
     <div className='flex flex-col'>
