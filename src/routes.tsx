@@ -20,10 +20,23 @@ import SupportLanding from "./pages/landing2/Support";
 import NewLandingPage from "./pages/landing2";
 import ForgotPasswordPage from "./pages/auth/ForgotPassword";
 import ChangePasswordPage from "./pages/auth/ChangePassword";
+import NewLayout from "./pages/landing2/NewLayout";
+import HomePage from "./pages/new/HomePage";
 
 export default function Router() {
   const { isAuthenticated, role } = useAuthStore();
   return useRoutes([
+    {
+      path: "/",
+      element: <NewLayout />,
+      children: [
+        { path: "dashboard", element: <HomePage /> },
+        { path: "analytics", element: <AnalyticsPage /> },
+        { path: "grid", element: <GridPage /> },
+        { path: "genie", element: <SupportPage /> },
+        { path: "profile", element: <ProfilePage /> },
+      ],
+    },
     {
       path: "/",
       element: <LandingLayout />,
@@ -51,7 +64,7 @@ export default function Router() {
     {
       path: role?.toUpperCase() === "ADMIN" ? "/admin" : "/user",
       element: isAuthenticated ? (
-        <MainLayout />
+        <NewLayout />
       ) : (
         <Navigate to="/login" replace />
       ),
@@ -89,7 +102,7 @@ export default function Router() {
                 element: <SettingsPage />,
               },
               {
-                path: "support",
+                path: "genie",
                 element: <SupportPage />,
               },
               {

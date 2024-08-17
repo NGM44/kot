@@ -4,12 +4,7 @@ import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 interface Navigation {
   name: string;
   href: string;
-  icon: React.ForwardRefExoticComponent<
-    Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
-      title?: string | undefined;
-      titleId?: string | undefined;
-    } & React.RefAttributes<SVGSVGElement>
-  >;
+  icon: any
   current: boolean;
 };
 interface Resources {

@@ -5,10 +5,11 @@ module.exports = {
   theme: {
     extend: {
       boxShadow:{
-        box: "0px 4px 3px rgba(0, 0, 0, 0.03)",
+        box: "0px 0px 8px rgba(0, 0, 0, 0.06)",
       },
+      
       dropShadow: {
-        box: "0px 4px 3px rgba(0, 0, 0, 0.03)",
+        box: "0px 0px 8px rgba(0, 0, 0, 0.06)",
       },
       backgroundImage: {
         wave: "url('/src/utils/assets/wave.svg')",
@@ -45,14 +46,9 @@ module.exports = {
         preference9: "#B263B6",
         preference10: "#DE716B",
         preference11: "#CC60A6",
-        primary: "#69B2F8",
-        primary: {
-          100: "#D1E6FA",
-          300: "#D1E6FA",
-          500: "#69B2F8",
-          800: "#0168FA",
-        },
-        secondary: "#0C224A",
+        primary: "#6278fb",
+
+        secondary: "#19181c",
         primaryText: "#464E5F",
         secondaryText: "#737385",
         tertiaryText: "#181C32",
