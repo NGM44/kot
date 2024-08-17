@@ -31,3 +31,13 @@ export interface IWeatherData {
   humidity: number;
   dateString: string;
 }
+export interface ReportDto {
+  base64File: string;
+  fileType: string;
+}
+
+export interface ReportRequestDto{
+  deviceId: string;
+  to: string;
+  from: string;
+}

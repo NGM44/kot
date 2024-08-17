@@ -5,6 +5,10 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
+import { generateReport } from "../api/admin";
+import { downloadBase64File } from "../utils/DownloadFile";
+import { format } from "date-fns";
+import { ReportRequestDto } from "../types/device";
 
 export default function ReportModal({
   isOpen,
@@ -16,7 +20,12 @@ export default function ReportModal({
   deviceId: string
 }) {
   function handleDownloadReport(){
-    
+    // later to take from user
+    const to = format(new Date(),"yyyy-MM-dd");
+    const from = format(new Date().setDate(new Date().getDate() - 3),"yyyy-MM-dd");
+    const reportReqDto: ReportRequestDto = {deviceId,from,to};
+    generateReport(reportReqDto).then(data => downloadBase64File(data.base64File, data.fileType,deviceId+' Report'));
+    onClose();
   }
   return (
     <Transition show={isOpen}>
