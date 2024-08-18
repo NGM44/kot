@@ -5,6 +5,7 @@ import DownloadExcel from "./DownloadExcel";
 import TimeGap from "./Timegap";
 import DeviceSelection from "./DeviceSelection";
 import ReportModal from "../../modal/ReportModal";
+import RabbitMQConsumer from "../dashboard/RabbitMQConsumer";
 
 const AnalyticsSecondSection = () => {
   const [dialog, setDialog] = useState(false);
@@ -25,6 +26,7 @@ const AnalyticsSecondSection = () => {
             Access a summary of key metrics and live status
           </p>
         </VStack>
+        <RabbitMQConsumer/>
         <HStack className="gap-8">
           <TimeGap />
           <DateSelector />
