@@ -5,6 +5,8 @@ import {
   UserData,
   ResetPasswordDetailModel,
   SignUpDetailsModel,
+  ChangePasswordDetailModelAuth,
+  LogoutFromAllDevicesModel,
 } from "../types/auth";
 import api from "../queries/api";
 
@@ -23,6 +25,19 @@ export async function signUp(
   signUpDetailsModel: SignUpDetailsModel
 ): Promise<CustomResponse<SignResponseModel>> {
   return api.post(`user/signUp`, signUpDetailsModel).then((res) => res.data);
+}
+
+
+export async function changePasswordAuth(
+  changePasswordAuth: ChangePasswordDetailModelAuth
+): Promise<CustomResponse<SignResponseModel>> {
+  return api.post(`user/changePasswordAuth`, changePasswordAuth).then((res) => res.data);
+}
+
+export async function logOutFromAllDevices(
+  logoutFromAllDevices: LogoutFromAllDevicesModel
+): Promise<CustomResponse<SignResponseModel>> {
+  return api.post(`user/logoutFromAllDevices`, logoutFromAllDevices).then((res) => res.data);
 }
 
 export async function generateCredentials(userDetails: UserEmailModel) {

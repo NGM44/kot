@@ -1,23 +1,59 @@
-
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogPanel,
   Transition,
   TransitionChild,
 } from "@headlessui/react";
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { useAddDeviceToClient, useGetAllDevices } from "../queries/admin";
+import { ConnectDeviceModel } from "../types/device";
+import { queryClient } from "../queries/client";
+import { useParams } from "react-router-dom";
 
-export default function ReportModal({
+export default function AddDeviceModal({
+  deviceId,
   isOpen,
   onClose,
-  deviceId,
 }: {
+  deviceId: string;
   isOpen: boolean;
   onClose: () => void;
-  deviceId: string
 }) {
-  function handleDownloadReport(){
-    
+  const [deviceName, setDeviceName] = useState("");
+  const [deviceType, setDeviceType] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const { mutate: addDeviceToClient } = useAddDeviceToClient();
+  const { id } = useParams();
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (showSuccess) {
+      timer = setTimeout(() => {
+        setShowSuccess(false);
+        onClose();
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [showSuccess, onClose]);
+
+  const { data: deviceDetails } = useGetAllDevices();
+
+  function handleAddDevice() {
+    const deviceDetails: ConnectDeviceModel = {
+      deviceId,
+      modelType: deviceType,
+      name: deviceName,
+      clientId: id ?? "",
+    };
+    addDeviceToClient(deviceDetails, {
+      onSuccess() {
+        setShowSuccess(true);
+        queryClient.invalidateQueries("get-client-detail");
+      },
+    });
   }
+
   return (
     <Transition show={isOpen}>
       <Dialog className="relative z-50" onClose={onClose}>
@@ -43,28 +79,110 @@ export default function ReportModal({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                <div className="flex flex-col justify-between p-9 bg-white rounded h-[300px] ">
-                  <div className="flex flex-col items-center justify-center gap-6 grow">
-                    <p className="text-sm font-normal text-gray-600">Download Report</p>
-                  </div>
-                  <div className="flex flex-row justify-between gap-9">
-                    <button
-                      onClick={() => onClose()}
-                      className="text-gray-400 bg-slate-50"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                type="button"
-                onClick={
-                  handleDownloadReport
-                }
-                className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                      Download Report
-                    </button>
-                  </div>
-                </div>
+                {showSuccess ? (
+                  <Transition
+                    show={showSuccess}
+                    enter="transition-opacity duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="transition-opacity duration-300"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <div className="text-center">
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                        <CheckIcon
+                          className="h-6 w-6 text-green-600 animate-pulse"
+                          aria-hidden="true"
+                        />
+                      </div>
+                      <h3 className="mt-2 text-lg font-medium text-gray-900">
+                        Report Generated
+                      </h3>
+                      <p className="mt-2 text-sm text-gray-500">
+                        will be sent to registered mail shortly
+                      </p>
+                    </div>
+                  </Transition>
+                ) : (
+                  <>
+                    <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4">
+                      <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                        Generate Report
+                      </h2>
+                    </div>
+                    <div className="space-y-6">
+                      <div>
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                          Device Name
+                        </label>
+                        <div className="mt-2">
+                          <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            onChange={(e) => setDeviceName(e.target.value)}
+                            required
+                            className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="deviceType"
+                          className="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                          Device Type
+                        </label>
+                        <select
+                          id="deviceType"
+                          name="deviceType"
+                          autoComplete="off"
+                          onChange={(e) => setDeviceType(e.target.value)}
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                        >
+                          <option>--Select Device Type---</option>
+                          {[{ modelType: "Type" }]?.map((options) => (
+                            <option>{options.modelType}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="deviceType"
+                          className="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                          Device ID
+                        </label>
+                        <select
+                          id="deviceId"
+                          name="deviceId"
+                          autoComplete="off"
+                          // onChange={(e) => setDeviceId(e.target.value)}
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                        >
+                          <option>--Select Device ID---</option>
+                          {[{ id: "Type" }]?.map((options) => (
+                            <option>{options.id}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <button
+                          type="submit"
+                          onClick={handleAddDevice}
+                          className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                          Add Device
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
               </DialogPanel>
             </TransitionChild>
           </div>

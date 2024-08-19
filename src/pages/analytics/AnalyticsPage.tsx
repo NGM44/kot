@@ -18,9 +18,16 @@ const AnalyticsPage = () => {
   const maxTemperatureValue = _.max(weatherData.map((d) => d.temperature));
   const minHumidityValue = _.min(weatherData.map((d) => d.humidity));
   const maxHumidityValue = _.max(weatherData.map((d) => d.humidity));
-  const temperature: EChartOption = {
+
+  const temperatureOptions = {
     tooltip: {
       trigger: "axis",
+    },
+    grid: {
+      top: 40,
+      bottom: 80,
+      left: 60,
+      right: 40,
     },
     xAxis: {
       type: "category",
@@ -32,7 +39,7 @@ const AnalyticsPage = () => {
         show: false,
         dimension: 1,
         inRange: {
-          color: ["green", "yellow", "orange", "red"],
+          color: ["#00A36C", "#FFA500", "#FF4500"],
         },
         min: minTemperatureValue,
         max: maxTemperatureValue,
@@ -42,6 +49,7 @@ const AnalyticsPage = () => {
       type: "value",
       axisLabel: {
         formatter: "{value} °C",
+        fontSize: 14,
       },
       min: minTemperatureValue,
       max: maxTemperatureValue,
@@ -50,15 +58,13 @@ const AnalyticsPage = () => {
       {
         type: "line",
         data: weatherData.map((d) => d.temperature),
+        // symbolSize: 10,
+        // lineStyle: {
+        //   width: 3,
+        // },
       },
     ],
     dataZoom: [
-      // {
-      //   type: "slider",
-      //   start: 99.99,
-      //   end: 100,
-      //   zoomOnMouseWheel: true,
-      // },
       {
         type: "inside",
         start: 0,
@@ -71,15 +77,25 @@ const AnalyticsPage = () => {
     <>
       <VStack className="gap-6">
         <AnalyticsSecondSection />
-        {/* <div onClick={() => setDialog(true)}>Download Report</div> */}
-        <div className="h-96 bg-white rounded-xl shadow-box">
-          <HStack className="justify-end px-4 py-4">
-            <ChartSelection />
-          </HStack>
-          <ReactECharts option={temperature} />
-        </div>
+        <div className="bg-white rounded-xl shadow-box p-6">
+          <div className="flex justify-between items-center mb-4">
+            <VStack>
+              <h2 className="text-xl font-bold">Temperature Analysis</h2>
+              <p className="text-xs font-medium text-gray-500 ">
+                showing the historic data temperature metrics of about 7 days of
+                decive2
+              </p>
+            </VStack>
 
-        {/* <ReactECharts option={humidity} /> */}
+            <ChartSelection />
+          </div>
+          <div className="h-[500px] w-full">
+            <ReactECharts
+              option={temperatureOptions}
+              style={{ height: "100%", width: "100%" }}
+            />
+          </div>
+        </div>
       </VStack>
     </>
   );

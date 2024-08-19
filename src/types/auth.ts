@@ -19,6 +19,15 @@ export interface SignUpDetailsModel {
   clientId: string;
 }
 
+export interface ChangePasswordDetailModelAuth {
+  password: string;
+  id: string;
+}
+
+export interface LogoutFromAllDevicesModel {
+  id: string;
+}
+
 export interface DeviceDetailsModel {
   deviceId: string;
   deviceType: string;

@@ -1,5 +1,13 @@
 import { useMutation } from "react-query";
-import { changePassword, forgotPassword, resetPassword, signIn, signUp } from "../api/auth";
+import {
+  changePassword,
+  changePasswordAuth,
+  forgotPassword,
+  logOutFromAllDevices,
+  resetPassword,
+  signIn,
+  signUp,
+} from "../api/auth";
 import { handleEventForTracking } from "../analytics";
 
 export function useLogin() {
@@ -85,7 +93,6 @@ export function useForgotPassword() {
   });
 }
 
-
 export function useSignUp() {
   return useMutation({
     mutationKey: "signUp",
@@ -100,6 +107,48 @@ export function useSignUp() {
     onError: () => {
       handleEventForTracking({
         eventName: "signUp",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useChangePasswordAuth() {
+  return useMutation({
+    mutationKey: "changepassword",
+    mutationFn: changePasswordAuth,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "change-password-auth",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "change-password-auth",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useLogoutFromAllDevices() {
+  return useMutation({
+    mutationKey: "logoutFromAllDevices",
+    mutationFn: logOutFromAllDevices,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "logout-from-all-devices",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "logout-from-all-devices",
         success: false,
         eventType: "API",
       });

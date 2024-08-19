@@ -13,6 +13,7 @@ interface Auth {
   isAuthenticated?: boolean;
   accessToken?: string;
   email?: string;
+  name?: undefined;
   id?: string;
   role?: string;
 }
@@ -30,6 +31,7 @@ export const useAuthStore = createStore<AuthStore>(
       isAuthenticated: false,
       accessToken: undefined,
       email: undefined,
+      name: undefined,
       id: undefined,
       role: undefined,
       setAuth: (auth: Auth | ((auth: Auth) => Auth)) => {
@@ -44,10 +46,11 @@ export const useAuthStore = createStore<AuthStore>(
           isAuthenticated: false,
           accessToken: undefined,
           email: undefined,
+          name: undefined,
           role: undefined,
           id: undefined,
         }));
       },
-    }),
-  ),
+    })
+  )
 );

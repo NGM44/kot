@@ -2,7 +2,7 @@ import { ClientModel } from "../types/auth";
 import { CustomResponse } from "./auth";
 import api from "../queries/api";
 import { QueryFunctionContext } from "react-query";
-import { ICompanyModel, IDeviceModel } from "../pages/user/CompanyPage";
+import { ICompanyModel, IDeviceModel, UserModel } from "../pages/user/CompanyPage";
 import {
   ChangeDeviceModel,
   ConnectDeviceModel,
@@ -25,7 +25,7 @@ export async function getAllDevices(): Promise<IDeviceModel[]> {
   return api.get(`/device/all`).then((res) => res.data.data);
 }
 
-export async function getUserDevices(): Promise<IDeviceModel[]> {
+export async function getUserDevices(): Promise<UserModel> {
   return api.get(`/device/user`).then((res) => res.data.data);
 }
 

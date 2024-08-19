@@ -3,12 +3,10 @@ import ReactECharts from "echarts-for-react";
 import _ from "lodash";
 import { useWeatherData } from "../../queries/admin";
 import { useState } from "react";
-import ReportModal from "../../modal/ReportModal";
 import { HStack, VStack } from "../../component/utils";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { Droplets } from "lucide-react";
-import { CardModel } from "./DataCards";
 import { Icon } from "@iconify/react";
+import { CardModel } from "./GenerateDashboardData";
 
 const ProductivityMeter = ({ value }: { value: CardModel }) => {
   const deviceId = "01J2RWJH8HF0C6ZQYFJ9HHC9ZP";
@@ -18,25 +16,32 @@ const ProductivityMeter = ({ value }: { value: CardModel }) => {
   const maxTemperatureValue = _.max(weatherData.map((d) => d.temperature));
   const minHumidityValue = _.min(weatherData.map((d) => d.humidity));
   const maxHumidityValue = _.max(weatherData.map((d) => d.humidity));
+
+  const maxIndicators = [
+    { name: "Temperature", max: 6500 },
+    { name: "Humidity", max: 16000 },
+    { name: "Pressure", max: 30000 },
+    { name: "CO2", max: 38000 },
+    { name: "VOCs", max: 52000 },
+    { name: "Avg. PM", max: 25000 },
+  ];
   const radaroption = {
     // legend: {
     //   data: ["Allocated Budget", "Actual Spending"],
     // },
+
     radar: {
       // shape: 'circle',
-      indicator: [
-        { name: "Sales", max: 6500 },
-        { name: "Administration", max: 16000 },
-        { name: "Information Technology", max: 30000 },
-        { name: "Customer Support", max: 38000 },
-        { name: "Development", max: 52000 },
-        { name: "Marketing", max: 25000 },
-      ],
+      indicator: maxIndicators,
     },
     series: [
       {
         name: "Budget vs spending",
         type: "radar",
+        // tooltip: {
+        //   trigger: 'item'
+        // },
+        // areaStyle: {},
         data: [
           {
             value: [4200, 3000, 20000, 35000, 50000, 18000],
@@ -166,9 +171,10 @@ const ProductivityMeter = ({ value }: { value: CardModel }) => {
               </HStack>
               <HStack className="gap-2 mt-6 mb-2">
                 <div className="p-2 shadow-box bg-gray-50 border-gray-200 border rounded-lg">
-                
-                  <Icon className="w-5 h-5 text-primary font-bold" icon={"line-md:speedometer-loop"} />
-                  
+                  <Icon
+                    className="w-5 h-5 text-primary font-bold"
+                    icon={"line-md:speedometer-loop"}
+                  />
                 </div>
                 <p className="text-secondary text-3xl font-semibold">
                   {value.value}
@@ -183,10 +189,16 @@ const ProductivityMeter = ({ value }: { value: CardModel }) => {
             </VStack>
             <VStack className="gap-4">
               <HStack className="gap-2">
-                <div className="w-4 h-4 bg-green-500 rounded-lg"></div>  <p className="text-sm text-secondary font-medium">Ideal Score</p>
+                <div className="w-4 h-4 bg-green-500 rounded-lg"></div>{" "}
+                <p className="text-sm text-secondary font-medium">
+                  Ideal Score
+                </p>
               </HStack>
               <HStack className="gap-2">
-                <div className="w-4 h-4 bg-blue-500  rounded-lg"></div>   <p className="text-sm text-secondary font-medium">Sensor Reading</p>
+                <div className="w-4 h-4 bg-blue-500  rounded-lg"></div>{" "}
+                <p className="text-sm text-secondary font-medium">
+                  Sensor Reading
+                </p>
               </HStack>
             </VStack>
           </VStack>

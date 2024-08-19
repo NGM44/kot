@@ -28,6 +28,25 @@ export interface IUserModel {
   createdAt: Date;
   updatedAt: Date;
 }
+export interface UserModel {
+  id: string;
+  name: string;
+  email: string;
+  role: any;
+  clientId: string
+  client: ClientDataModel
+  devices: IDeviceModel[]
+}
+export interface ClientDataModel {
+  id: string;
+  name: string;
+  logo: string;
+  address: string;
+  email: string;
+  phone: string;
+  website: string;
+}
+
 export interface IDeviceModel {
   id: string;
   name: string;

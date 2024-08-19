@@ -6,13 +6,14 @@ import TimeGap from "./Timegap";
 import DeviceSelection from "./DeviceSelection";
 import ReportModal from "../../modal/ReportModal";
 import RabbitMQConsumer from "../dashboard/RabbitMQConsumer";
+import ChartSelection from "./ChartSelection";
 
 const AnalyticsSecondSection = () => {
   const [dialog, setDialog] = useState(false);
   const deviceId = "";
   return (
     <div>
-      <HStack className="bg-white rounded-xl drop-shadow-box p-4 w-full justify-between">
+      <HStack className="bg-white z-30 rounded-xl shadow-box p-4 w-full justify-between">
         {dialog && (
           <ReportModal
             isOpen={dialog}
@@ -23,7 +24,7 @@ const AnalyticsSecondSection = () => {
         <VStack>
           <p className="text-xl text-secondary font-semibold">Analytics</p>
           <p className="text-xs text-gray-600">
-            Access a summary of key metrics and live status
+            Access a summary of key metrics and historic data points.
           </p>
         </VStack>
         <RabbitMQConsumer/>
@@ -31,7 +32,9 @@ const AnalyticsSecondSection = () => {
           <TimeGap />
           <DateSelector />
           <DeviceSelection />
-          <DownloadExcel />
+          <DownloadExcel onClick={()=>{
+            setDialog(true);
+          }} />
         </HStack>
       </HStack>
     </div>

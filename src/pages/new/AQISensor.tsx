@@ -6,15 +6,8 @@ import InfoRow from "./IndividualGasEntry";
 import StackedBarCharts from "./StackedBarCharts";
 import StackedBarChartsFullFledged from "./StackedBarChartsFullFledged";
 import { Icon } from "@iconify/react";
+import { CardModel } from "./GenerateDashboardData";
 
-export interface CardModel {
-  name: string;
-  value: string;
-  change: string;
-  content: string;
-  info: string;
-  graph: string;
-}
 
 const AQISensor = ({ value }: { value: CardModel }) => {
   return (

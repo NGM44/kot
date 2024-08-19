@@ -55,8 +55,9 @@ export default function MainLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  
 
-  const { role, email } = useAuthStore();
+  const { role, email,setAuth } = useAuthStore();
   useEffect(() => {
     if (pathname === "/") {
       if (role?.toUpperCase() === "ADMIN") {

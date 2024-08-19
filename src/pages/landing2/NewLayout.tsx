@@ -49,6 +49,9 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { MoonIcon, SunIcon, User, UserCircle } from "lucide-react";
 import { HStack } from "../../component/utils";
 import AnimatedThemeToggle from "../new/Theme";
+import { Icon } from "@iconify/react";
+import { useGetUserDevices } from "../../queries/admin";
+import RotatingRefreshIcon from "../new/Refresh";
 const userNavigation = [
   // { name: "Your profile", href: "" },
   { name: "Log out", href: "#" },
@@ -69,11 +72,12 @@ const userNavigation = [
 
 export default function NewLayout() {
   const [dialogLogout, setDialogLogout] = useState(false);
-
+  const { data: user } = useGetUserDevices();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { isAuthenticated, role, email } = useAuthStore();
+  const { isAuthenticated, role, email, setAuth } = useAuthStore();
+
   console.log("role", role);
   console.log("pathname", pathname);
   useEffect(() => {
@@ -101,27 +105,28 @@ export default function NewLayout() {
       {
         name: "Dashboard",
         href: "/dashboard",
-        icon: <HomeIcon className="w-5 h-5" />,
+        icon: <Icon className="w-5 h-5" icon={"radix-icons:dashboard"} />,
         current: true,
       },
       {
         name: "Data Analysis",
         href: "/analytics",
-        icon: <ChartPieIcon className="w-5 h-5" />,
+        icon: <Icon className="w-5 h-5" icon={"solar:graph-linear"} />,
         current: false,
       },
+
       {
-        name: "Sensor map",
+        name: "SenseMap",
         href: "/grid",
-        icon: <RectangleGroupIcon className="w-5 h-5" />,
+        icon: <Icon className="w-5 h-5" icon={"f7:circle-grid-hex"} />,
         current: false,
       },
-      {
-        name: "Genie",
-        href: "/genie",
-        icon: <SparklesIcon className="w-5 h-5" />,
-        current: false,
-      },
+      // {
+      //   name: "Genie",
+      //   href: "/genie",
+      //   icon: <SparklesIcon className="w-5 h-5" />,
+      //   current: false,
+      // },
     ];
   const resources = [
     {
@@ -150,7 +155,7 @@ export default function NewLayout() {
     },
   ];
 
-  const [isDark,setDark] = useState(false);
+  const [isDark, setDark] = useState(false);
 
   return (
     <div>
@@ -227,7 +232,7 @@ export default function NewLayout() {
       {/* Static sidebar for desktop */}
 
       <div className="mt-4 mx-4">
-        <div className="sticky bg-[#f6f9fb] top-0 z-40 flex h-16 shrink-0 items-center gap-x-4  bg-transparent px-4 sm:gap-x-6 sm:px-6 lg:px-8">
+        <div className="sticky bg-[#f6f9fb] top-0 z-50 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 lg:hidden bg-white rounded-md"
@@ -271,6 +276,7 @@ export default function NewLayout() {
                   aria-hidden="true"
                 />
               </button>
+              <RotatingRefreshIcon />
               <AnimatedThemeToggle />
               {/* <button
                 type="button"
@@ -297,7 +303,7 @@ export default function NewLayout() {
                   } drop-shadow-box h-11 rounded-xl`}
                 >
                   <div
-                  className="flex"
+                    className="flex"
                     onClick={() => {
                       navigate("/profile");
                     }}
@@ -326,7 +332,7 @@ export default function NewLayout() {
                           }`}
                           aria-hidden="true"
                         >
-                          {"Akmal Nasrulloh"}
+                          {user?.name}
                         </span>
                         <span
                           className={`ml-2 text-[11px] mb-0 font-semibold leading-0  ${
@@ -336,7 +342,7 @@ export default function NewLayout() {
                           }`}
                           aria-hidden="true"
                         >
-                          {"Admin"}
+                          {user?.role}
                         </span>
                       </div>
                     </div>
@@ -387,7 +393,6 @@ export default function NewLayout() {
 
         <main className="py-6">
           <div className="px-2 sm:px-4 lg:px-8">
-            {" "}
             <Outlet />
           </div>
         </main>
