@@ -31,7 +31,7 @@ export default function DeviceSelection() {
       value={selected}
       onChange={(data) => {
         setSelected(data);
-        console.log(data, data);
+  
 
         setValue({
           index: data.id ?? 0,

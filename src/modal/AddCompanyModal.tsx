@@ -9,6 +9,8 @@ import { ClientModel } from "../types/auth";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { on } from "events";
+import { queryClient } from "../queries/client";
 
 export default function AddCompanyModal({
   isOpen,
@@ -223,6 +225,8 @@ export default function AddCompanyModal({
                         e.preventDefault();
                         addClient(clientModel, {
                           onSuccess: (data) => {
+                            onClose();
+                            queryClient.invalidateQueries("get-all-clients");
                             toast("Client Added Successfully", {
                               type: "success",
                               autoClose: 2000,

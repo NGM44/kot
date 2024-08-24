@@ -5,11 +5,12 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useAddDeviceToClient, useGetAllDevices } from "../queries/admin";
 import { ConnectDeviceModel } from "../types/device";
 import { queryClient } from "../queries/client";
 import { useParams } from "react-router-dom";
+import { HStack } from "../component/utils";
 
 export default function AddDeviceModal({
   isOpen,
@@ -49,6 +50,7 @@ export default function AddDeviceModal({
       onSuccess() {
         setShowSuccess(true);
         queryClient.invalidateQueries("get-client-detail");
+        onClose()
       },
     });
   }
@@ -105,10 +107,13 @@ export default function AddDeviceModal({
                   </Transition>
                 ) : (
                   <>
-                    <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4">
+                    <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4 justify-between flex flex-row items-center">
                       <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Add Device
                       </h2>
+                      <XMarkIcon className="w-6 h-6" onClick={()=>{
+                    onClose()
+                  }} />
                     </div>
                     <div className="space-y-6">
                       <div>
@@ -125,51 +130,53 @@ export default function AddDeviceModal({
                             type="text"
                             onChange={(e) => setDeviceName(e.target.value)}
                             required
-                            className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            className="block w-full px-2 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                         </div>
                       </div>
-                      <div>
-                        <label
-                          htmlFor="deviceType"
-                          className="block text-sm font-medium leading-6 text-gray-900"
-                        >
-                          Device Type
-                        </label>
-                        <select
-                          id="deviceType"
-                          name="deviceType"
-                          autoComplete="off"
-                          onChange={(e) => setDeviceType(e.target.value)}
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                        >
-                          <option>--Select Device Type---</option>
-                          {deviceDetails?.map((options) => (
-                            <option>{options.modelType}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <label
-                          htmlFor="deviceType"
-                          className="block text-sm font-medium leading-6 text-gray-900"
-                        >
-                          Device ID
-                        </label>
-                        <select
-                          id="deviceId"
-                          name="deviceId"
-                          autoComplete="off"
-                          onChange={(e) => setDeviceId(e.target.value)}
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                        >
-                          <option>--Select Device ID---</option>
-                          {deviceDetails?.map((options) => (
-                            <option>{options.id}</option>
-                          ))}
-                        </select>
-                      </div>
+                      <HStack className="w-full justify-between">
+                        <div>
+                          <label
+                            htmlFor="deviceType"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                          >
+                            Device Type
+                          </label>
 
+                          <select
+                            id="deviceType"
+                            name="deviceType"
+                            autoComplete="off"
+                            onChange={(e) => setDeviceType(e.target.value)}
+                            className="block w-full px-2 rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                          >
+                            <option>--Select Device Type---</option>
+                            {deviceDetails?.map((options) => (
+                              <option>{options.modelType}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="deviceType"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                          >
+                            Device ID
+                          </label>
+                          <select
+                            id="deviceId"
+                            name="deviceId"
+                            autoComplete="off"
+                            onChange={(e) => setDeviceId(e.target.value)}
+                            className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                          >
+                            <option>--Select Device ID---</option>
+                            {deviceDetails?.map((options) => (
+                              <option>{options.id}</option>
+                            ))}
+                          </select>
+                        </div>
+                      </HStack>
                       <div>
                         <button
                           type="submit"

@@ -41,8 +41,7 @@ export default function NewLayout() {
   const navigate = useNavigate();
   const { role } = useAuthStore();
   let isAdmin = role?.toUpperCase() === "ADMIN";
-  console.log("role", role);
-  console.log("pathname", pathname);
+
   useEffect(() => {
     if (pathname === "/") {
       if (role?.toUpperCase() === "ADMIN") {
@@ -144,7 +143,7 @@ export default function NewLayout() {
     },
   ];
 
-  console.log("OUTPUT", navigation);
+
   const [highlightedComponents, setHighlightedComponents] = useState([]);
 
   return (
@@ -206,7 +205,7 @@ export default function NewLayout() {
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
                   <div className="flex h-16 shrink-0 items-center">
                     <img
-                      src="/logo.png"
+                      src="/onlylogo.png"
                       className="h-4 w-auto"
                       alt="Sensor Magics"
                     />

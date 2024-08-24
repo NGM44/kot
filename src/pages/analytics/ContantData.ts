@@ -46,18 +46,3 @@ export function generateSensorData(timePeriod: TimePeriod, timeGap: TimeGap): Se
 
     return data;
 }
-
-// // Example usage
-// const timePeriods: TimePeriod[] = ["1 Day", "7 Days", "30 Days", "60 Days", "90 Days"];
-// const timeGaps: TimeGap[] = ["1 hour", "2 hour", "6 hour", "12 hour", "24 hour"];
-
-// timePeriods.forEach(period => {
-//     timeGaps.forEach(gap => {
-//         const sensorData = generateSensorData(period, gap);
-//         console.log(`Data for ${period} with ${gap} gap:`);
-//         console.log(`Number of data points: ${sensorData.length}`);
-//         console.log("First data point:", sensorData[0]);
-//         console.log("Last data point:", sensorData[sensorData.length - 1]);
-//         console.log("\n");
-//     });
-// });

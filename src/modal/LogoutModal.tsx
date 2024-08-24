@@ -56,7 +56,7 @@ export default function LogoutModal({
                 type="button"
                 onClick={() => {
                   onClose();
-                  console.log("clicked");
+                 
                   localStorage.clear();
                   navigate("/login");
                 }}

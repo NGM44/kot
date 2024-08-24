@@ -8,8 +8,7 @@ export default function UserPage() {
   const navigate = useNavigate();
   const { data: clientDetails } = useGetAllClients();
   const [dialog, setDialog] = useState(false);
-  //TODO: get details from clientDetails
-  console.log("clientDetails", clientDetails);
+
   const sum = clientDetails?.reduce((accumulator:any, currentValue:any) => {
     const user = currentValue.users ?? [];
     return accumulator + user.length;
@@ -19,7 +18,7 @@ export default function UserPage() {
     return accumulator + user.length;
   }, 0);
   const { data: deviceDs } = useGetAllDevices();
-  console.log("user", sum);
+
   const stats = [
     { name: "No. of Clients", value: clientDetails?.length, change: "+88%" },
     { name: "No. of User", value: sum, change: "2%" },

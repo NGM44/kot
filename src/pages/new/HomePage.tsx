@@ -22,7 +22,7 @@ const HomePage = () => {
     let liveData2 = generateSensorData();
     setLiveData3(liveData2);
   }, [isRefresh]);
-  console.log("liveData2", liveData3);
+ 
 
   useEffect(() => {
     setLiveData(liveData3[index ?? 0]);

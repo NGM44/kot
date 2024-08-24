@@ -18,11 +18,16 @@ export default function DevicePage() {
   }, [deviceDs]);
   const { mutate: changeStatus } = useChangeDeviceState();
   //TODO: get stat details from deviceDetails
+  console.log("deviceDetails",deviceDetails);
+  let connected = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "CONNECTED").length;
+  let registered = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "REGISTERED").length;
+  let unregistered = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "UNREGISTERED").length;
+  let terminated = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "TERMINATED").length;
   const stats = [
-    { name: "Registered", value: "88", change: "+88%" },
-    { name: "Production", value: "10", change: "+10%" },
-    { name: "Un Registered", value: "2", change: "2%" },
-    { name: "Terminated", value: "0", change: "0%" },
+    { name: "Registered", value: registered, change: "+88%" },
+    { name: "Production", value: connected, change: "+10%" },
+    { name: "Un Registered", value: unregistered, change: "2%" },
+    { name: "Terminated", value: terminated, change: "0%" },
   ];
   return (
     <div className="flex flex-col gap-8">
@@ -169,7 +174,7 @@ export default function DevicePage() {
                                           {
                                             onSuccess() {
                                               queryClient.invalidateQueries(
-                                                "get-all-devices"
+                                                "get-all-devices-client"
                                               );
                                             },
                                           }
@@ -187,7 +192,7 @@ export default function DevicePage() {
                                           {
                                             onSuccess() {
                                               queryClient.invalidateQueries(
-                                                "get-all-devices"
+                                                "get-all-devices-client"
                                               );
                                             },
                                           }
@@ -208,7 +213,7 @@ export default function DevicePage() {
                                           {
                                             onSuccess() {
                                               queryClient.invalidateQueries(
-                                                "get-all-devices"
+                                                "get-all-devices-client"
                                               );
                                             },
                                           }
@@ -226,7 +231,7 @@ export default function DevicePage() {
                                           {
                                             onSuccess() {
                                               queryClient.invalidateQueries(
-                                                "get-all-devices"
+                                                "get-all-devices-client"
                                               );
                                             },
                                           }
@@ -244,7 +249,7 @@ export default function DevicePage() {
                                           {
                                             onSuccess() {
                                               queryClient.invalidateQueries(
-                                                "get-all-devices"
+                                                "get-all-devices-client"
                                               );
                                             },
                                           }
@@ -265,7 +270,7 @@ export default function DevicePage() {
                                           {
                                             onSuccess() {
                                               queryClient.invalidateQueries(
-                                                "get-all-devices"
+                                                "get-all-devices-client"
                                               );
                                             },
                                           }
@@ -283,7 +288,7 @@ export default function DevicePage() {
                                           {
                                             onSuccess() {
                                               queryClient.invalidateQueries(
-                                                "get-all-devices"
+                                                "get-all-devices-client"
                                               );
                                             },
                                           }
@@ -301,7 +306,7 @@ export default function DevicePage() {
                                           {
                                             onSuccess() {
                                               queryClient.invalidateQueries(
-                                                "get-all-devices"
+                                                "get-all-devices-client"
                                               );
                                             },
                                           }
@@ -321,7 +326,7 @@ export default function DevicePage() {
                                           {
                                             onSuccess() {
                                               queryClient.invalidateQueries(
-                                                "get-all-devices"
+                                                "get-all-devices-client"
                                               );
                                             },
                                           }

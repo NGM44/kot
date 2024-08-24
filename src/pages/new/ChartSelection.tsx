@@ -40,7 +40,7 @@ export default function ChartSelection() {
     <Listbox
       value={selected}
       onChange={(data:any) => {
-        console.log("data", data);
+  
         setValue({
           metric: data?.name ?? "Temperature",
         });

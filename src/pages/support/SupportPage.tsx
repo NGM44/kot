@@ -8,8 +8,7 @@ const SupportPage = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", { name, email, message });
+
     setSubmitted(true);
     // Reset form after submission
     setName("");

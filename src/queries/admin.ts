@@ -102,18 +102,18 @@ export function useGetAllClients() {
 
 export function useGetAllDevices() {
   return useQuery({
-    queryKey: "get-all-devices",
+    queryKey: "get-all-devices-client",
     queryFn: getAllDevices,
     onSuccess: () => {
       handleEventForTracking({
-        eventName: "get-all-devices",
+        eventName: "get-all-devices-client",
         success: true,
         eventType: "API",
       });
     },
     onError: () => {
       handleEventForTracking({
-        eventName: "get-all-devices",
+        eventName: "get-all-devices-client",
         success: false,
         eventType: "API",
       });

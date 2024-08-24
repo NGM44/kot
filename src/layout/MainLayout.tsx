@@ -212,7 +212,7 @@ export default function MainLayout() {
                         alt="Your Company"
                       /> */}
                     <img
-                      src="/logo.png"
+                      src="/onlylogo.png"
                       className="h-4 w-auto"
                       //   className="h-44 my-5 w-56 mx-auto"
                       alt="Sensor Magics"
@@ -237,7 +237,7 @@ export default function MainLayout() {
                 alt="Your Company"
               /> */}
             <img
-              src="/logo.png"
+              src="/onlylogo.png"
               className="h-6 w-auto"
               //   className="h-44 my-5 w-56 mx-auto"
               alt="Sensor Magics"
