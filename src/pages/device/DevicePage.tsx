@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { classNames } from "../../utils/string";
 import DeviceMenu from "./DeviceMenu";
@@ -6,13 +6,16 @@ import RegisterDeviceModal from "../../modal/RegisterDeviceModal";
 import { useChangeDeviceState, useGetAllDevices } from "../../queries/admin";
 import { EStatus } from "../../types/device";
 import { queryClient } from "../../queries/client";
-
-
+import { IDeviceModel } from "../user/CompanyPage";
 
 export default function DevicePage() {
   const [dialog, setDialog] = useState(false);
   const [selected, setSelected] = useState("Registered");
-  const { data: deviceDetails } = useGetAllDevices();
+  const { data: deviceDs } = useGetAllDevices();
+  const [deviceDetails, setDeviceDetails] = useState<IDeviceModel[]>([]);
+  useEffect(() => {
+    if (deviceDs) setDeviceDetails(deviceDs);
+  }, [deviceDs]);
   const { mutate: changeStatus } = useChangeDeviceState();
   //TODO: get stat details from deviceDetails
   const stats = [
@@ -134,10 +137,9 @@ export default function DevicePage() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {(deviceDetails ?? [])
-                    .filter((device) => true)
-                    .map((device) => (
+                {deviceDetails && (
+                  <tbody className="divide-y divide-gray-200 bg-white">
+                    {deviceDetails.map((device) => (
                       <tr key={device.id}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                           {device.name}
@@ -332,7 +334,8 @@ export default function DevicePage() {
                         </td>
                       </tr>
                     ))}
-                </tbody>
+                  </tbody>
+                )}
               </table>
             </div>
           </div>

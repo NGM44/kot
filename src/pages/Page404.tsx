@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
 export default function Page404() {
   const navigate = useNavigate();
+  const { role } = useAuthStore();
+  let isAdmin = role?.toUpperCase() === "ADMIN";
   return (
     <>
       <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -15,12 +18,17 @@ export default function Page404() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <button
-              onClick={() => {navigate("/");}}
+              onClick={() => {
+                isAdmin ? navigate("/user") : navigate("/dashboard");
+              }}
               className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Go back home
             </button>
-            <a  href="mailto:gkm.hello@gmail.com" className="text-sm font-semibold text-gray-900">
+            <a
+              href="mailto:gkm.hello@gmail.com"
+              className="text-sm font-semibold text-gray-900"
+            >
               Contact support <span aria-hidden="true">&rarr;</span>
             </a>
           </div>

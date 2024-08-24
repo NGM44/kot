@@ -2,17 +2,28 @@ import { useState } from "react";
 import { classNames } from "../../utils/string";
 import { useNavigate } from "react-router-dom";
 import AddCompanyModal from "../../modal/AddCompanyModal";
-import { useGetAllClients } from "../../queries/admin";
+import { useGetAllClients, useGetAllDevices } from "../../queries/admin";
 
 export default function UserPage() {
   const navigate = useNavigate();
   const { data: clientDetails } = useGetAllClients();
   const [dialog, setDialog] = useState(false);
   //TODO: get details from clientDetails
+  console.log("clientDetails", clientDetails);
+  const sum = clientDetails?.reduce((accumulator:any, currentValue:any) => {
+    const user = currentValue.users ?? [];
+    return accumulator + user.length;
+  }, 0);
+  const devicesList = clientDetails?.reduce((accumulator:any, currentValue:any) => {
+    const user = currentValue.devices ?? [];
+    return accumulator + user.length;
+  }, 0);
+  const { data: deviceDs } = useGetAllDevices();
+  console.log("user", sum);
   const stats = [
-    { name: "No. of Clients", value: "88", change: "+88%" },
-    { name: "No. of User", value: "2", change: "2%" },
-    { name: "Total Device", value: "10", change: "+10%" },
+    { name: "No. of Clients", value: clientDetails?.length, change: "+88%" },
+    { name: "No. of User", value: sum, change: "2%" },
+    { name: "Total Device", value: devicesList, change: "+10%" },
     { name: "Mesh", value: "0", change: "0%" },
   ];
   return (
@@ -117,7 +128,7 @@ export default function UserPage() {
                   {(clientDetails ?? []).map((client) => (
                     <tr
                       onClick={() => {
-                        navigate(`/admin/user/${client.id}`);
+                        navigate(`/user/${client.id}`);
                       }}
                       className="cursor-pointer"
                       key={client.email}
@@ -134,9 +145,7 @@ export default function UserPage() {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {client.website}
                       </td>
-                      <td className="whitespace-nowrap absolute z-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                      
-                      </td>
+                      <td className="whitespace-nowrap absolute z-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8"></td>
                     </tr>
                   ))}
                 </tbody>

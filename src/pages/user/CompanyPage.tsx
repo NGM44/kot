@@ -65,7 +65,7 @@ const CompanyDashboard = () => {
   return (
     <>
       {clientDetails ? (
-        <div className="container mx-auto p-4">
+        <div className="w-full">
           <CompanyCard companyDetails={clientDetails} />
           <div className="grid grid-cols-3  gap-8">
             <CompanyDevice deviceList={clientDetails.devices ?? []} />

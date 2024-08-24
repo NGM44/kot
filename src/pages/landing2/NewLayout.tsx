@@ -40,7 +40,7 @@ export default function NewLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { role } = useAuthStore();
-  let isAdmin = role?.toUpperCase() !== "ADMIN";
+  let isAdmin = role?.toUpperCase() === "ADMIN";
   console.log("role", role);
   console.log("pathname", pathname);
   useEffect(() => {
