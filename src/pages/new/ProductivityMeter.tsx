@@ -103,55 +103,10 @@ const ProductivityMeter = ({ value }: { value: CardModel }) => {
       },
     ],
   };
-  const humidity: EChartOption = {
-    tooltip: {
-      trigger: "axis",
-    },
-    xAxis: {
-      type: "category",
-      data: weatherData.map((d) => d.dateString),
-    },
-    yAxis: {
-      type: "value",
-      min: minHumidityValue,
-      max: maxHumidityValue,
-    },
-    series: [
-      {
-        type: "line",
-        data: weatherData.map((d) => d.humidity),
-      },
-    ],
-    visualMap: [
-      {
-        seriesIndex: 0,
-        show: false,
-        dimension: 1,
-        inRange: {
-          color: ["green", "yellow", "orange", "red"],
-        },
-        min: minHumidityValue,
-        max: maxHumidityValue,
-      },
-    ],
-    dataZoom: [
-      {
-        type: "slider",
-        start: 99.99,
-        end: 100,
-        zoomOnMouseWheel: true,
-      },
-      {
-        type: "inside",
-        start: 0,
-        end: 100,
-      },
-    ],
-  };
-  const [dialog, setDialog] = useState(false);
+
   return (
     <>
-      <div className="relative flex-1 bg-white p-4 shadow-box rounded-xl">
+      <div id={value.key} className="relative flex-1 bg-white p-4 py-6 shadow-box rounded-xl">
         <HStack className="justify-between">
           <VStack className="justify-between">
             <VStack>
@@ -164,7 +119,7 @@ const ProductivityMeter = ({ value }: { value: CardModel }) => {
                 </HStack>
                 <button
                   type="button"
-                  className="absolute right-4 top-2 rounded-xl bg-white px-3 py-2.5 text-xs1 font-semibold text-gray-900 shadow-box  ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  className="absolute right-4 top-4 rounded-xl bg-white px-3 py-2.5 text-xs1 font-semibold text-gray-900 shadow-box  ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
                   See Details
                 </button>

@@ -1,17 +1,3 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import {
@@ -25,18 +11,11 @@ import {
   Dialog,
 } from "@headlessui/react";
 import {
-  ArrowPathIcon,
-  ArrowRightEndOnRectangleIcon,
   ArrowTopRightOnSquareIcon,
   Bars3Icon,
   BellIcon,
   ChartPieIcon,
-  ChatBubbleBottomCenterIcon,
-  Cog6ToothIcon,
   HomeIcon,
-  RectangleGroupIcon,
-  SparklesIcon,
-  UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -44,31 +23,15 @@ import { useAuthStore } from "../../store/useAuthStore";
 import LogoutModal from "../../modal/LogoutModal";
 import NavLayout from "../../layout/NavLayout";
 import { classNames } from "../../utils/string";
-import SearchBar from "../new/SearchBar";
+import SearchBar, { uiComponentKeys } from "../new/SearchBar";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { MoonIcon, SunIcon, User, UserCircle } from "lucide-react";
+import { MoonIcon, SunIcon, User, User2, UserCircle, UserCircle2, UserCog } from "lucide-react";
 import { HStack } from "../../component/utils";
 import AnimatedThemeToggle from "../new/Theme";
 import { Icon } from "@iconify/react";
 import { useGetUserDevices } from "../../queries/admin";
 import RotatingRefreshIcon from "../new/Refresh";
-const userNavigation = [
-  // { name: "Your profile", href: "" },
-  { name: "Log out", href: "#" },
-  // { name: "Change User", href: "#" },
-];
-
-// interface Navigation {
-//   name: string;
-//   href: string;
-//   icon: React.ForwardRefExoticComponent<
-//     Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
-//       title?: string | undefined;
-//       titleId?: string | undefined;
-//     } & React.RefAttributes<SVGSVGElement>
-//   >;
-//   current: boolean;
-// }
+const userNavigation = [{ name: "Log out", href: "#" }];
 
 export default function NewLayout() {
   const [dialogLogout, setDialogLogout] = useState(false);
@@ -76,8 +39,8 @@ export default function NewLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { isAuthenticated, role, email, setAuth } = useAuthStore();
-
+  const { role } = useAuthStore();
+  let isAdmin = role?.toUpperCase() !== "ADMIN";
   console.log("role", role);
   console.log("pathname", pathname);
   useEffect(() => {
@@ -89,45 +52,71 @@ export default function NewLayout() {
       }
     }
   }, [navigate, pathname, role]);
-  const navigation =
-    // role?.toUpperCase() === "ADMIN"
-    //   ? [
-    //       { name: "User", href: "/admin/user", icon: HomeIcon, current: true },
-    //       {
-    //         name: "Device",
-    //         href: "/admin/device",
-    //         icon: ChartPieIcon,
-    //         current: false,
-    //       },
-    //     ]
-    //   :
-    [
-      {
-        name: "Dashboard",
-        href: "/dashboard",
-        icon: <Icon className="w-5 h-5" icon={"radix-icons:dashboard"} />,
-        current: true,
-      },
-      {
-        name: "Data Analysis",
-        href: "/analytics",
-        icon: <Icon className="w-5 h-5" icon={"solar:graph-linear"} />,
-        current: false,
-      },
+  const [navigation, setNavigation] = useState<
+    {
+      name: string;
+      href: string;
+      icon: any;
+      current: boolean;
+    }[]
+  >([]);
+  useEffect(() => {
+    if (role) {
+      let navigation = [];
 
-      {
-        name: "SenseMap",
-        href: "/grid",
-        icon: <Icon className="w-5 h-5" icon={"f7:circle-grid-hex"} />,
-        current: false,
-      },
-      // {
-      //   name: "Genie",
-      //   href: "/genie",
-      //   icon: <SparklesIcon className="w-5 h-5" />,
-      //   current: false,
-      // },
-    ];
+      let isAdminNavigation = [
+        {
+          name: "User",
+          href: "/user",
+          icon: <Icon className="w-5 h-5" icon={"radix-icons:dashboard"} />,
+          current: true,
+        },
+        {
+          name: "Device",
+          href: "/device",
+          icon: <Icon className="w-5 h-5" icon={"f7:circle-grid-hex"} />,
+          current: false,
+        },
+        // {
+        //   name: "Dashboard",
+        //   href: "/dashboard",
+        //   icon: <Icon className="w-5 h-5" icon={"radix-icons:dashboard"} />,
+        //   current: true,
+        // },
+        // {
+        //   name: "Data Analysis",
+        //   href: "/analytics",
+        //   icon: <Icon className="w-5 h-5" icon={"solar:graph-linear"} />,
+        //   current: false,
+        // },
+      ];
+      let userNavigation = [
+        {
+          name: "Dashboard",
+          href: "/dashboard",
+          icon: <Icon className="w-5 h-5" icon={"radix-icons:dashboard"} />,
+          current: true,
+        },
+        {
+          name: "Data Analysis",
+          href: "/analytics",
+          icon: <Icon className="w-5 h-5" icon={"solar:graph-linear"} />,
+          current: false,
+        },
+
+        {
+          name: "SenseMap",
+          href: "/grid",
+          icon: <Icon className="w-5 h-5" icon={"f7:circle-grid-hex"} />,
+          current: false,
+        },
+      ];
+
+      let selectedNavigation = isAdmin ? isAdminNavigation : userNavigation;
+      setNavigation(selectedNavigation);
+    }
+  }, [role]);
+
   const resources = [
     {
       id: 1,
@@ -155,7 +144,8 @@ export default function NewLayout() {
     },
   ];
 
-  const [isDark, setDark] = useState(false);
+  console.log("OUTPUT", navigation);
+  const [highlightedComponents, setHighlightedComponents] = useState([]);
 
   return (
     <div>
@@ -265,7 +255,7 @@ export default function NewLayout() {
 
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 justify-end">
             <div className="flex items-center gap-x-4 lg:gap-x-6">
-              <SearchBar />
+              {!isAdmin && <SearchBar onHighlight={() => {}} />}
               <button
                 type="button"
                 className="p-3 bg-white cursor-pointer h-11 drop-shadow-box rounded-xl text-secondary hover:text-gray-500"
@@ -276,43 +266,28 @@ export default function NewLayout() {
                   aria-hidden="true"
                 />
               </button>
-              <RotatingRefreshIcon />
+              {!isAdmin && <RotatingRefreshIcon />}
               <AnimatedThemeToggle />
-              {/* <button
-                type="button"
-                className="p-3 bg-white cursor-pointer h-11 drop-shadow-box rounded-xl text-secondary hover:text-gray-500"
-              >
-                <span className="sr-only">Theme</span>
-                <SunIcon
-                  className="h-5 w-5 text-secondary"
-                  aria-hidden="true"
-                />
-                <MoonIcon
-                  className="h-5 w-5 text-secondary"
-                  aria-hidden="true"
-                />
-              </button> */}
 
-              {/* Profile dropdown */}
               <Menu as="div" className="relative">
                 <div
-                  className={`-m-1.5 flex cursor-pointer items-center p-1  ${
+                  className={`-ml-1.5 flex cursor-pointer items-center p-1  ${
                     "/profile" !== pathname
                       ? "bg-white text-secondary"
                       : "bg-secondary text-white"
-                  } drop-shadow-box h-11 rounded-xl`}
+                  } drop-shadow-box h-11 rounded-full`}
                 >
                   <div
                     className="flex"
                     onClick={() => {
-                      navigate("/profile");
+                      if (!isAdmin) navigate("/profile");
                     }}
                   >
                     <span className="sr-only">Open user menu</span>
 
                     <span className="inline-flex h-8 w-8 ml-1 items-center justify-center rounded-full">
-                      <span className="text-sm font-medium leading-none text-white">
-                        <User
+                      <span className="text-sm font-light leading-none text-white">
+                        <UserCog
                           className={`${
                             "/profile" !== pathname
                               ? "text-secondary"
@@ -322,7 +297,7 @@ export default function NewLayout() {
                       </span>
                     </span>
 
-                    <div className="hidden lg:flex lg:items-center mr-2">
+                    {/* <div className="hidden lg:flex lg:items-center mr-2">
                       <div className="flex flex-col gap-0 justify-start items-start">
                         <span
                           className={`ml-2 text-xs font-bold leading-0 ${
@@ -345,7 +320,7 @@ export default function NewLayout() {
                           {user?.role}
                         </span>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <MenuButton>
                     <ChevronDownIcon

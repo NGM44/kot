@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
-import { RefreshCw } from 'lucide-react';
+import React, { useState } from "react";
+import { RefreshCw } from "lucide-react";
+import { useValueStore } from "../../store/useValueState";
 
 const RotatingRefreshIcon = () => {
   const [isRotating, setIsRotating] = useState(false);
-
+  const { isRefresh, setValue } = useValueStore();
   const handleClick = () => {
     setIsRotating(true);
-    setTimeout(() => setIsRotating(false), 1000); // Stop rotation after 1 second
+
+    setTimeout(() => {
+      setIsRotating(false);
+      setValue({
+        isRefresh: !isRefresh,
+      });
+    }, 1000); // Stop rotation after 1 second
   };
 
   return (
@@ -17,9 +24,7 @@ const RotatingRefreshIcon = () => {
     >
       <span className="sr-only">Refresh</span>
       <RefreshCw
-        className={`h-5 w-5 text-secondary ${
-          isRotating ? 'animate-spin' : ''
-        }`}
+        className={`h-5 w-5 text-secondary ${isRotating ? "animate-spin" : ""}`}
         aria-hidden="true"
       />
     </button>

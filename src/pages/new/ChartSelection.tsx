@@ -7,23 +7,49 @@ import {
   ListboxOptions,
 } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useValueStore } from "../../store/useValueState";
 
-const people = [
+const metrics = [
   { id: 0, name: "Temperature" },
   { id: 1, name: "Humidity" },
-  { id: 2, name: "Noise" },
-  { id: 3, name: "Light" },
+  { id: 2, name: "Pressure" },
+  { id: 3, name: "Carbon-Dioxide" },
   { id: 4, name: "VOCs" },
+  { id: 5, name: "Light" },
+  { id: 6, name: "Noise" },
+  { id: 7, name: "PM1" },
+  { id: 8, name: "PM2.5" },
+  { id: 9, name: "PM4" },
+  { id: 10, name: "PM10" },
+  { id: 11, name: "AIQ" },
+  { id: 12, name: "Gas-1" },
+  { id: 13, name: "Gas-2" },
+  { id: 14, name: "Gas-3" },
+  { id: 15, name: "Gas-4" },
+  { id: 16, name: "Gas-5" },
+  { id: 17, name: "Gas-6" },
 ];
 
 export default function ChartSelection() {
-  const [selected, setSelected] = useState(people[0]);
+  const { metric, setValue } = useValueStore();
+  const [selected, setSelected] = useState(
+    metrics[metrics.findIndex((ele) => (ele.name === metric ?? "Temperature")) ?? 0]
+  );
 
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox
+      value={selected}
+      onChange={(data:any) => {
+        console.log("data", data);
+        setValue({
+          metric: data?.name ?? "Temperature",
+        });
+        setSelected(data);
+      }}
+    >
       <div className="relative">
         <ListboxButton className="h-11 w-48 relatives cursor-default rounded-xl bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6">
-          <span className="block truncate font-semibold">{selected.name}</span>
+          <span className="block truncate font-semibold">{selected?.name}</span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronUpDownIcon
               aria-hidden="true"
@@ -36,14 +62,14 @@ export default function ChartSelection() {
           //   transition
           className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
         >
-          {people.map((person) => (
+          {metrics.map((metric) => (
             <ListboxOption
-              key={person.id}
-              value={person}
+              key={metric.id}
+              value={metric}
               className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white"
             >
               <span className="block truncate font-normal group-data-[selected]:font-semibold">
-                {person.name}
+                {metric.name}
               </span>
 
               <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-data-[focus]:text-white [.group:not([data-selected])_&]:hidden">

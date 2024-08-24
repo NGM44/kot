@@ -2,18 +2,25 @@ import { EChartOption } from "echarts";
 import ReactECharts from "echarts-for-react";
 import _ from "lodash";
 import { useWeatherData } from "../../queries/admin";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReportModal from "../../modal/ReportModal";
 import AnalyticsSecondSection from "../new/AnalyticsSecondSection";
 import { HStack, VStack } from "../../component/utils";
 import DeviceSelection from "../new/DeviceSelection";
 import ChartSelection from "../new/ChartSelection";
 import { dummyData } from "./constant";
+import { useValueStore } from "../../store/useValueState";
+import { generateSensorData } from "./ContantData";
 
 const AnalyticsPage = () => {
   const deviceId = "01J2RWJH8HF0C6ZQYFJ9HHC9ZP";
   // const { data: _weatherData } = useWeatherData(deviceId);
-  const weatherData = dummyData;
+  const { metric, date, index, gap, deviceName } = useValueStore();
+  const [weatherData, setWeatherData] = useState(dummyData);
+  useEffect(() => {
+    const weatherData = generateSensorData(date ?? "1 Day", gap ?? "1 hour");
+    setWeatherData(weatherData);
+  }, [date, gap, index,metric]);
   const minTemperatureValue = _.min(weatherData.map((d) => d.temperature));
   const maxTemperatureValue = _.max(weatherData.map((d) => d.temperature));
   const minHumidityValue = _.min(weatherData.map((d) => d.humidity));
@@ -73,17 +80,23 @@ const AnalyticsPage = () => {
     ],
   };
 
+  const onSelection = (index: any) => {
+    // setLiveData(liveData2[index]);
+  };
+
   return (
     <>
       <VStack className="gap-6">
-        <AnalyticsSecondSection />
+        <AnalyticsSecondSection date={"today"} />
         <div className="bg-white rounded-xl shadow-box p-6">
           <div className="flex justify-between items-center mb-4">
             <VStack>
-              <h2 className="text-xl font-bold">Temperature Analysis</h2>
+              <h2 className="text-xl font-bold">{metric} Analysis</h2>
               <p className="text-xs font-medium text-gray-500 ">
-                showing the historic data temperature metrics of about 7 days of
-                decive2
+                showing the historic data{" "}
+                <span className="font-bold">{metric}</span> metrics of about{" "}
+                <span className="font-bold">{date}</span> of{" "}
+                <span className="font-bold">{deviceName}</span>
               </p>
             </VStack>
 

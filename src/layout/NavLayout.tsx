@@ -4,9 +4,9 @@ import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 interface Navigation {
   name: string;
   href: string;
-  icon: any
+  icon: any;
   current: boolean;
-};
+}
 interface Resources {
   id: number;
   name: string;
@@ -19,7 +19,7 @@ interface Resources {
   >;
   initial: string;
   current: boolean;
-};
+}
 export default function NavLayout({
   navigation,
   resources,
@@ -71,11 +71,13 @@ export default function NavLayout({
             {resources.map((resource) => (
               <li key={resource.name} className="cursor-pointer">
                 <button
-                  // href={resource.href}
-                  // onClick={() => {
-                  //   navigate(resource.href);
-                  // }}
-                  onClick={()=>window.open(`${resource.href}`,'_blank', 'rel=noopener noreferrer')}
+                  onClick={() =>
+                    window.open(
+                      `${resource.href}`,
+                      "_blank",
+                      "rel=noopener noreferrer"
+                    )
+                  }
                   className={classNames(
                     resource.href === pathname
                       ? "bg-gray-50 text-indigo-600"
@@ -108,7 +110,9 @@ export default function NavLayout({
         </li>
         <li className="mt-auto">
           <button
-            onClick={() => {navigate("/settings")}}
+            onClick={() => {
+              navigate("/settings");
+            }}
             className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
           >
             <Cog6ToothIcon

@@ -1,4 +1,5 @@
 export interface CardModel {
+  key: string;
   name: string;
   value: string;
   change: string;
@@ -32,11 +33,13 @@ export interface LiveDataModel {
 
 export const extractDashboardCardValues = (liveData: LiveDataModel) => {
   const differentialPressure = liveData.pressure;
+
   const data1: CardModel[] = [
     {
       name: "Temperature",
       value: `${liveData.temperature}`,
       unit: "°C",
+      key: "Temperature",
       change: "83.2%",
       iconName: "solar:temperature-linear",
       info: "Temperature",
@@ -47,6 +50,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       name: "Humidity",
       value: `${liveData.humidity} `,
       unit: "%",
+      key: "Humidity",
       iconName: "lets-icons:humidity-light",
       info: "Humidity",
       change: "83.2%",
@@ -56,6 +60,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
     {
       name: "Pressure",
       unit: "hPa",
+      key: "Pressure",
       value: `${liveData.pressure}`,
       change: "83.2%",
       iconName: "mdi:barometer",
@@ -67,6 +72,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       name: "Differential Pressure",
       value: `${differentialPressure}`,
       unit: "hPa",
+      key: "Differential Pressure",
       change: "83.2%",
       info: "Differential Pressure",
       iconName: "carbon:pressure",
@@ -79,6 +85,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       name: "Carbon Dioxide (CO2)",
       value: `${liveData.co2}`,
       unit: "ppm",
+      key: "Carbon Dioxide",
       change: "83.2%",
       iconName: "iwwa:co2",
       info: "Temperature",
@@ -87,6 +94,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
     },
     {
       name: "VOCs",
+      key: "VOCs",
       value: `${liveData.vocs}`,
       unit: "ppm",
       iconName: "material-symbols:water-voc-outline-rounded",
@@ -97,6 +105,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
     },
     {
       name: "Light",
+      key: "Light",
       value: `${liveData.light}`,
       unit: "lux",
       change: "83.2%",
@@ -107,6 +116,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
     },
     {
       name: "Noise",
+      key: "Noise",
       value: `${liveData.noise}`,
       unit: "dB",
       change: "83.2%",
@@ -120,19 +130,21 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
   const data3: CardModel[] = [
     {
       name: "Gas 1",
+      key: "Gas 1",
       value: `${liveData.gas1}`,
       unit: "ppm",
       change: "83.2%",
-      iconName: "iwwa:co2",
+      iconName: "akar-icons:air",
       info: "Temperature",
       content: "Avg. Temp increase by 1c in last 7 days",
       graph: "Line",
     },
     {
       name: "Gas 2",
+      key: "Gas 2",
       value: `${liveData.gas2}`,
       unit: "ppm",
-      iconName: "material-symbols:water-voc-outline-rounded",
+      iconName: "akar-icons:air",
       info: "Volatile Organic Compounds (VOCs)",
       change: "83.2%",
       content: "Avg. Temp increase by 1c in last 7 days",
@@ -140,10 +152,11 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
     },
     {
       name: "Gas 3",
+      key: "Gas 3",
       value: `${liveData.gas3}`,
       unit: "ppm",
       change: "83.2%",
-      iconName: "ph:sun-light",
+      iconName: "akar-icons:air",
       info: "Pressure",
       content: "Avg. Temp increase by 1c in last 7 days",
       graph: "",
@@ -152,19 +165,21 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
   const data4: CardModel[] = [
     {
       name: "Gas 4",
+      key: "Gas 4",
       value: `${liveData.gas4}`,
       unit: "ppm",
       change: "83.2%",
-      iconName: "mdi:odor",
+      iconName: "akar-icons:air",
       info: "Temperature",
       content: "Avg. Temp increase by 1c in last 7 days",
       graph: "Line",
     },
     {
       name: "Gas 5",
+      key: "Gas 5",
       value: `${liveData.gas5}`,
       unit: "ppm",
-      iconName: "material-symbols:water-voc-outline-rounded",
+      iconName: "akar-icons:air",
       info: "Volatile Organic Compounds (VOCs)",
       change: "83.2%",
       content: "Avg. Temp increase by 1c in last 7 days",
@@ -172,10 +187,11 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
     },
     {
       name: "Gas 6",
+      key: "Gas 6",
       value: `${liveData.gas6}`,
       unit: "ppm",
       change: "83.2%",
-      iconName: "ph:sun-light",
+      iconName: "akar-icons:air",
       info: "Pressure",
       content: "Avg. Temp increase by 1c in last 7 days",
       graph: "",
@@ -184,6 +200,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
   const productivityMeter = {
     name: "Productivity Meter",
     value: "32",
+    key: "Productivity Meter",
     iconName: "carbon:pressure",
     change: "83.2%",
     info: "Mold Growth",

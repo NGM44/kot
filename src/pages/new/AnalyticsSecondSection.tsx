@@ -8,7 +8,7 @@ import ReportModal from "../../modal/ReportModal";
 import RabbitMQConsumer from "../dashboard/RabbitMQConsumer";
 import ChartSelection from "./ChartSelection";
 
-const AnalyticsSecondSection = () => {
+const AnalyticsSecondSection = ({date}:{date:string}) => {
   const [dialog, setDialog] = useState(false);
   const deviceId = "";
   return (
@@ -24,17 +24,19 @@ const AnalyticsSecondSection = () => {
         <VStack>
           <p className="text-xl text-secondary font-semibold">Analytics</p>
           <p className="text-xs text-gray-600">
-            Access a summary of key metrics and historic data points.
+            Access a summary of key metrics and historic data points as of {date}
           </p>
         </VStack>
-        <RabbitMQConsumer/>
+        {/* <RabbitMQConsumer/> */}
         <HStack className="gap-8">
           <TimeGap />
           <DateSelector />
           <DeviceSelection />
-          <DownloadExcel onClick={()=>{
-            setDialog(true);
-          }} />
+          <DownloadExcel
+            onClick={() => {
+              setDialog(true);
+            }}
+          />
         </HStack>
       </HStack>
     </div>

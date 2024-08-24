@@ -8,6 +8,7 @@ import { useAddClient } from "../queries/admin";
 import { ClientModel } from "../types/auth";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 export default function AddCompanyModal({
   isOpen,
@@ -52,14 +53,13 @@ export default function AddCompanyModal({
               <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <form>
                   <div className="space-y-2">
-                    <div className="border-b border-gray-900/10 pb-2">
+                    <div className="border-b border-gray-900/10 pb-2 flex flex-row items-center justify-between">
                       <h2 className="text-base font-semibold leading-7 text-gray-900">
                         Add Company
                       </h2>
-                      {/* <p className="mt-1 text-sm leading-6 text-gray-600">
-                        This information will be displayed publicly so be
-                        careful what you share.
-                      </p> */}
+                      <XMarkIcon className="w-6 h-6" onClick={()=>{
+                    onClose()
+                  }} />
                     </div>
 
                     <div className="border-b border-gray-900/10">

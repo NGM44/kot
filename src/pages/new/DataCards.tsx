@@ -7,7 +7,7 @@ import { CardModel } from "./GenerateDashboardData";
 
 const DataCards = ({ value }: { value: CardModel }) => {
   return (
-    <div className="flex-1 bg-white p-4 shadow-box rounded-xl">
+    <div id={value.key}  className="flex-1 bg-white p-4 shadow-box rounded-xl">
       <HStack className="w-full whitespace-nowrap items-center justify-between">
         <HStack className="items-center ">
           <p className="text-sm text-secondary font-medium">{value.name}</p>

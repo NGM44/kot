@@ -3,7 +3,8 @@ import RabbitMQConsumer from "./RabbitMQConsumer";
 
 const DashboardPage = () => {
   const {data: user} = useGetUserDevices();
-  return <div><RabbitMQConsumer/>
+  return <div>
+    {/* <RabbitMQConsumer/> */}
   {user?.devices.map(device => <div>Device ID: {device.identifier}</div>)}
   </div>;
 };

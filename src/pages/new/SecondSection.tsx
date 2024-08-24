@@ -5,7 +5,7 @@ import DownloadExcel from "./DownloadExcel";
 import DeviceSelection from "./DeviceSelection";
 import ReportModal from "../../modal/ReportModal";
 
-const SecondSection = () => {
+const SecondSection = ({date}:{date:string}) => {
   const [dialog, setDialog] = useState(false);
   const deviceId = "";
   return (
@@ -21,7 +21,7 @@ const SecondSection = () => {
         <VStack>
           <p className="text-xl text-secondary font-semibold">Dashboard</p>
           <p className="text-xs text-gray-600">
-            Access a summary of key metrics and live status
+            Access a summary of key metrics and live status, last updated <span className="font-bold">{date}</span>
           </p>
         </VStack>
         <HStack className="gap-8">

@@ -8,13 +8,14 @@ import StackedBarChartsFullFledged from "./StackedBarChartsFullFledged";
 import { Icon } from "@iconify/react";
 import { CardModel } from "./GenerateDashboardData";
 
-
 const AQISensor = ({ value }: { value: CardModel }) => {
   return (
-    <div className="flex-1 bg-white p-4 shadow-box rounded-xl">
+    <div id={value.key} className="flex-1 bg-white p-4 shadow-box rounded-xl">
       <HStack className="w-full whitespace-nowrap items-center justify-between">
         <HStack className="items-center ">
-          <p className="text-sm text-secondary font-medium">{"Air Quality Index"}</p>
+          <p className="text-sm text-secondary font-medium">
+            {"Air Quality Index"}
+          </p>
           <InformationCircleIcon className="w-4 h- ml-2 text-gray-400" />
         </HStack>
         <button
@@ -26,8 +27,10 @@ const AQISensor = ({ value }: { value: CardModel }) => {
       </HStack>
       <HStack className="gap-2 mt-6 mb-2">
         <div className="p-2 shadow-box bg-gray-50 border-gray-200 border rounded-lg">
-         
-          <Icon className="w-5 h-5 text-primary font-bold" icon={"ph:speedometer-bold"} />
+          <Icon
+            className="w-5 h-5 text-primary font-bold"
+            icon={"ph:speedometer-bold"}
+          />
         </div>
         <p className="text-secondary text-3xl font-semibold">{value.value}</p>
         <div className="p-1 shadow-box h-6 text-sm bg-green-50 text-green-500 font-semibold rounded-lg">

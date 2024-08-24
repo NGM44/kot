@@ -26,17 +26,17 @@ import HomePage from "./pages/new/HomePage";
 export default function Router() {
   const { isAuthenticated, role } = useAuthStore();
   return useRoutes([
-    {
-      path: "/",
-      element: <NewLayout />,
-      children: [
-        { path: "dashboard", element: <HomePage /> },
-        { path: "analytics", element: <AnalyticsPage /> },
-        { path: "grid", element: <GridPage /> },
-        { path: "genie", element: <SupportPage /> },
-        { path: "profile", element: <ProfilePage /> },
-      ],
-    },
+    // {
+    //   path: "/",
+    //   element: <NewLayout />,
+    //   children: [
+    //     { path: "dashboard", element: <HomePage /> },
+    //     { path: "analytics", element: <AnalyticsPage /> },
+    //     { path: "grid", element: <GridPage /> },
+    //     { path: "genie", element: <SupportPage /> },
+    //     { path: "profile", element: <ProfilePage /> },
+    //   ],
+    // },
     {
       path: "/",
       element: <LandingLayout />,
@@ -60,9 +60,19 @@ export default function Router() {
       path: "/changePassword",
       element: <ChangePasswordPage />,
     },
-
+    // {
+    //   path: "/",
+    //   element: <NewLayout />,
+    //   children: [
+    //     { path: "/dashboard", element: <HomePage /> },
+    //     { path: "/analytics", element: <AnalyticsPage /> },
+    //     { path: "/grid", element: <GridPage /> },
+    //     { path: "/genie", element: <SupportPage /> },
+    //     { path: "/profile", element: <ProfilePage /> },
+    //   ],
+    // },
     {
-      path: role?.toUpperCase() === "ADMIN" ? "/admin" : "/user",
+      path: "/",
       element: isAuthenticated ? (
         <NewLayout />
       ) : (
@@ -70,50 +80,33 @@ export default function Router() {
       ),
       children:
         role?.toUpperCase() === "ADMIN"
-          ? [
-              {
-                path: "user",
-                element: <UserPage />,
-              },
-              {
-                path: "user/:id",
-                element: <CompanyDashboard />,
-              },
-              {
-                path: "device",
-                element: <DevicePage />,
-              },
-            ]
-          : [
-              {
-                path: "dashboard",
-                element: <DashboardPage />,
-              },
-              {
-                path: "analytics",
-                element: <AnalyticsPage />,
-              },
-              {
-                path: "grid",
-                element: <GridPage />,
-              },
-              {
-                path: "settings",
-                element: <SettingsPage />,
-              },
-              {
-                path: "genie",
-                element: <SupportPage />,
-              },
-              {
-                path: "updates",
-                element: <UpdatePage />,
-              },
-              {
-                path: "profile",
-                element: <ProfilePage />,
-              },
-            ],
+          ?
+        [
+          {
+            path: "/user",
+            element: <UserPage />,
+          },
+          {
+            path: "/user/:id",
+            element: <CompanyDashboard />,
+          },
+          {
+            path: "/device",
+            element: <DevicePage />,
+          },
+          { path: "/dashboard", element: <HomePage /> },
+          { path: "/analytics", element: <AnalyticsPage /> },
+          { path: "/grid", element: <GridPage /> },
+          { path: "/genie", element: <SupportPage /> },
+          { path: "/profile", element: <ProfilePage /> },
+        ]
+      : [
+          { path: "dashboard", element: <HomePage /> },
+          { path: "analytics", element: <AnalyticsPage /> },
+          { path: "grid", element: <GridPage /> },
+          { path: "genie", element: <SupportPage /> },
+          { path: "profile", element: <ProfilePage /> },
+        ],
     },
 
     {

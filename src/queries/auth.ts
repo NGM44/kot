@@ -1,5 +1,6 @@
 import { useMutation } from "react-query";
 import {
+  changeNewPassword,
   changePassword,
   changePasswordAuth,
   forgotPassword,
@@ -50,6 +51,29 @@ export function useChangePassword() {
     },
   });
 }
+
+export function useChangeNewPassword() {
+  return useMutation({
+    mutationKey: "changeNewPassword",
+    mutationFn: changeNewPassword,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "changeNewPassword",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "changeNewPassword",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+
 
 export function useResetPassword() {
   return useMutation({

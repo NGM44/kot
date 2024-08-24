@@ -22,7 +22,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData: LiveDataModel }) => {
       </div>
       <div className="flex flex-wrap gap-6 w-full">
         {data2.map((ele: CardModel) => (
-          <DataCards2 key={ele.name} value={ele} />
+          <DataCards key={ele.name} value={ele} />
         ))}
       </div>
 
@@ -35,6 +35,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData: LiveDataModel }) => {
             value={{
               name: "Gas Meter",
               value: "32",
+              key: "Particulate Matter",
               change: "83.2%",
               unit: "",
               info: "Mold Growth",
@@ -49,6 +50,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData: LiveDataModel }) => {
               value: "32",
               change: "83.2%",
               info: "Mold Growth",
+              key: "Air Quality Index",
               unit: "",
               content: "Avg. Temp increase by 1c in last 7 days",
               graph: "Line",

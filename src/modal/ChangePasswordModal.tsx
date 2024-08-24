@@ -11,6 +11,7 @@ import {
   SignUpDetailsModel,
 } from "../types/auth";
 import {
+  useChangeNewPassword,
   useChangePassword,
   useChangePasswordAuth,
   useSignUp,
@@ -33,7 +34,7 @@ export default function ChangePasswordModal({
   const { id } = useParams();
 
   const [showSuccess, setShowSuccess] = useState(false);
-  const { mutate: changePassword } = useChangePassword();
+  const { mutate: changePassword } = useChangeNewPassword();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -50,7 +51,7 @@ export default function ChangePasswordModal({
     const changePasswordDTO: ResetPasswordDetailModel = {
       jwt: useAuthStore.getState().accessToken ?? "",
       newPassword: password,
-    };
+          };
     changePassword(changePasswordDTO, {
       onSuccess() {
         setShowSuccess(true);
