@@ -15,9 +15,9 @@ import { generateSensorData } from "./ContantData";
 const AnalyticsPage = () => {
   const deviceId = "01J2RWJH8HF0C6ZQYFJ9HHC9ZP";
   // const { data: _weatherData } = useWeatherData(deviceId);
-  // const weather = generateSensorData("1 Day", "1 hour");
+  const weather = generateSensorData("1 Day", "1 hour");
   const { metric, date, index, gap, deviceName, metricUnit,isRefresh } = useValueStore();
-  const [weatherData, setWeatherData] = useState(dummyData);
+  const [weatherData, setWeatherData] = useState(weather);
   useEffect(() => {
     const weatherData = generateSensorData(date ?? "1 Day", gap ?? "1 hour");
     setWeatherData(weatherData);
