@@ -43,7 +43,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       iconName: "solar:temperature-linear",
       info: "Temperature",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "20-24°C for optimal comfort",
       graph: "Line",
     },
     {
@@ -54,7 +54,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       iconName: "lets-icons:humidity-light",
       info: "Humidity",
       change: "83.2%",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "40-60% RH for optimal comfort",
       graph: "Bar",
     },
     {
@@ -65,7 +65,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       iconName: "mdi:barometer",
       info: "Pressure",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "1000-1020 hPa for optimal comfort",
       graph: "",
     },
     {
@@ -76,7 +76,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       info: "Differential Pressure",
       iconName: "carbon:pressure",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "±5 Pa for optimal comfort",
       graph: "",
     },
   ];
@@ -89,18 +89,18 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       iconName: "iwwa:co2",
       info: "Temperature",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "Below 1000 ppm for optimal comfort",
       graph: "Line",
     },
     {
       name: "VOCs",
       key: "VOCs",
       value: `${liveData.vocs}`,
-      unit: "ppm",
+      unit: "µg/m³",
       iconName: "material-symbols:water-voc-outline-rounded",
       info: "Volatile Organic Compounds (VOCs)",
       change: "83.2%",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "Below 300 µg/m³ for optimal comfort",
       graph: "Line",
     },
     {
@@ -111,7 +111,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       iconName: "ph:sun-light",
       info: "Pressure",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "300-500 lux for optimal comfort",
       graph: "",
     },
     {
@@ -122,7 +122,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       info: "Differential Pressure",
       iconName: "material-symbols:noise-aware",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "Below 55 dB for optimal comfort",
       graph: "",
     },
   ];
@@ -136,7 +136,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       iconName: "akar-icons:air",
       info: "Temperature",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "",
       graph: "Line",
     },
     {
@@ -147,7 +147,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       iconName: "akar-icons:air",
       info: "Volatile Organic Compounds (VOCs)",
       change: "83.2%",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "",
       graph: "Line",
     },
     {
@@ -158,7 +158,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       iconName: "akar-icons:air",
       info: "Pressure",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "",
       graph: "",
     },
   ];
@@ -171,7 +171,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       iconName: "akar-icons:air",
       info: "Temperature",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "",
       graph: "Line",
     },
     {
@@ -182,7 +182,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       iconName: "akar-icons:air",
       info: "Volatile Organic Compounds (VOCs)",
       change: "83.2%",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "",
       graph: "Line",
     },
     {
@@ -193,7 +193,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       change: "83.2%",
       iconName: "akar-icons:air",
       info: "Pressure",
-      content: "Avg. Temp increase by 1c in last 7 days",
+      content: "",
       graph: "",
     },
   ];
@@ -208,5 +208,5 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
     graph: "Line",
     unit: "",
   };
-  return { data1, data2, data3, data4,productivityMeter };
+  return { data1, data2, data3, data4, productivityMeter };
 };

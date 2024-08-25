@@ -39,7 +39,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData: LiveDataModel }) => {
               change: "83.2%",
               unit: "",
               info: "Mold Growth",
-              content: "Avg. Temp increase by 1c in last 7 days",
+              content: "Particulate Matter Value is calculated by the formula taking PM1, PM2.5 ,PM4,PM10 into Consideration",
               graph: "Line",
               iconName: "",
             }}
@@ -52,7 +52,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData: LiveDataModel }) => {
               info: "Mold Growth",
               key: "Air Quality Index",
               unit: "",
-              content: "Avg. Temp increase by 1c in last 7 days",
+              content: "0-50 is good 51-100 is moderate over 100 needs action",
               graph: "Line",
               iconName: "",
             }}

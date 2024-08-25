@@ -28,6 +28,9 @@ import { HStack } from "../../component/utils";
 import AnimatedThemeToggle from "../new/Theme";
 import { Icon } from "@iconify/react";
 import RotatingRefreshIcon from "../new/Refresh";
+import { useGetUserDevices } from "../../queries/admin";
+import FooterSection from "../new/FooterSection";
+import { FloatingDockDemo } from "./FloatingDEmo";
 const userNavigation = [{ name: "Log out", href: "#" }];
 
 export default function NewLayout() {
@@ -35,6 +38,8 @@ export default function NewLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { data: user } = useGetUserDevices();
+  // console.log("user",user);
   const { role, setAuth } = useAuthStore();
   let isAdmin = role?.toUpperCase() === "ADMIN";
 
@@ -272,7 +277,7 @@ export default function NewLayout() {
                     "/profile" !== pathname
                       ? "bg-white text-secondary"
                       : "bg-secondary text-white"
-                  } drop-shadow-box h-11 rounded-full`}
+                  } drop-shadow-box h-11 rounded-xl`}
                 >
                   <div
                     className="flex"
@@ -282,7 +287,7 @@ export default function NewLayout() {
                   >
                     <span className="sr-only">Open user menu</span>
 
-                    <span className="inline-flex h-8 w-8 ml-1 items-center justify-center rounded-full">
+                    <span className="inline-flex h-8 w-8 ml-1 items-center justify-center">
                       <span className="text-sm font-light leading-none text-white">
                         <UserCog
                           className={`${
@@ -294,7 +299,7 @@ export default function NewLayout() {
                       </span>
                     </span>
 
-                    {/* <div className="hidden lg:flex lg:items-center mr-2">
+                    <div className="hidden lg:flex lg:items-center mr-2">
                       <div className="flex flex-col gap-0 justify-start items-start">
                         <span
                           className={`ml-2 text-xs font-bold leading-0 ${
@@ -314,10 +319,10 @@ export default function NewLayout() {
                           }`}
                           aria-hidden="true"
                         >
-                          {user?.role}
+                          {role}
                         </span>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                   <MenuButton>
                     <ChevronDownIcon
@@ -366,6 +371,10 @@ export default function NewLayout() {
         <main className="py-6">
           <div className="px-2 sm:px-4 lg:px-8">
             <Outlet />
+            <div className="mt-16">
+              <FooterSection date={""} />
+              {/* <FloatingDockDemo /> */}
+            </div>
           </div>
         </main>
       </div>

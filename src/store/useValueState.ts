@@ -15,6 +15,7 @@ interface Value {
   isRefresh?: boolean;
   deviceName?: string;
   metric?: string;
+  metricUnit?: string;
   date?: TimePeriod;
   gap?: TimeGap;
   index?: number;
@@ -32,6 +33,7 @@ export const useValueStore = createStore<ValueStore>(
     (set: any) => ({
       isRefresh: false,
       metric: "Temperature",
+      metricUnit: "°C",
       index: 0,
       gap: "1 Hour",
       deviceName: "",
@@ -47,6 +49,7 @@ export const useValueStore = createStore<ValueStore>(
         set((_state: Value) => ({
           isRefresh: false,
           metric: "Temperature",
+          metricUnit: "°C",
           date: "1 Day",
           gap: "1 Hour",
           deviceName: "",

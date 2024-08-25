@@ -6,6 +6,7 @@ import { useAuthStore } from "../../store/useAuthStore";
 import { decodeAuthToken } from "../../utils/auth";
 import { HStack, VStack } from "../../component/utils";
 import { Key, Lock, Mail } from "lucide-react";
+import { toast } from "react-toastify";
 
 // export const loginPageImageUrl = ["/login.png", "/login2.png", "/login3.png"];
 
@@ -33,7 +34,7 @@ export default function LoginPage() {
   function handleLogin() {
     const loginDto: SignInDetailsModel = { email, password };
     login(loginDto, {
-      onSuccess(data) {
+      onSuccess:(data)=> {
         const accessToken = data.data.token;
         const decodedJwt = decodeAuthToken(accessToken);
         setAuth({
@@ -51,6 +52,10 @@ export default function LoginPage() {
           navigate("/dashboard");
         }
       },
+      onError: (data)=>{
+        console.log("data", data);
+      //  toast(data.)
+      }
     });
   }
 
@@ -169,16 +174,17 @@ export default function LoginPage() {
         </div>
         <div className="relative hidden w-0 flex-1 lg:block  bg-gradient-to-br from-primary to-primary ">
           <VStack className="gap-8">
-            {/* <img
+            <img
               className="inset-0 md:visible invisible object-cover mx-auto w-fit px-32"
-              src={imageUrl[activeIndex]}
+              src={'remo.png'}
               alt=""
-            /> */}
+            />
 
-            {/* {activeIndex === 0 ? (
-              <div className="px-10 pb-10 text-2xl font-semibold text-center text-white">
-                <p> Track tasks easily</p>
-                <p>see progress, spot holdups, and finish projects faster.</p>
+           {/* {activeIndex === 0 ? */}
+            
+              <div className="px-10 text-2xl font-semibold text-center text-white">
+                <p>Live Workspace Monitor</p>
+                <p className="text-base text-gray-200">Monitor the Air Quality for better tomorrow</p>
 
                 <HStack className="gap-4 mt-6 w-full justify-center">
                   <div onClick={()=>setActiveIndex(0)} className="w-4 h-4 bg-white rounded-full"></div>
@@ -186,7 +192,8 @@ export default function LoginPage() {
                   <div onClick={()=>setActiveIndex(2)} className="w-4 h-4 bg-transparent border-2 border-white rounded-full"></div>
                 </HStack>
               </div>
-            ) : activeIndex === 1 ? (
+            
+              {/* : activeIndex === 1 ? (
               <div className="px-10 pb-10 text-2xl font-semibold text-center text-white">
                 <p> Share, collect, and organize project files securely</p>
                 <p>all in one central hub</p>

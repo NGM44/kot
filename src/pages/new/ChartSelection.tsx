@@ -10,38 +10,40 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { useValueStore } from "../../store/useValueState";
 
 const metrics = [
-  { id: 0, name: "Temperature" },
-  { id: 1, name: "Humidity" },
-  { id: 2, name: "Pressure" },
-  { id: 3, name: "Carbon-Dioxide" },
-  { id: 4, name: "VOCs" },
-  { id: 5, name: "Light" },
-  { id: 6, name: "Noise" },
-  { id: 7, name: "PM1" },
-  { id: 8, name: "PM2.5" },
-  { id: 9, name: "PM4" },
-  { id: 10, name: "PM10" },
-  { id: 11, name: "AIQ" },
-  { id: 12, name: "Gas-1" },
-  { id: 13, name: "Gas-2" },
-  { id: 14, name: "Gas-3" },
-  { id: 15, name: "Gas-4" },
-  { id: 16, name: "Gas-5" },
-  { id: 17, name: "Gas-6" },
+  { id: 0, name: "Temperature", unit: "°C" },
+  { id: 1, name: "Humidity", unit: "%" },
+  { id: 2, name: "Pressure", unit: "hPa" },
+  { id: 3, name: "Carbon-Dioxide", unit: "ppm" },
+  { id: 4, name: "VOCs", unit: "µg/m³" },
+  { id: 5, name: "Light", unit: "lux" },
+  { id: 6, name: "Noise", unit: "dB" },
+  { id: 7, name: "PM1", unit: "" },
+  { id: 8, name: "PM2.5", unit: "" },
+  { id: 9, name: "PM4", unit: "" },
+  { id: 10, name: "PM10", unit: "" },
+  { id: 11, name: "AIQ", unit: "" },
+  { id: 12, name: "Gas-1", unit: "ppm" },
+  { id: 13, name: "Gas-2", unit: "ppm" },
+  { id: 14, name: "Gas-3", unit: "ppm" },
+  { id: 15, name: "Gas-4", unit: "ppm" },
+  { id: 16, name: "Gas-5", unit: "ppm" },
+  { id: 17, name: "Gas-6", unit: "ppm" },
 ];
 
 export default function ChartSelection() {
   const { metric, setValue } = useValueStore();
   const [selected, setSelected] = useState(
-    metrics[metrics.findIndex((ele) => (ele.name === metric ?? "Temperature")) ?? 0]
+    metrics[
+      metrics.findIndex((ele) => ele.name === metric ?? "Temperature") ?? 0
+    ]
   );
 
   return (
     <Listbox
       value={selected}
-      onChange={(data:any) => {
-  
+      onChange={(data: any) => {
         setValue({
+          metricUnit: data.unit,
           metric: data?.name ?? "Temperature",
         });
         setSelected(data);

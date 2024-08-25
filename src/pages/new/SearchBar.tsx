@@ -90,6 +90,19 @@ export default function SearchBar({ onHighlight }: { onHighlight: any }) {
   const handleSuggestionClick = (suggestion: any) => {
     setSearchTerm(suggestion);
     setShowSuggestions(false);
+    uiComponentKeys.forEach((ele) => {
+      const element1 = document.getElementById(ele);
+      if (element1) element1.style.backgroundColor = "#FFFFFF";
+    });
+    if (suggestion) {
+
+        const element1 = document.getElementById(suggestion);
+        if (element1) element1.style.backgroundColor = "#f2f0ff";
+        if (element1) {
+          element1.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      
+    }
     if (onHighlight) {
       onHighlight([suggestion]);
     }

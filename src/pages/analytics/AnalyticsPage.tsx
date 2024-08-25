@@ -15,12 +15,13 @@ import { generateSensorData } from "./ContantData";
 const AnalyticsPage = () => {
   const deviceId = "01J2RWJH8HF0C6ZQYFJ9HHC9ZP";
   // const { data: _weatherData } = useWeatherData(deviceId);
-  const { metric, date, index, gap, deviceName } = useValueStore();
-  const [weatherData, setWeatherData] = useState(dummyData);
+  const weather = generateSensorData("1 Day", "1 hour");
+  const { metric, date, index, gap, deviceName, metricUnit,isRefresh } = useValueStore();
+  const [weatherData, setWeatherData] = useState(weather);
   useEffect(() => {
     const weatherData = generateSensorData(date ?? "1 Day", gap ?? "1 hour");
     setWeatherData(weatherData);
-  }, [date, gap, index,metric]);
+  }, [date, gap, index, metric,isRefresh]);
   const minTemperatureValue = _.min(weatherData.map((d) => d.temperature));
   const maxTemperatureValue = _.max(weatherData.map((d) => d.temperature));
   const minHumidityValue = _.min(weatherData.map((d) => d.humidity));
@@ -55,7 +56,7 @@ const AnalyticsPage = () => {
     yAxis: {
       type: "value",
       axisLabel: {
-        formatter: "{value} °C",
+        formatter: `{value} ${metricUnit}`,
         fontSize: 14,
       },
       min: minTemperatureValue,

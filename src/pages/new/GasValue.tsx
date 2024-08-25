@@ -40,28 +40,30 @@ const GasValues = ({ value }: { value: CardModel }) => {
       <StackedBarChartsFullFledged value={80} />
       <InfoRow
         title="PM1"
-        subtitle="gas of gas which i dont know"
+        subtitle="Below 15 µg/m³ for optimal comfort"
         dotColor="#6278FB"
         value="50"
       />
+
+
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="PM2.5"
-        subtitle="gas of gas which i dont know"
+        subtitle="Below 25 µg/m³ for optimal comfort"
         dotColor="#61CBF9"
         value="50"
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="PM4"
-        subtitle="gas of gas which i dont know"
+        subtitle="Below 50 µg/m³ for optimal comfort"
         dotColor="#D9FB55"
         value="50"
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="PM10"
-        subtitle="gas of gas which i dont know"
+        subtitle="Below 50 µg/m³ for optimal comfort"
         dotColor="#F6F961"
         value="50"
       />

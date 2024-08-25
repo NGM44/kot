@@ -43,28 +43,28 @@ const AQISensor = ({ value }: { value: CardModel }) => {
       <StackedBarChartsFullFledged value={80} />
       <InfoRow
         title="Temperature"
-        subtitle="gas of gas which i dont know"
+        subtitle="Calculated value based on formula"
         dotColor="#6278FB"
         value="50"
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="Humidity"
-        subtitle="gas of gas which i dont know"
+        subtitle="Calculated value based on formula"
         dotColor="#61CBF9"
         value="50"
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="Atmopheric Pressure"
-        subtitle="gas of gas which i dont know"
+        subtitle="Calculated value based on formula"
         dotColor="#D9FB55"
         value="50"
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="VOCs"
-        subtitle="gas of gas which i dont know"
+         subtitle="Calculated value based on formula"
         dotColor="#F6F961"
         value="50"
       />

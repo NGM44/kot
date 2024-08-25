@@ -5,8 +5,6 @@ import DownloadExcel from "./DownloadExcel";
 import TimeGap from "./Timegap";
 import DeviceSelection from "./DeviceSelection";
 import ReportModal from "../../modal/ReportModal";
-import RabbitMQConsumer from "../dashboard/RabbitMQConsumer";
-import ChartSelection from "./ChartSelection";
 
 const AnalyticsSecondSection = ({date}:{date:string}) => {
   const [dialog, setDialog] = useState(false);
@@ -37,6 +35,7 @@ const AnalyticsSecondSection = ({date}:{date:string}) => {
               setDialog(true);
             }}
           />
+        
         </HStack>
       </HStack>
     </div>
