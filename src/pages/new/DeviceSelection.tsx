@@ -21,18 +21,18 @@ const devices = [
 export default function DeviceSelection() {
   const { index, setValue } = useValueStore();
   const [selected, setSelected] = useState(devices[index ?? 0]);
-  useEffect(() => {
-    setValue({
-      deviceName: selected.name,
-    });
-  }, [selected]);
+  // useEffect(() => {
+  //   setValue({
+  //     deviceName: selected.name,
+  //   });
+  // }, [selected]);
   return (
     <Listbox
       value={selected}
       onChange={(data) => {
         setSelected(data);
   
-
+        console.log("data",data);
         setValue({
           index: data.id ?? 0,
           deviceName: data.name,
