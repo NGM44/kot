@@ -14,8 +14,6 @@ import {
   ArrowTopRightOnSquareIcon,
   Bars3Icon,
   BellIcon,
-  ChartPieIcon,
-  HomeIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -23,23 +21,21 @@ import { useAuthStore } from "../../store/useAuthStore";
 import LogoutModal from "../../modal/LogoutModal";
 import NavLayout from "../../layout/NavLayout";
 import { classNames } from "../../utils/string";
-import SearchBar, { uiComponentKeys } from "../new/SearchBar";
+import SearchBar from "../new/SearchBar";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { MoonIcon, SunIcon, User, User2, UserCircle, UserCircle2, UserCog } from "lucide-react";
+import { UserCog } from "lucide-react";
 import { HStack } from "../../component/utils";
 import AnimatedThemeToggle from "../new/Theme";
 import { Icon } from "@iconify/react";
-import { useGetUserDevices } from "../../queries/admin";
 import RotatingRefreshIcon from "../new/Refresh";
 const userNavigation = [{ name: "Log out", href: "#" }];
 
 export default function NewLayout() {
   const [dialogLogout, setDialogLogout] = useState(false);
-  const { data: user } = useGetUserDevices();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { role } = useAuthStore();
+  const { role, setAuth } = useAuthStore();
   let isAdmin = role?.toUpperCase() === "ADMIN";
 
   useEffect(() => {
@@ -61,8 +57,6 @@ export default function NewLayout() {
   >([]);
   useEffect(() => {
     if (role) {
-      let navigation = [];
-
       let isAdminNavigation = [
         {
           name: "User",
@@ -142,7 +136,6 @@ export default function NewLayout() {
       current: false,
     },
   ];
-
 
   const [highlightedComponents, setHighlightedComponents] = useState([]);
 
@@ -257,6 +250,11 @@ export default function NewLayout() {
               {!isAdmin && <SearchBar onHighlight={() => {}} />}
               <button
                 type="button"
+                onClick={() => {
+                  setAuth({
+                    role: isAdmin ? "USER" : "ADMIN",
+                  });
+                }}
                 className="p-3 bg-white cursor-pointer h-11 drop-shadow-box rounded-xl text-secondary hover:text-gray-500"
               >
                 <span className="sr-only">View notifications</span>

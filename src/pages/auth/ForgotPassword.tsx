@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForgotPassword } from "../../queries/auth";
 import { toast } from "react-toastify";
+import { HStack } from "../../component/utils";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -23,7 +24,19 @@ export default function ForgotPasswordPage() {
         <div className="flex flex-1 bg-white flex-col items-center justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 max-h-full">
           <div className="mx-auto justify-center items-center w-full max-w-sm lg:w-96 mb-24 lg:border-none lg:shadow-none shadow-md border-borderColor border lg:px-0 lg:pt-0 lg:pb-0 rounded-md px-6 pt-10 pb-16">
             <div>
-              <img className="h-10 w-auto" src="/onlylogo.png" alt="Your Company" />
+            <HStack className="items-baseline">
+                <img
+                  className="h-10 w-auto"
+                  src="/onlylogo.png"
+                  alt="Your Company"
+                />
+                <img
+                  className="h-8 w-auto"
+                  src="/fullLogo.png"
+                  alt="Your Company"
+                />
+              </HStack>
+
               <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
                 Forgot Password
               </h2>
