@@ -2,6 +2,7 @@
 import createStore from "zustand";
 import { configurePersist } from "zustand-persist";
 
+
 const { persist: _persist } = configurePersist({
   storage: localStorage,
   rootKey: "value",
