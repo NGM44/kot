@@ -83,22 +83,22 @@ export default function Router() {
           ?
         [
           {
-            path: "/user",
+            path: "user",
             element: <UserPage />,
           },
           {
-            path: "/user/:id",
+            path: "user/:id",
             element: <CompanyDashboard />,
           },
           {
-            path: "/device",
+            path: "device",
             element: <DevicePage />,
           },
-          { path: "/dashboard", element: <HomePage /> },
-          { path: "/analytics", element: <AnalyticsPage /> },
-          { path: "/grid", element: <GridPage /> },
-          { path: "/genie", element: <SupportPage /> },
-          { path: "/profile", element: <ProfilePage /> },
+          { path: "dashboard", element: <HomePage /> },
+          { path: "analytics", element: <AnalyticsPage /> },
+          { path: "grid", element: <GridPage /> },
+          { path: "genie", element: <SupportPage /> },
+          { path: "profile", element: <ProfilePage /> },
         ]
       : [
           { path: "dashboard", element: <HomePage /> },

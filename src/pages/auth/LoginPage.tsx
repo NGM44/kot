@@ -30,10 +30,10 @@ export default function LoginPage() {
         setEmail("");
         setPassword("");
         if(decodedJwt.role === "ADMIN"){
-          navigate("/admin/user");
+          navigate("/user");
 
         }else{
-          navigate("/user/dashboard");
+          navigate("/dashboard");
         }
       },
     });
