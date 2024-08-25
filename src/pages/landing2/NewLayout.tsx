@@ -46,9 +46,9 @@ export default function NewLayout() {
   useEffect(() => {
     if (pathname === "/") {
       if (role?.toUpperCase() === "ADMIN") {
-        navigate("admin/user");
+        navigate("/user");
       } else {
-        navigate("user/dashboard");
+        navigate("/dashboard");
       }
     }
   }, [navigate, pathname, role]);
