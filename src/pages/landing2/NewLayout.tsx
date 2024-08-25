@@ -371,10 +371,10 @@ export default function NewLayout() {
         <main className="py-6">
           <div className="px-2 sm:px-4 lg:px-8">
             <Outlet />
-            <div className="mt-16">
+            {/* <div className="mt-16">
               <FooterSection date={""} />
-              {/* <FloatingDockDemo /> */}
-            </div>
+            
+            </div> */}
           </div>
         </main>
       </div>
