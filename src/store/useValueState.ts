@@ -5,7 +5,7 @@ import { configurePersist } from "zustand-persist";
 
 const { persist: _persist } = configurePersist({
   storage: localStorage,
-  rootKey: "value",
+  rootKey: "root",
 });
 
 const persist = _persist as any;
