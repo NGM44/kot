@@ -13,6 +13,8 @@ import { QueryClientProvider } from "react-query";
 import ScrollToTop from "./utils/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 import { queryClient } from "./queries/client";
+import useMqttStore from "./store/useMqttStore";
+import { brokerUrl } from "./constant";
 
 function App() {
   AmplitudeInit();
@@ -22,6 +24,17 @@ function App() {
   useEffect(() => {
     handlePageLoadForTracking("location");
   }, [location]);
+  const { 
+    connectMqtt, 
+    disconnectMqtt, 
+  } = useMqttStore();
+
+  useEffect(() => {
+    connectMqtt(brokerUrl);
+    return () => {
+      disconnectMqtt();
+    };
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <ScrollToTop />

@@ -9,6 +9,8 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { HStack, VStack } from "../../component/utils";
 import { useValueStore } from "../../store/useValueState";
+import useMqttStore from "../../store/useMqttStore";
+import { topicPrefix } from "../../constant";
 
 const devices = [
   { id: 0, name: "Gravity Sensenode", location: "Gravity 1st Floor" },
@@ -21,6 +23,7 @@ const devices = [
 export default function DeviceSelection() {
   const { index, setValue } = useValueStore();
   const [selected, setSelected] = useState(devices[index ?? 0]);
+  const {subscribeTopic} = useMqttStore();
   // useEffect(() => {
   //   setValue({
   //     deviceName: selected.name,
@@ -31,8 +34,7 @@ export default function DeviceSelection() {
       value={selected}
       onChange={(data) => {
         setSelected(data);
-  
-        console.log("data",data);
+        subscribeTopic(`${topicPrefix}/${data.id.toString()}`);
         setValue({
           index: data.id ?? 0,
           deviceName: data.name,

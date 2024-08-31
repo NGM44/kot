@@ -2,7 +2,6 @@ import { Navigate, useRoutes } from "react-router-dom";
 import Page404 from "./pages/Page404";
 import UserPage from "./pages/user/UserPage";
 import DevicePage from "./pages/device/DevicePage";
-import DashboardPage from "./pages/dashboard/DashboardPage";
 import AnalyticsPage from "./pages/analytics/AnalyticsPage";
 import GridPage from "./pages/grid/GridPage";
 import SettingsPage from "./pages/setting/SettingsPage";

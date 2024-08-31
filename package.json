@@ -26,6 +26,7 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.424.0",
     "motion": "^10.18.0",
+    "mqtt": "^5.10.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",

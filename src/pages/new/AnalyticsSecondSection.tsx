@@ -25,7 +25,6 @@ const AnalyticsSecondSection = ({date}:{date:string}) => {
             Access a summary of key metrics and historic data points as of {date}
           </p>
         </VStack>
-        {/* <RabbitMQConsumer/> */}
         <HStack className="gap-8">
           <TimeGap />
           <DateSelector />
