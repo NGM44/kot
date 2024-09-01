@@ -25,7 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 .VSCodeCounter/
 
-yarn.lock
+
 .vscode/settings.json
-yarn.lock
 .env
+.DS_Store
