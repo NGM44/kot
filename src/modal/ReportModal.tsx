@@ -110,7 +110,7 @@ export default function AddDeviceModal({
                 ) : (
                   <>
                     <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4">
-                      <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                      <h2 className="text-left whitespace-nowrap text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Generate Report
                       </h2>
                     </div>

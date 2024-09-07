@@ -90,7 +90,7 @@ const AnalyticsPage = () => {
       <VStack className="gap-6">
         <AnalyticsSecondSection date={"today"} />
         <div className="bg-white rounded-xl shadow-box p-6">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex w-full justify-between items-center mb-4">
             <VStack>
               <h2 className="text-xl font-bold">{metric} Analysis</h2>
               <p className="text-xs font-medium text-gray-500 ">

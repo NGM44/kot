@@ -12,7 +12,13 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { UserCog } from "lucide-react";
 import { Icon } from "@iconify/react";
 
-const userNavigation = [{ name: "Last Week", href: "#" },{ name: "Last 30 Days", href: "#" },{ name: "Last 60 Days", href: "#" },{ name: "Last 90 Days", href: "#" }, {name: "Custom Date", href: "#" }];
+const userNavigation = [
+  { name: "Last Week", href: "#" },
+  { name: "Last 30 Days", href: "#" },
+  { name: "Last 60 Days", href: "#" },
+  { name: "Last 90 Days", href: "#" },
+  { name: "Custom Date", href: "#" },
+];
 
 const DownloadExcel = ({ onClick }: { onClick: any }) => {
   return (
@@ -35,8 +41,9 @@ const DownloadExcel = ({ onClick }: { onClick: any }) => {
           // }}
           className="inline-flex items-center gap-x-2 rounded-xl bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          <Icon className="w-5 h-5" icon={"mdi:file-report-outline"} /> Generate
-          Report
+          <Icon className="w-5 h-5" icon={"mdi:file-report-outline"} />
+
+          <span className="whitespace-nowrap">Generate Report</span>
         </button>
       </MenuButton>
 
@@ -57,7 +64,7 @@ const DownloadExcel = ({ onClick }: { onClick: any }) => {
                   // onClick={onClick}
                   className={classNames(
                     focus ? "bg-primary text-white" : "text-gray-900",
-                    "block px-3 py-2 text-sm1 leading-6"
+                    "block px-3 py-2 text-sm1 leading-6 w-full text-left"
                   )}
                 >
                   {item.name}
