@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import AdminBanner from "./AdminBanner";
 import { useState } from "react";
 import { useSendBannerMessage } from "../../queries/auth";
+import GasMapping from "./GasMapping";
 
 export interface ICompanyModel {
   id: string;
@@ -19,6 +20,7 @@ export interface ICompanyModel {
   updatedAt: Date;
   users: IUserModel[];
   devices: IDeviceModel[];
+  gasMapping: IGasMapping;
 }
 export interface IUserModel {
   id: string;
@@ -61,6 +63,16 @@ export interface IDeviceModel {
   updatedAt: Date;
 }
 
+export interface IGasMapping {
+  gas1:string;
+  gas2:string;
+  gas3:string;
+  gas4:string;
+  gas5:string;
+  gas6:string;
+  clientId: string;
+}
+
 const CompanyDashboard = () => {
   const { id } = useParams();
   const { data: clientDetails } = useGetClientsDetail(id ?? "");
@@ -87,6 +99,9 @@ const CompanyDashboard = () => {
           <div className="grid grid-cols-4  gap-8">
             <CompanyDevice deviceList={clientDetails.devices ?? []} />
             <CompanyUser users={clientDetails.users} />
+          </div>
+          <div className="mt-8">
+            <GasMapping gasMapping = {clientDetails.gasMapping}/>
           </div>
         </div>
       ) : (

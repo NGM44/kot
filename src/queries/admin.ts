@@ -5,6 +5,7 @@ import {
   changeDeviceState,
   connectDeviceWithClient,
   deleteUser,
+  editGasMapping,
   generateCredentials,
   getAllClients,
   getAllDevices,
@@ -160,6 +161,27 @@ export function useGetClientsDetail(id: string) {
       });
     },
   });
+}
+
+export function useEditGasMappingDetails(){
+  return useMutation({
+    mutationKey: "edit-gas-mapping",
+    mutationFn: editGasMapping,
+    onSuccess:() => {
+      handleEventForTracking({
+        eventName: "edit-gas-mapping",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "delete-user",
+        success: false,
+        eventType: "API",
+      });
+    },
+  })
 }
 
 export function useDeleteUser() {

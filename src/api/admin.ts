@@ -2,11 +2,7 @@ import { ClientModel } from "../types/auth";
 import { CustomResponse } from "./auth";
 import api from "../queries/api";
 import { QueryFunctionContext } from "react-query";
-import {
-  ICompanyModel,
-  IDeviceModel,
-  UserModel,
-} from "../pages/user/CompanyPage";
+import { ICompanyModel, IDeviceModel, IGasMapping, UserModel } from "../pages/user/CompanyPage";
 import {
   ChangeDeviceModel,
   ConnectDeviceModel,
@@ -86,6 +82,10 @@ export async function registerDevice(
 
 export async function deleteUser(id: string): Promise<CustomResponse<any>> {
   return api.delete(`/user/${id}`).then((res) => res.data);
+}
+
+export async function editGasMapping(gasMapping: IGasMapping): Promise<CustomResponse<string>> {
+  return api.put(`/client/mapping`, gasMapping).then((res) => res.data);
 }
 
 export async function generateCredentials(email: string): Promise<any> {
