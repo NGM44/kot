@@ -3,27 +3,33 @@ import { classNames } from "../../utils/string";
 import { useNavigate } from "react-router-dom";
 import AddCompanyModal from "../../modal/AddCompanyModal";
 import { useGetAllClients, useGetAllDevices } from "../../queries/admin";
+import { ClientDetailModel } from "../../api/admin";
 
 export default function UserPage() {
   const navigate = useNavigate();
   const { data: clientDetails } = useGetAllClients();
   const [dialog, setDialog] = useState(false);
-
-  const sum = clientDetails?.reduce((accumulator:any, currentValue:any) => {
-    const user = currentValue.users ?? [];
-    return accumulator + user.length;
-  }, 0);
-  const devicesList = clientDetails?.reduce((accumulator:any, currentValue:any) => {
-    const user = currentValue.devices ?? [];
-    return accumulator + user.length;
-  }, 0);
+  const sum = clientDetails?.reduce(
+    (accumulator: number, currentValue: ClientDetailModel) => {
+      const user = currentValue.users ?? [];
+      return accumulator + user.length;
+    },
+    0
+  );
+  const devicesList = clientDetails?.reduce(
+    (accumulator: any, currentValue: any) => {
+      const user = currentValue.devices ?? [];
+      return accumulator + user.length;
+    },
+    0
+  );
   const { data: deviceDs } = useGetAllDevices();
 
   const stats = [
-    { name: "No. of Clients", value: clientDetails?.length, change: "+88%" },
-    { name: "No. of User", value: sum, change: "2%" },
-    { name: "Total Device", value: devicesList, change: "+10%" },
-    { name: "Mesh", value: "0", change: "0%" },
+    { name: "No. of Clients", value: clientDetails?.length },
+    { name: "No. of User", value: sum },
+    { name: "Total Device", value: devicesList },
+    { name: "Mesh", value: "0" },
   ];
   return (
     <div className="flex flex-col gap-8">
@@ -52,9 +58,7 @@ export default function UserPage() {
             <dt className="text-sm font-medium leading-6 text-gray-500">
               {stat.name}
             </dt>
-            <dd className={classNames("text-gray-700", "text-xs font-medium")}>
-              {stat.change}
-            </dd>
+
             <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
               {stat.value}
             </dd>
@@ -130,7 +134,7 @@ export default function UserPage() {
                         navigate(`/user/${client.id}`);
                       }}
                       className="cursor-pointer"
-                      key={client.email}
+                      key={client.id}
                     >
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                         {client.name}

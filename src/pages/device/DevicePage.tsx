@@ -24,10 +24,10 @@ export default function DevicePage() {
   let unregistered = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "UNREGISTERED").length;
   let terminated = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "TERMINATED").length;
   const stats = [
-    { name: "Registered", value: registered, change: "+88%" },
-    { name: "Production", value: connected, change: "+10%" },
-    { name: "Un Registered", value: unregistered, change: "2%" },
-    { name: "Terminated", value: terminated, change: "0%" },
+    { name: "Registered", value: registered },
+    { name: "Production", value: connected},
+    { name: "Un Registered", value: unregistered},
+    { name: "Terminated", value: terminated },
   ];
   return (
     <div className="flex flex-col gap-8">
@@ -59,9 +59,7 @@ export default function DevicePage() {
             <dt className="text-sm font-medium leading-6 text-gray-500">
               {stat.name}
             </dt>
-            <dd className={classNames("text-gray-700", "text-xs font-medium")}>
-              {stat.change}
-            </dd>
+            
             <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
               {stat.value}
             </dd>

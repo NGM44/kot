@@ -390,7 +390,7 @@ const NavButton = ({
 }: {
   name: any;
   icon: any;
-  onClick: any;
+  onClick: () => void;
   active: any;
 }) => {
   return (

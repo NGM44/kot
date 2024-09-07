@@ -4,13 +4,17 @@ import DeviceMenu from "../device/DeviceMenu";
 import { IUserModel } from "./CompanyPage";
 import { useDeleteUser, useGenerateCredentials } from "../../queries/admin";
 import { queryClient } from "../../queries/client";
+import SendNotification from "../../modal/SendNotification";
+import { toast } from "react-toastify";
 
 const CompanyUser = ({ users }: { users: IUserModel[] }) => {
   const [dialog, setDialog] = useState(false);
+  const [sendNotification, setSendNotification] = useState(false);
+  const [email, setEmail] = useState("");
   const { mutate: generateCredentials } = useGenerateCredentials();
   const { mutate: deleteUser } = useDeleteUser();
   return (
-    <div className="px-4 sm:px-6 lg:px-8 bg-white pt-6 border border-borderColor shadow-md rounded-md">
+    <div className="px-4 sm:px-6 col-span-2  lg:px-8 bg-white pt-6 border border-borderColor shadow-md rounded-md">
       {dialog && (
         <AddUserModal
           isOpen={dialog}
@@ -19,6 +23,17 @@ const CompanyUser = ({ users }: { users: IUserModel[] }) => {
           }}
         />
       )}
+      {sendNotification && (
+        <SendNotification
+          isOpen={sendNotification}
+          onClose={() => {
+            setSendNotification(false);
+            setEmail("");
+          }}
+          email={email}
+        />
+      )}
+
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
@@ -85,7 +100,31 @@ const CompanyUser = ({ users }: { users: IUserModel[] }) => {
                           {
                             name: "Generate Credential",
                             action: () => {
-                              generateCredentials(user.email);
+                              generateCredentials(user.email, {
+                                onSuccess() {
+                                  toast(
+                                    "Password Generated and Sent over mail",
+                                    {
+                                      type: "success",
+                                      autoClose: 2000,
+                                    }
+                                  );
+                                },
+                                onError(data: any) {
+                                  toast(data.response.data.errorMessage, {
+                                    type: "error",
+                                    autoClose: 2000,
+                                  });
+                                },
+                              });
+                            },
+                          },
+                          {
+                            name: "Send Notification",
+                            action: () => {
+                              setSendNotification(true);
+                              setEmail(user.email);
+                              // SendNotification
                             },
                           },
                           {
