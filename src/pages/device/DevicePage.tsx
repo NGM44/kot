@@ -18,7 +18,6 @@ export default function DevicePage() {
   }, [deviceDs]);
   const { mutate: changeStatus } = useChangeDeviceState();
   //TODO: get stat details from deviceDetails
-  console.log("deviceDetails",deviceDetails);
   let connected = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "CONNECTED").length;
   let registered = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "REGISTERED").length;
   let unregistered = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "UNREGISTERED").length;

@@ -10,23 +10,44 @@ import DeviceSelection from "../new/DeviceSelection";
 import ChartSelection from "../new/ChartSelection";
 import { dummyData } from "./constant";
 import { useValueStore } from "../../store/useValueState";
-import { generateSensorData } from "./ContantData";
+import { filterWeatherData } from "./ContantData";
+import { IWeatherData } from "../../types/device";
 
 const AnalyticsPage = () => {
-  const deviceId = "01J2RWJH8HF0C6ZQYFJ9HHC9ZP";
-  // const { data: _weatherData } = useWeatherData(deviceId);
-  const weather = generateSensorData("1 Day", "1 hour");
-  const { metric, date, index, gap, deviceName, metricUnit,isRefresh } = useValueStore();
-  const [weatherData, setWeatherData] = useState(weather);
+  // const deviceId = "01J2RWJH8HF0C6ZQYFJ9HHC9ZP";
+
+  const {
+    metric,
+    date,
+    index,
+    gap,
+    deviceName,
+    metricUnit,
+    isRefresh,
+    deviceId,
+  } = useValueStore();
+  const { data: _weatherData, refetch } = useWeatherData(deviceId ?? "");
+  const [weatherData, setWeatherData] = useState<IWeatherData[]>([]);
+  console.log("_weatherData", _weatherData);
+  console.log("_whetherData2", weatherData);
   useEffect(() => {
-    const weatherData = generateSensorData(date ?? "1 Day", gap ?? "1 hour");
-    setWeatherData(weatherData);
-  }, [date, gap, index, metric,isRefresh]);
+    if (_weatherData) {
+      const weatherData = filterWeatherData(
+        _weatherData ?? [],
+        date ?? "1 Day",
+        gap ?? "1 hour"
+      );
+      setWeatherData(weatherData || []);
+    }
+  }, [date, gap, index, metric, isRefresh, _weatherData]);
   const minTemperatureValue = _.min(weatherData.map((d) => d.temperature));
   const maxTemperatureValue = _.max(weatherData.map((d) => d.temperature));
   const minHumidityValue = _.min(weatherData.map((d) => d.humidity));
   const maxHumidityValue = _.max(weatherData.map((d) => d.humidity));
 
+  useEffect(() => {
+    refetch();
+  }, [deviceId]);
   const temperatureOptions = {
     tooltip: {
       trigger: "axis",

@@ -39,7 +39,6 @@ export default function NewLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { data: user } = useGetUserDevices();
-  // console.log("user",user);
   const { role, setAuth } = useAuthStore();
   let isAdmin = role?.toUpperCase() === "ADMIN";
 

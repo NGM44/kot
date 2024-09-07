@@ -9,10 +9,12 @@ import {
   extractDashboardCardValues,
   LiveDataModel,
 } from "./GenerateDashboardData";
+import { useGetUserDevices } from "../../queries/admin";
 
 const HomePageDashboardCard = ({ liveData }: { liveData: LiveDataModel }) => {
+  const { data: user } = useGetUserDevices();
   const { data1, data2, data3, data4, productivityMeter } =
-    extractDashboardCardValues(liveData);
+    extractDashboardCardValues(liveData,user?.gasMapping);
   return (
     <VStack className="gap-6">
       <div className="flex flex-wrap gap-6 w-full">

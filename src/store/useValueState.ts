@@ -15,6 +15,7 @@ type TimeGap = "1 hour" | "2 hour" | "6 hour" | "12 hour" | "24 hour";
 interface Value {
   isRefresh?: boolean;
   deviceName?: string;
+  deviceId?: string;
   metric?: string;
   metricUnit?: string;
   date?: TimePeriod;
@@ -38,6 +39,7 @@ export const useValueStore = createStore<ValueStore>(
       index: 0,
       gap: "1 Hour",
       deviceName: "",
+      deviceId: "",
       date: "1 Day",
       setValue: (auth: Value | ((auth: Value) => Value)) => {
         if (typeof auth === "function") {
@@ -54,6 +56,7 @@ export const useValueStore = createStore<ValueStore>(
           date: "1 Day",
           gap: "1 Hour",
           deviceName: "",
+          deviceId: "",
           index: 0,
         }));
       },

@@ -39,9 +39,11 @@ export interface UserModel {
   email: string;
   role: any;
   clientId: string;
+  gasMapping: IGasMapping; 
   client: ClientDataModel;
   devices: IDeviceModel[];
 }
+
 export interface ClientDataModel {
   id: string;
   name: string;
@@ -56,6 +58,7 @@ export interface IDeviceModel {
   id: string;
   name: string;
   identifier: string;
+  location: string;
   status: string;
   modelType: string;
   clientId: string;

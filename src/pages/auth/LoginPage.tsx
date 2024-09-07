@@ -61,7 +61,7 @@ export default function LoginPage() {
           type: "error",
           autoClose: 2000,
         });
-        console.log("data", data.response.data.errorMessage);
+    
         //  toast(data.)
       },
     });

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CheckIcon } from "lucide-react";
 import GenericDropdown from "./GenericSelection";
 import useMqttStore from "../../store/useMqttStore";
 import { topicPrefix } from "../../constant";
+import { useGetUserDevices } from "../../queries/admin";
+import { IDeviceModel } from "../user/CompanyPage";
+import { useValueStore } from "../../store/useValueState";
 
 interface Device {
   id: string;
@@ -11,19 +14,25 @@ interface Device {
 }
 
 const DeviceSelection: React.FC = () => {
-  const devices: Device[] = [
-    { id: "123456", name: "Gravity Sensenode", location: "Gravity 1st Floor" },
-    { id: "7654321", name: "Arlikat Sensenode", location: "Arlikat Database" },
-    // ... other devices
-  ];
+  // const devices: Device[] = [
+  //   { id: "123456", name: "Gravity Sensenode", location: "Gravity 1st Floor" },
+  //   { id: "7654321", name: "Arlikat Sensenode", location: "Arlikat Database" },
+  //   // ... other devices
+  // ];
+  const [devices, setDevices] = useState<IDeviceModel[]>([]);
+  const { data: user } = useGetUserDevices();
+
+  useEffect(() => {
+    if (user) {
+      setDevices(user?.devices);
+    }
+  }, [user]);
   const { subscribeTopic } = useMqttStore();
+  const { setValue } = useValueStore();
 
   const handleSelect = (selectedDevice: Device) => {
-    // Handle the selection, e.g., update state, make API calls, etc.
-    console.log("Selected device:", selectedDevice);
-
-    // subscribeTopic("weather_data/01J5B30RPFBVZXFNSC2323DXPQ");
     subscribeTopic(`${topicPrefix}/${selectedDevice.id.toString()}`);
+    setValue({ deviceName: selectedDevice.name, deviceId: selectedDevice.id });
   };
 
   const renderDevice = (device: Device, isSelected: boolean) => (
@@ -35,13 +44,19 @@ const DeviceSelection: React.FC = () => {
   );
 
   return (
-    <GenericDropdown<Device>
-      options={devices}
-      onSelect={handleSelect}
-      initialSelectedId={devices[0].id}
-      renderOption={renderDevice}
-      buttonClassName="w-64"
-    />
+    <>
+      {devices.length > 0 ? (
+        <GenericDropdown<Device>
+          options={devices}
+          onSelect={handleSelect}
+          initialSelectedId={devices[0].id}
+          renderOption={renderDevice}
+          buttonClassName="w-64"
+        />
+      ) : (
+        <div></div>
+      )}
+    </>
   );
 };
 

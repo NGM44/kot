@@ -1,3 +1,5 @@
+import { IGasMapping } from "../user/CompanyPage";
+
 export interface CardModel {
   key: string;
   name: string;
@@ -31,7 +33,10 @@ export interface LiveDataModel {
   dateString: string;
 }
 
-export const extractDashboardCardValues = (liveData: LiveDataModel) => {
+export const extractDashboardCardValues = (
+  liveData: LiveDataModel,
+  gasMapping?: IGasMapping
+) => {
   const differentialPressure = liveData.pressure;
 
   const data1: CardModel[] = [
@@ -129,7 +134,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
 
   const data3: CardModel[] = [
     {
-      name: "Gas 1",
+      name: gasMapping?.gas1 ?? "Gas 1",
       key: "Gas 1",
       value: `${liveData.gas1}`,
       unit: "ppm",
@@ -140,7 +145,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       graph: "Line",
     },
     {
-      name: "Gas 2",
+      name: gasMapping?.gas2 ?? "Gas 2",
       key: "Gas 2",
       value: `${liveData.gas2}`,
       unit: "ppm",
@@ -151,7 +156,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       graph: "Line",
     },
     {
-      name: "Gas 3",
+      name: gasMapping?.gas3 ?? "Gas 3",
       key: "Gas 3",
       value: `${liveData.gas3}`,
       unit: "ppm",
@@ -164,7 +169,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
   ];
   const data4: CardModel[] = [
     {
-      name: "Gas 4",
+      name: gasMapping?.gas4 ?? "Gas 4",
       key: "Gas 4",
       value: `${liveData.gas4}`,
       unit: "ppm",
@@ -175,7 +180,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       graph: "Line",
     },
     {
-      name: "Gas 5",
+      name: gasMapping?.gas5 ?? "Gas 5",
       key: "Gas 5",
       value: `${liveData.gas5}`,
       unit: "ppm",
@@ -186,7 +191,7 @@ export const extractDashboardCardValues = (liveData: LiveDataModel) => {
       graph: "Line",
     },
     {
-      name: "Gas 6",
+      name: gasMapping?.gas6 ?? "Gas 6",
       key: "Gas 6",
       value: `${liveData.gas6}`,
       unit: "ppm",
