@@ -6,6 +6,8 @@ import {
   forgotPassword,
   logOutFromAllDevices,
   resetPassword,
+  sendBannerMessage,
+  sendMessage,
   signIn,
   signUp,
 } from "../api/auth";
@@ -137,6 +139,49 @@ export function useSignUp() {
     },
   });
 }
+
+export function useSendMessage() {
+  return useMutation({
+    mutationKey: "sendMessage",
+    mutationFn: sendMessage,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "sendMessage",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "sendMessage",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useSendBannerMessage() {
+  return useMutation({
+    mutationKey: "sendBannerMessage",
+    mutationFn: sendBannerMessage,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "sendBannerMessage",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "sendBannerMessage",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
 
 export function useChangePasswordAuth() {
   return useMutation({

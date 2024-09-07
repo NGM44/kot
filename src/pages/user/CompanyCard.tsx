@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { ICompanyModel } from "./CompanyPage";
+import { useSendBannerMessage } from "../../queries/auth";
+import { toast } from "react-toastify";
 
-const CompanyCard = ({ companyDetails }: { companyDetails: ICompanyModel }) => {
+const CompanyCard = ({
+  companyDetails,
+  showBanner,
+  onClick,
+}: {
+  companyDetails: ICompanyModel;
+  showBanner: boolean;
+  onClick: any;
+}) => {
+
   return (
     <div className="bg-white rounded-sm shadow-md mb-8 p-6">
       <div className="flex items-center justify-between mb-4">
@@ -29,7 +40,7 @@ const CompanyCard = ({ companyDetails }: { companyDetails: ICompanyModel }) => {
           <div className="text-center">
             <p className="text-sm text-gray-600">Users</p>
             <p className="text-xl font-semibold">
-              {companyDetails.devices.length}
+              {companyDetails.users.length}
             </p>
           </div>
           <div className="text-center">
@@ -56,9 +67,27 @@ const CompanyCard = ({ companyDetails }: { companyDetails: ICompanyModel }) => {
           <span className="underline">{companyDetails.website}</span>
         </a>
 
-        <p className="flex items-center">
-          <span className="mr-2">📞</span> {companyDetails.phone}
-        </p>
+        <div className="flex flex-row items-center justify-between">
+          <p className="flex items-center">
+            <span className="mr-2">📞</span> {companyDetails.phone}
+          </p>{" "}
+          <div className="flex items-center">
+            <label
+              htmlFor="showBanner"
+              className="mr-3 block text-sm  cursor-pointer leading-6 text-gray-900"
+            >
+              Show Banner
+            </label>
+            <input
+              id="showBanner"
+              name="showBanner"
+              type="checkbox"
+              checked={showBanner}
+              onChange={onClick}
+              className="h-4 w-4 rounded  cursor-pointer border-gray-300 text-indigo-600 border-2 focus:ring-indigo-600"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

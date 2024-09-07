@@ -3,6 +3,9 @@ import CompanyUser from "./CompanyUser";
 import CompanyCard from "./CompanyCard";
 import { useGetClientsDetail } from "../../queries/admin";
 import { useParams } from "react-router-dom";
+import AdminBanner from "./AdminBanner";
+import { useState } from "react";
+import { useSendBannerMessage } from "../../queries/auth";
 
 export interface ICompanyModel {
   id: string;
@@ -33,9 +36,9 @@ export interface UserModel {
   name: string;
   email: string;
   role: any;
-  clientId: string
-  client: ClientDataModel
-  devices: IDeviceModel[]
+  clientId: string;
+  client: ClientDataModel;
+  devices: IDeviceModel[];
 }
 export interface ClientDataModel {
   id: string;
@@ -61,13 +64,27 @@ export interface IDeviceModel {
 const CompanyDashboard = () => {
   const { id } = useParams();
   const { data: clientDetails } = useGetClientsDetail(id ?? "");
-
+  const [showBanner, setShowBanner] = useState(false);
+  const { mutate: sendBannerMessage } = useSendBannerMessage();
+  const sendBanner = (banner: any) => {
+    sendBannerMessage({
+      state: banner,
+    });
+  };
   return (
     <>
       {clientDetails ? (
         <div className="w-full">
-          <CompanyCard companyDetails={clientDetails} />
-          <div className="grid grid-cols-3  gap-8">
+          <CompanyCard
+            companyDetails={clientDetails}
+            onClick={() => {
+              setShowBanner(!showBanner);
+              sendBanner(!showBanner);
+            }}
+            showBanner={showBanner}
+          />
+          {showBanner && <AdminBanner companyDetails={clientDetails} />}
+          <div className="grid grid-cols-4  gap-8">
             <CompanyDevice deviceList={clientDetails.devices ?? []} />
             <CompanyUser users={clientDetails.users} />
           </div>

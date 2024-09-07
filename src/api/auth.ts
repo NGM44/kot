@@ -27,6 +27,18 @@ export async function signUp(
   return api.post(`user/signUp`, signUpDetailsModel).then((res) => res.data);
 }
 
+export async function sendMessage(
+  message: any
+): Promise<CustomResponse<SignResponseModel>> {
+  return api.post(`user/message`, message).then((res) => res.data);
+}
+export async function sendBannerMessage(
+  message: any
+): Promise<CustomResponse<SignResponseModel>> {
+  return api.post(`user/bannerMessage`, message).then((res) => res.data);
+}
+
+
 export async function changePasswordAuth(
   changePasswordAuth: ChangePasswordDetailModelAuth
 ): Promise<CustomResponse<SignResponseModel>> {

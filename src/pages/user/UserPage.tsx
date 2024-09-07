@@ -9,21 +9,24 @@ export default function UserPage() {
   const { data: clientDetails } = useGetAllClients();
   const [dialog, setDialog] = useState(false);
 
-  const sum = clientDetails?.reduce((accumulator:any, currentValue:any) => {
+  const sum = clientDetails?.reduce((accumulator: any, currentValue: any) => {
     const user = currentValue.users ?? [];
     return accumulator + user.length;
   }, 0);
-  const devicesList = clientDetails?.reduce((accumulator:any, currentValue:any) => {
-    const user = currentValue.devices ?? [];
-    return accumulator + user.length;
-  }, 0);
+  const devicesList = clientDetails?.reduce(
+    (accumulator: any, currentValue: any) => {
+      const user = currentValue.devices ?? [];
+      return accumulator + user.length;
+    },
+    0
+  );
   const { data: deviceDs } = useGetAllDevices();
 
   const stats = [
-    { name: "No. of Clients", value: clientDetails?.length, change: "+88%" },
-    { name: "No. of User", value: sum, change: "2%" },
-    { name: "Total Device", value: devicesList, change: "+10%" },
-    { name: "Mesh", value: "0", change: "0%" },
+    { name: "No. of Clients", value: clientDetails?.length },
+    { name: "No. of User", value: sum },
+    { name: "Total Device", value: devicesList },
+    { name: "Mesh", value: "0" },
   ];
   return (
     <div className="flex flex-col gap-8">
@@ -52,9 +55,7 @@ export default function UserPage() {
             <dt className="text-sm font-medium leading-6 text-gray-500">
               {stat.name}
             </dt>
-            <dd className={classNames("text-gray-700", "text-xs font-medium")}>
-              {stat.change}
-            </dd>
+
             <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
               {stat.value}
             </dd>
