@@ -21,6 +21,7 @@ export default function AddDeviceModal({
 }) {
   const [deviceName, setDeviceName] = useState("");
   const [deviceType, setDeviceType] = useState("");
+  const [deviceLocation, setDeviceLocation] = useState("");
   const [deviceId, setDeviceId] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
   const { mutate: addDeviceToClient } = useAddDeviceToClient();
@@ -44,6 +45,7 @@ export default function AddDeviceModal({
       deviceId,
       modelType: deviceType,
       name: deviceName,
+      location: deviceLocation,
       clientId: id ?? "",
     };
     addDeviceToClient(deviceDetails, {
@@ -111,7 +113,7 @@ export default function AddDeviceModal({
                       <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Add Device
                       </h2>
-                      <XMarkIcon className="w-6 h-6" onClick={()=>{
+                      <XMarkIcon className="w-6 h-6 cursor-pointer" onClick={()=>{
                     onClose()
                   }} />
                     </div>
@@ -176,6 +178,26 @@ export default function AddDeviceModal({
                             ))}
                           </select>
                         </div>
+                      </HStack>
+                      <HStack className="w-full justify-start">
+                        <div>
+                          <label
+                            htmlFor="deviceLocation"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                          >
+                            Device Location
+                          </label>
+                          <div className="mt-2">
+                          <input
+                            id="location"
+                            name="location"
+                            type="text"
+                            onChange={(e) => setDeviceLocation(e.target.value)}
+                            required
+                            className="block w-full px-2 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          />
+                        </div>
+                          </div>
                       </HStack>
                       <div>
                         <button

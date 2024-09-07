@@ -245,7 +245,7 @@ export default function NewLayout() {
               onClick={() => {
                 navigate(nav.href);
               }}
-              active={nav.href === pathname}
+              active={pathname.includes(nav.href)}
               icon={nav.icon}
             />
           ))}
