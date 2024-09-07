@@ -10,6 +10,7 @@ import { useAddDeviceToClient, useGetAllDevices } from "../queries/admin";
 import { ConnectDeviceModel } from "../types/device";
 import { queryClient } from "../queries/client";
 import { useParams } from "react-router-dom";
+import { HStack } from "../component/utils";
 
 export default function AddDeviceModal({
   deviceId,
@@ -25,6 +26,7 @@ export default function AddDeviceModal({
   const [showSuccess, setShowSuccess] = useState(false);
   const { mutate: addDeviceToClient } = useAddDeviceToClient();
   const { id } = useParams();
+  const [deviceLocation, setDeviceLocation] = useState("");
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -44,6 +46,7 @@ export default function AddDeviceModal({
       deviceId,
       modelType: deviceType,
       name: deviceName,
+      location: deviceLocation,
       clientId: id ?? "",
     };
     addDeviceToClient(deviceDetails, {
@@ -170,6 +173,26 @@ export default function AddDeviceModal({
                           ))}
                         </select>
                       </div>
+                      <HStack className="w-full justify-start">
+                        <div>
+                          <label
+                            htmlFor="deviceLocation"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                          >
+                            Device Location
+                          </label>
+                          <div className="mt-2">
+                          <input
+                            id="location"
+                            name="location"
+                            type="text"
+                            onChange={(e) => setDeviceLocation(e.target.value)}
+                            required
+                            className="block w-full px-2 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          />
+                        </div>
+                          </div>
+                      </HStack>
 
                       <div>
                         <button

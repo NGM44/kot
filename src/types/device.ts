@@ -23,6 +23,7 @@ export interface ConnectDeviceModel {
   deviceId: string;
   name: string;
   modelType: string;
+  location: string;
   clientId: string;
 }
 
