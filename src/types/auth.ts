@@ -60,6 +60,7 @@ export interface ClientModel {
   id?: string;
   name: string;
   logo: string;
+  // users: UserData;
   address: string;
   email: string;
   phone: string;

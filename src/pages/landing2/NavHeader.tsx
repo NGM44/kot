@@ -5,7 +5,7 @@ const NavHeader = ({
   state,
   menuBtnEl,
 }: {
-  onClick: any;
+  onClick: () => void;
   state: any;
   menuBtnEl: any;
 }) => (

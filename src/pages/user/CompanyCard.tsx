@@ -10,7 +10,7 @@ const CompanyCard = ({
 }: {
   companyDetails: ICompanyModel;
   showBanner: boolean;
-  onClick: any;
+  onClick: () => void;
 }) => {
 
   return (

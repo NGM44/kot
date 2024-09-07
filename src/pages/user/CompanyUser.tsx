@@ -5,6 +5,7 @@ import { IUserModel } from "./CompanyPage";
 import { useDeleteUser, useGenerateCredentials } from "../../queries/admin";
 import { queryClient } from "../../queries/client";
 import SendNotification from "../../modal/SendNotification";
+import { toast } from "react-toastify";
 
 const CompanyUser = ({ users }: { users: IUserModel[] }) => {
   const [dialog, setDialog] = useState(false);
@@ -99,7 +100,23 @@ const CompanyUser = ({ users }: { users: IUserModel[] }) => {
                           {
                             name: "Generate Credential",
                             action: () => {
-                              generateCredentials(user.email);
+                              generateCredentials(user.email, {
+                                onSuccess() {
+                                  toast(
+                                    "Password Generated and Sent over mail",
+                                    {
+                                      type: "success",
+                                      autoClose: 2000,
+                                    }
+                                  );
+                                },
+                                onError(data: any) {
+                                  toast(data.response.data.errorMessage, {
+                                    type: "error",
+                                    autoClose: 2000,
+                                  });
+                                },
+                              });
                             },
                           },
                           {

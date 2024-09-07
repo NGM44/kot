@@ -36,8 +36,8 @@ export default function DeviceSelection() {
   const handleSelection = (device: typeof devices[0]) => {
     setSelected(device);
     setIsOpen(false);
-    subscribeTopic("weather_data/01J5B30RPFBVZXFNSC2323DXPQ");
-    // subscribeTopic(`${topicPrefix}/${device.id.toString()}`);
+    // subscribeTopic("weather_data/01J5B30RPFBVZXFNSC2323DXPQ");
+    subscribeTopic(`${topicPrefix}/${device.id.toString()}`);
     setValue({
       index: device.id,
       deviceName: device.name,

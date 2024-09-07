@@ -12,6 +12,12 @@ import { useParams } from "react-router-dom";
 import { queryClient } from "../queries/client";
 import { toast } from "react-toastify";
 
+export interface NotificationModel {
+  email: string;
+  message: string;
+  includeMail: boolean;
+}
+
 export default function SendNotification({
   email,
   isOpen,
@@ -41,7 +47,11 @@ export default function SendNotification({
   }, [showSuccess, onClose]);
 
   function handleSendMessage() {
-    const messageDto: any = { email: email, message, includeMail: sendMail };
+    const messageDto: NotificationModel = {
+      email: email,
+      message,
+      includeMail: sendMail,
+    };
     sendMessage(messageDto, {
       onSuccess() {
         queryClient.invalidateQueries("get-client-detail");

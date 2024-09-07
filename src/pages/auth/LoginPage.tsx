@@ -34,7 +34,7 @@ export default function LoginPage() {
   function handleLogin() {
     const loginDto: SignInDetailsModel = { email, password };
     login(loginDto, {
-      onSuccess:(data)=> {
+      onSuccess: (data) => {
         const accessToken = data.data.token;
         const decodedJwt = decodeAuthToken(accessToken);
         setAuth({
@@ -46,16 +46,24 @@ export default function LoginPage() {
         });
         setEmail("");
         setPassword("");
+        toast("Logged in successfully!", {
+          type: "success",
+          autoClose: 2000,
+        });
         if (decodedJwt.role === "ADMIN") {
           navigate("/user");
         } else {
           navigate("/dashboard");
         }
       },
-      onError: (data)=>{
-        console.log("data", data);
-      //  toast(data.)
-      }
+      onError: (data:any) => {
+        toast(data.response.data.errorMessage, {
+          type: "error",
+          autoClose: 2000,
+        });
+        console.log("data", data.response.data.errorMessage);
+        //  toast(data.)
+      },
     });
   }
 
@@ -101,7 +109,7 @@ export default function LoginPage() {
                     Email address
                   </label>
                   <div className="relative mt-2">
-                    <Mail className="absolute top-1.5 p-0.5 left-2 text-gray-400"/>
+                    <Mail className="absolute top-1.5 p-0.5 left-2 text-gray-400" />
                     <input
                       id="email"
                       name="email"
@@ -122,7 +130,7 @@ export default function LoginPage() {
                     Password
                   </label>
                   <div className="relative mt-2">
-                    <Lock className="absolute top-1.5 p-0.5 left-2 text-gray-400"/>
+                    <Lock className="absolute top-1.5 p-0.5 left-2 text-gray-400" />
                     <input
                       id="password"
                       name="password"
@@ -131,7 +139,7 @@ export default function LoginPage() {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       className="block w-full px-2 rounded-md border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
+                    />
                   </div>
                 </div>
                 <div className="flex items-center justify-between w-full">
@@ -176,24 +184,35 @@ export default function LoginPage() {
           <VStack className="gap-8">
             <img
               className="inset-0 md:visible invisible object-cover mx-auto w-fit px-32"
-              src={'remo.png'}
+              src={"remo.png"}
               alt=""
             />
 
-           {/* {activeIndex === 0 ? */}
-            
-              <div className="px-10 text-2xl font-semibold text-center text-white">
-                <p>Live Workspace Monitor</p>
-                <p className="text-base text-gray-200">Monitor the Air Quality for better tomorrow</p>
+            {/* {activeIndex === 0 ? */}
 
-                <HStack className="gap-4 mt-6 w-full justify-center">
-                  <div onClick={()=>setActiveIndex(0)} className="w-4 h-4 bg-white rounded-full"></div>
-                  <div onClick={()=>setActiveIndex(1)} className="w-4 h-4 bg-transparent border-2 border-white rounded-full"></div>
-                  <div onClick={()=>setActiveIndex(2)} className="w-4 h-4 bg-transparent border-2 border-white rounded-full"></div>
-                </HStack>
-              </div>
-            
-              {/* : activeIndex === 1 ? (
+            <div className="px-10 text-2xl font-semibold text-center text-white">
+              <p>Live Workspace Monitor</p>
+              <p className="text-base text-gray-200">
+                Monitor the Air Quality for better tomorrow
+              </p>
+
+              <HStack className="gap-4 mt-6 w-full justify-center">
+                <div
+                  onClick={() => setActiveIndex(0)}
+                  className="w-4 h-4 bg-white rounded-full"
+                ></div>
+                <div
+                  onClick={() => setActiveIndex(1)}
+                  className="w-4 h-4 bg-transparent border-2 border-white rounded-full"
+                ></div>
+                <div
+                  onClick={() => setActiveIndex(2)}
+                  className="w-4 h-4 bg-transparent border-2 border-white rounded-full"
+                ></div>
+              </HStack>
+            </div>
+
+            {/* : activeIndex === 1 ? (
               <div className="px-10 pb-10 text-2xl font-semibold text-center text-white">
                 <p> Share, collect, and organize project files securely</p>
                 <p>all in one central hub</p>

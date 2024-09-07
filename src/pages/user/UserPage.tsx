@@ -3,16 +3,19 @@ import { classNames } from "../../utils/string";
 import { useNavigate } from "react-router-dom";
 import AddCompanyModal from "../../modal/AddCompanyModal";
 import { useGetAllClients, useGetAllDevices } from "../../queries/admin";
+import { ClientDetailModel } from "../../api/admin";
 
 export default function UserPage() {
   const navigate = useNavigate();
   const { data: clientDetails } = useGetAllClients();
   const [dialog, setDialog] = useState(false);
-
-  const sum = clientDetails?.reduce((accumulator: any, currentValue: any) => {
-    const user = currentValue.users ?? [];
-    return accumulator + user.length;
-  }, 0);
+  const sum = clientDetails?.reduce(
+    (accumulator: number, currentValue: ClientDetailModel) => {
+      const user = currentValue.users ?? [];
+      return accumulator + user.length;
+    },
+    0
+  );
   const devicesList = clientDetails?.reduce(
     (accumulator: any, currentValue: any) => {
       const user = currentValue.devices ?? [];
@@ -131,7 +134,7 @@ export default function UserPage() {
                         navigate(`/user/${client.id}`);
                       }}
                       className="cursor-pointer"
-                      key={client.email}
+                      key={client.id}
                     >
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                         {client.name}
