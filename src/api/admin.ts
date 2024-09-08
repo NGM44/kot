@@ -121,3 +121,14 @@ export async function getWeatherData(
     )
     .then((res) => res.data.data);
 }
+
+export async function getLiveWeatherData(
+  context: QueryFunctionContext
+): Promise<IWeatherData> {
+  const deviceId = context.queryKey[1] as string;
+  return api
+    .get(
+      `/weather/latest/${deviceId}`
+    )
+    .then((res) => res.data.data);
+}

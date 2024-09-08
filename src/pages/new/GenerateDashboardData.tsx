@@ -1,3 +1,4 @@
+import { IWeatherData } from "../../types/device";
 import { IGasMapping } from "../user/CompanyPage";
 
 export interface CardModel {
@@ -11,38 +12,17 @@ export interface CardModel {
   unit: string;
   iconName: string;
 }
-export interface LiveDataModel {
-  temperature: number;
-  humidity: number;
-  pressure: number;
-  co2: number;
-  vocs: number;
-  light: number;
-  noise: number;
-  pm1: number;
-  pm25: number;
-  pm4: number;
-  pm10: number;
-  aiq: number;
-  gas1: number;
-  gas2: number;
-  gas3: number;
-  gas4: number;
-  gas5: number;
-  gas6: number;
-  dateString: string;
-}
 
 export const extractDashboardCardValues = (
-  liveData: LiveDataModel,
+  liveData?: IWeatherData,
   gasMapping?: IGasMapping
 ) => {
-  const differentialPressure = liveData.pressure;
+  const differentialPressure = liveData?.pressure.toFixed(2) || "-";
 
   const data1: CardModel[] = [
     {
       name: "Temperature",
-      value: `${liveData.temperature}`,
+      value: `${liveData?.temperature.toFixed(2) || "-"}`,
       unit: "°C",
       key: "Temperature",
       change: "83.2%",
@@ -53,7 +33,7 @@ export const extractDashboardCardValues = (
     },
     {
       name: "Humidity",
-      value: `${liveData.humidity} `,
+      value: `${liveData?.humidity.toFixed(2) || "-" }`,
       unit: "%",
       key: "Humidity",
       iconName: "lets-icons:humidity-light",
@@ -66,7 +46,7 @@ export const extractDashboardCardValues = (
       name: "Pressure",
       unit: "hPa",
       key: "Pressure",
-      value: `${liveData.pressure}`,
+      value: `${liveData?.pressure.toFixed(2) || "-"}`,
       change: "83.2%",
       iconName: "mdi:barometer",
       info: "Pressure",
@@ -88,7 +68,7 @@ export const extractDashboardCardValues = (
   const data2: CardModel[] = [
     {
       name: "Carbon Dioxide (CO2)",
-      value: `${liveData.co2}`,
+      value: `${liveData?.co2.toFixed(2) || "-"}`,
       unit: "ppm",
       key: "Carbon Dioxide",
       change: "83.2%",
@@ -100,7 +80,7 @@ export const extractDashboardCardValues = (
     {
       name: "VOCs",
       key: "VOCs",
-      value: `${liveData.vocs}`,
+      value: `${liveData?.vocs.toFixed(2) || "-"}`,
       unit: "µg/m³",
       iconName: "material-symbols:water-voc-outline-rounded",
       info: "Volatile Organic Compounds (VOCs)",
@@ -111,7 +91,7 @@ export const extractDashboardCardValues = (
     {
       name: "Light",
       key: "Light",
-      value: `${liveData.light}`,
+      value: `${liveData?.light.toFixed(2) || "-"}`,
       unit: "lux",
       change: "83.2%",
       iconName: "ph:sun-light",
@@ -122,7 +102,7 @@ export const extractDashboardCardValues = (
     {
       name: "Noise",
       key: "Noise",
-      value: `${liveData.noise}`,
+      value: `${liveData?.noise.toFixed(2) || "-"}`,
       unit: "dB",
       change: "83.2%",
       info: "Differential Pressure",
@@ -136,7 +116,7 @@ export const extractDashboardCardValues = (
     {
       name: gasMapping?.gas1 ?? "Gas 1",
       key: "Gas 1",
-      value: `${liveData.gas1}`,
+      value: `${liveData?.gas1.toFixed(2) || "-"}`,
       unit: "ppm",
       change: "83.2%",
       iconName: "akar-icons:air",
@@ -147,7 +127,7 @@ export const extractDashboardCardValues = (
     {
       name: gasMapping?.gas2 ?? "Gas 2",
       key: "Gas 2",
-      value: `${liveData.gas2}`,
+      value: `${liveData?.gas2.toFixed(2) || "-"}`,
       unit: "ppm",
       iconName: "akar-icons:air",
       info: "Volatile Organic Compounds (VOCs)",
@@ -158,7 +138,7 @@ export const extractDashboardCardValues = (
     {
       name: gasMapping?.gas3 ?? "Gas 3",
       key: "Gas 3",
-      value: `${liveData.gas3}`,
+      value: `${liveData?.gas3.toFixed(2) || "-"}`,
       unit: "ppm",
       change: "83.2%",
       iconName: "akar-icons:air",
@@ -171,7 +151,7 @@ export const extractDashboardCardValues = (
     {
       name: gasMapping?.gas4 ?? "Gas 4",
       key: "Gas 4",
-      value: `${liveData.gas4}`,
+      value: `${liveData?.gas4.toFixed(2) || "-"}`,
       unit: "ppm",
       change: "83.2%",
       iconName: "akar-icons:air",
@@ -182,7 +162,7 @@ export const extractDashboardCardValues = (
     {
       name: gasMapping?.gas5 ?? "Gas 5",
       key: "Gas 5",
-      value: `${liveData.gas5}`,
+      value: `${liveData?.gas5.toFixed(2) || "-"}`,
       unit: "ppm",
       iconName: "akar-icons:air",
       info: "Volatile Organic Compounds (VOCs)",
@@ -193,7 +173,7 @@ export const extractDashboardCardValues = (
     {
       name: gasMapping?.gas6 ?? "Gas 6",
       key: "Gas 6",
-      value: `${liveData.gas6}`,
+      value: `${liveData?.gas6.toFixed(2) || "-"}`,
       unit: "ppm",
       change: "83.2%",
       iconName: "akar-icons:air",

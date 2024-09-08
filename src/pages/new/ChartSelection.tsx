@@ -10,7 +10,7 @@ interface MetricModel {
   unit: string;
 }
 
-const metrics: MetricModel[] = [
+export const metrics: MetricModel[] = [
   { id: "0", name: "Temperature", unit: "°C" },
   { id: "1", name: "Humidity", unit: "%" },
   { id: "2", name: "Pressure", unit: "hPa" },

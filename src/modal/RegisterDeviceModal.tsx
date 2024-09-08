@@ -19,18 +19,20 @@ export default function RegisterDeviceModal({
 }) {
   const [name, setName] = useState("");
   const [modelType, setModelType] = useState("");
+  const [location, setLocation] = useState("");
+
   const [identifier, setIdentifier] = useState("");
   const { mutate: registerDevice } = useRegisterDevice();
   function handleRegisterDevice() {
     registerDevice(
-      { identifier, modelType, name },
+      { identifier, modelType, name,location },
       {
         onSuccess: () => {
           toast("Registered successfully", {
             autoClose: 2000,
             type: "success",
           });
-          queryClient.invalidateQueries("get-all-devices");
+          queryClient.invalidateQueries("get-all-devices-client");
           onClose();
         },
       }
@@ -92,6 +94,14 @@ export default function RegisterDeviceModal({
                       type="text"
                       className=" mt-2 block px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={(e) => setModelType(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="flex flex-col">
+                    <div>Device location</div>
+                    <input
+                      type="text"
+                      className=" mt-2 block px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={(e) => setLocation(e.target.value)}
                     ></input>
                   </div>
                 </div>

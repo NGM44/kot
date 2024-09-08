@@ -10,6 +10,7 @@ import {
   getAllClients,
   getAllDevices,
   getClientDetail,
+  getLiveWeatherData,
   getUserDevices,
   getWeatherData,
   registerDevice,
@@ -283,6 +284,28 @@ export function useWeatherData(deviceId: string) {
     onError: () => {
       handleEventForTracking({
         eventName: "get-weather-data",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useGetLiveData(enabled: boolean,deviceId?: string){
+  return useQuery({
+    queryKey: ["get-live-weather-data", deviceId],
+    queryFn: getLiveWeatherData,
+    enabled,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "get-live-weather-data",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "get-live-weather-data",
         success: false,
         eventType: "API",
       });

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { classNames } from "../../utils/string";
 import { useNavigate } from "react-router-dom";
 import AddCompanyModal from "../../modal/AddCompanyModal";
 import { useGetAllClients, useGetAllDevices } from "../../queries/admin";
@@ -7,17 +6,18 @@ import { ClientDetailModel } from "../../api/admin";
 
 export default function UserPage() {
   const navigate = useNavigate();
-  const { data: clientDetails } = useGetAllClients();
+  const { data: _clientDetails } = useGetAllClients();
+  const clientDetails = _clientDetails || [];
   const [dialog, setDialog] = useState(false);
-  const sum = clientDetails?.reduce(
+  const sum = clientDetails.reduce(
     (accumulator: number, currentValue: ClientDetailModel) => {
       const user = currentValue.users ?? [];
       return accumulator + user.length;
     },
     0
   );
-  const devicesList = clientDetails?.reduce(
-    (accumulator: any, currentValue: any) => {
+  const devicesList = clientDetails.reduce(
+    (accumulator: number, currentValue: ClientDetailModel) => {
       const user = currentValue.devices ?? [];
       return accumulator + user.length;
     },
@@ -26,7 +26,7 @@ export default function UserPage() {
   const { data: deviceDs } = useGetAllDevices();
 
   const stats = [
-    { name: "No. of Clients", value: clientDetails?.length },
+    { name: "No. of Clients", value: clientDetails.length },
     { name: "No. of User", value: sum },
     { name: "Total Device", value: devicesList },
     { name: "Mesh", value: "0" },

@@ -1,19 +1,20 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import mqtt, { MqttClient } from 'mqtt';
+import { IWeatherData } from '../types/device';
 
-interface MqttMessage {
-  topic: string;
-  message: string;
+interface DeviceDataMap {
+  [deviceId: string]: IWeatherData;
 }
 
 interface MqttState {
   client: MqttClient | null;
   isConnected: boolean;
-  messages: MqttMessage[];
+  deviceDataMap: DeviceDataMap;
   connectMqtt: (url: string, options?: mqtt.IClientOptions) => void;
   disconnectMqtt: () => void;
   subscribeTopic: (topic: string | string[]) => void;
+  setLatestDeviceData: (deviceId: string, data: IWeatherData) => void;
 }
 
 const useMqttStore = create<MqttState>()(
@@ -21,7 +22,7 @@ const useMqttStore = create<MqttState>()(
     (set, get) => ({
       client: null,
       isConnected: false,
-      messages: [],
+      deviceDataMap: {},
 
       connectMqtt: (url, options = {}) => {
         const client = mqtt.connect(url, options);
@@ -32,11 +33,11 @@ const useMqttStore = create<MqttState>()(
         });
 
         client.on('message', (topic, message) => {
-          const messageString = message.toString();
-          console.log(`Received message on topic ${topic}: ${messageString}`);
-          set((state) => ({
-            messages: [...state.messages, { topic, message: messageString }],
-          }));
+          const messageString: IWeatherData = JSON.parse(message.toString());
+          console.log(`Received message on topic ${topic}`);
+          // validate if received object is valid
+          const deviceId = topic.split('/')[1];
+          get().setLatestDeviceData(deviceId,messageString);
         });
 
         client.on('error', (err) => {
@@ -69,6 +70,15 @@ const useMqttStore = create<MqttState>()(
             }
           });
         }
+      },
+
+      setLatestDeviceData: (deviceId, data) => {
+        set((state) => ({
+          deviceDataMap: {
+            ...state.deviceDataMap,
+            [deviceId]: data,
+          },
+        }));
       },
     })
   )

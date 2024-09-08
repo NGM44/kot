@@ -7,11 +7,11 @@ import VirtualSensor from "./AQISensor";
 import {
   CardModel,
   extractDashboardCardValues,
-  LiveDataModel,
 } from "./GenerateDashboardData";
 import { useGetUserDevices } from "../../queries/admin";
+import { IWeatherData } from "../../types/device";
 
-const HomePageDashboardCard = ({ liveData }: { liveData: LiveDataModel }) => {
+const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
   const { data: user } = useGetUserDevices();
   const { data1, data2, data3, data4, productivityMeter } =
     extractDashboardCardValues(liveData,user?.gasMapping);

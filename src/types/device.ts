@@ -2,6 +2,7 @@ export interface RegisterDeviceDto {
   name: string;
   identifier: string;
   modelType: string;
+  location: string;
 }
 
 export interface ChangeDeviceModel {

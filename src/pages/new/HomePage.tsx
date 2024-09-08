@@ -1,35 +1,40 @@
 import SecondSection from "./SecondSection";
 import { VStack } from "../../component/utils";
 import HomePageDashboardCard from "./HomePageDashboardCard";
-import { generateSensorData } from "./Generate";
-import { useEffect, useState } from "react";
 import { useValueStore } from "../../store/useValueState";
+import useMqttStore from "../../store/useMqttStore";
+import { useEffect, useState } from "react";
+import { IWeatherData } from "../../types/device";
+import { useGetLiveData } from "../../queries/admin";
 
 const HomePage = () => {
-  let liveData1 = generateSensorData();
-  const [liveData3, setLiveData3] = useState<any[]>(liveData1);
-
-  const { index, isRefresh, setValue } = useValueStore();
-  const [liveData, setLiveData] = useState(liveData3[0]);
+  const { deviceId } = useValueStore();
+  const {deviceDataMap , setLatestDeviceData} = useMqttStore();
+  const [liveData, setLiveData] = useState<IWeatherData>();
+  const [enabled, setEnabled] = useState(false);
+  const {data: liveDataFromDb} = useGetLiveData(enabled, deviceId);
+  //NGM fetch and refetech logic...
   useEffect(() => {
-    setInterval(() => {
-      let liveData2 = generateSensorData();
-      setLiveData3(liveData2);
-    }, 60000);
-  }, []);
-
-  useEffect(() => {
-    let liveData2 = generateSensorData();
-    setLiveData3(liveData2);
-  }, [isRefresh]);
- 
+    if(deviceId && deviceDataMap[deviceId]){
+      setLiveData(deviceDataMap[deviceId])
+    }
+    else{
+      setEnabled(true);
+    }
+    
+  },[deviceId,deviceDataMap]);
 
   useEffect(() => {
-    setLiveData(liveData3[index ?? 0]);
-  }, [index, liveData3]);
-  return (
+    if(enabled && deviceId && liveDataFromDb){
+      setTimeout(() => {
+        setLatestDeviceData(deviceId, liveDataFromDb);
+      setEnabled(false);
+      },10);
+    }
+  },[enabled]);
+  return ( 
     <VStack className="gap-6">
-      <SecondSection date={liveData.dateString} />
+      <SecondSection date={liveData && liveData.dateString} />
       <HomePageDashboardCard liveData={liveData} />
     </VStack>
   );
