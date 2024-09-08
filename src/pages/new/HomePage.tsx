@@ -13,7 +13,7 @@ const HomePage = () => {
   const [liveData, setLiveData] = useState<IWeatherData>();
   const [enabled, setEnabled] = useState(false);
   const {data: liveDataFromDb} = useGetLiveData(enabled, deviceId);
-  //NGM fetch and refetech logic...
+  //NGM do this in better way- it works now
   useEffect(() => {
     if(deviceId && deviceDataMap[deviceId]){
       setLiveData(deviceDataMap[deviceId])
@@ -31,7 +31,7 @@ const HomePage = () => {
       setEnabled(false);
       },10);
     }
-  },[enabled]);
+  },[enabled,deviceId,liveDataFromDb, setLatestDeviceData]);
   return ( 
     <VStack className="gap-6">
       <SecondSection date={liveData && liveData.dateString} />

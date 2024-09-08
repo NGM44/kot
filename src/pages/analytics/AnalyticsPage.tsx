@@ -40,8 +40,6 @@ const AnalyticsPage = () => {
     }
   }, [date, gap, index, metric, isRefresh, _weatherData]);
 
-
-  // NGM to fix this
   useEffect(() => {
     // Create a mapping of metric names to weatherData fields
     const metricDataMapping: { [key: string]: keyof IWeatherData } = {
