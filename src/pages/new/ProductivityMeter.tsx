@@ -10,7 +10,7 @@ import { CardModel } from "./GenerateDashboardData";
 
 const ProductivityMeter = ({ value }: { value: CardModel }) => {
   const deviceId = "01J2RWJH8HF0C6ZQYFJ9HHC9ZP";
-  const { data: _weatherData } = useWeatherData(deviceId);
+  const { data: _weatherData } = useWeatherData(deviceId, 'temperature', '1 Day');
   const weatherData = _weatherData || [];
   const minTemperatureValue = _.min(weatherData.map((d) => d.temperature));
   const maxTemperatureValue = _.max(weatherData.map((d) => d.temperature));

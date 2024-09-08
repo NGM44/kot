@@ -12,6 +12,27 @@ import { useValueStore } from "../../store/useValueState";
 import { filterWeatherData } from "./ContantData";
 import { IWeatherData } from "../../types/device";
 
+const metricDataMapping: { [key: string]: keyof IWeatherData } = {
+  Temperature: 'temperature',
+  Humidity: 'humidity',
+  Pressure: 'pressure',
+  'Carbon-Dioxide': 'co2',
+  VOCs: 'vocs',
+  Light: 'light',
+  Noise: 'noise',
+  PM1: 'pm1',
+  'PM2.5': 'pm25',
+  PM4: 'pm4',
+  PM10: 'pm10',
+  AIQ: 'aiq',
+  'Gas-1': 'gas1',
+  'Gas-2': 'gas2',
+  'Gas-3': 'gas3',
+  'Gas-4': 'gas4',
+  'Gas-5': 'gas5',
+  'Gas-6': 'gas6',
+};
+
 const AnalyticsPage = () => {
   const {
     metric,
@@ -23,12 +44,10 @@ const AnalyticsPage = () => {
     isRefresh,
     deviceId,
   } = useValueStore();
-  const { data: _weatherData, refetch } = useWeatherData(deviceId ?? "");
+  //NGM add a better loader
+  const { data: _weatherData, refetch, isLoading } = useWeatherData(deviceId ?? "", metricDataMapping[metric ?? 'temperature'], date ?? '1 Day');
   const [weatherData, setWeatherData] = useState<IWeatherData[]>([]);
   const [dataToBePassed, setDataToBePassed] = useState<number[]>([]);
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(0);
-  console.log(minValue,maxValue);
   useEffect(() => {
     if (_weatherData) {
       const weatherData = filterWeatherData(
@@ -41,48 +60,13 @@ const AnalyticsPage = () => {
   }, [date, gap, index, metric, isRefresh, _weatherData]);
 
   useEffect(() => {
-    // Create a mapping of metric names to weatherData fields
-    const metricDataMapping: { [key: string]: keyof IWeatherData } = {
-      Temperature: 'temperature',
-      Humidity: 'humidity',
-      Pressure: 'pressure',
-      'Carbon-Dioxide': 'co2',
-      VOCs: 'vocs',
-      Light: 'light',
-      Noise: 'noise',
-      PM1: 'pm1',
-      'PM2.5': 'pm25',
-      PM4: 'pm4',
-      PM10: 'pm10',
-      AIQ: 'aiq',
-      'Gas-1': 'gas1',
-      'Gas-2': 'gas2',
-      'Gas-3': 'gas3',
-      'Gas-4': 'gas4',
-      'Gas-5': 'gas5',
-      'Gas-6': 'gas6',
-    };
-  
-    // Find the metric to be updated
     const metricToBeUpdated = metrics.find((m) => m.name === metric);
-  
     if (metricToBeUpdated) {
-      // Get the field name to map based on the metric name
       const field = metricDataMapping[metricToBeUpdated.name];
-  
       if (field && field !== 'dateString') {
-        // Extract the relevant data based on the metric
         const dataToCalculateMinAndMax = weatherData
         .map((data) => data[field])
-
-        const minValue = _.min(dataToCalculateMinAndMax);
-        const maxValue = _.max(dataToCalculateMinAndMax);
         setDataToBePassed(dataToCalculateMinAndMax);
-        if(minValue && maxValue)
-        {
-          setMinValue(minValue);
-          setMaxValue(maxValue);
-        }
       }
     }
   }, [weatherData]);
@@ -112,8 +96,8 @@ const AnalyticsPage = () => {
         inRange: {
           color: ["#00A36C", "#FFA500", "#FF4500"],
         },
-        min: minValue,
-        max: maxValue,
+        min: _.min(dataToBePassed),
+        max: _.max(dataToBePassed),
       },
     ],
     yAxis: {
@@ -122,8 +106,8 @@ const AnalyticsPage = () => {
         formatter: `{value} ${metricUnit}`,
         fontSize: 14,
       },
-      min: minValue,
-      max: maxValue,
+      min: _.min(dataToBePassed),
+      max: _.max(dataToBePassed),
     },
     series: [
       {
@@ -166,12 +150,16 @@ const AnalyticsPage = () => {
 
             <ChartSelection />
           </div>
+         
           <div className="h-[500px] w-full">
+          {isLoading ? <>Loading</> : 
             <ReactECharts
               option={temperatureOptions}
               style={{ height: "100%", width: "100%" }}
             />
+          }
           </div>
+
         </div>
       </VStack>
     </>

@@ -4,7 +4,7 @@ import { useValueStore } from "../../store/useValueState";
 import { CheckIcon } from 'lucide-react';
 import GenericDropdown from './GenericSelection';
 
-type TimePeriod = "1 Day" | "7 Days" | "30 Days" | "60 Days" | "90 Days";
+export type TimePeriod = "1 Day" | "7 Days" | "30 Days" | "60 Days" | "90 Days";
 
 interface TimeModel {
   id: string;

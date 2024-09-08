@@ -112,12 +112,14 @@ export async function getWeatherData(
   context: QueryFunctionContext
 ): Promise<IWeatherData[]> {
   const deviceId = context.queryKey[1] as string;
+  const metric = context.queryKey[2] as string;
+  const days = context.queryKey[3] as number;
   const endDate = new Date();
   const startDate = new Date();
-  startDate.setDate(endDate.getDate() - 90);
+  startDate.setDate(endDate.getDate() - days);
   return api
     .get(
-      `/weather/data/${deviceId}/${startDate.toISOString()}/${endDate.toISOString()}`
+      `/weather/data/${deviceId}/${startDate.toISOString()}/${endDate.toISOString()}/${metric}`
     )
     .then((res) => res.data.data);
 }

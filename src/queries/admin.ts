@@ -15,6 +15,7 @@ import {
   getWeatherData,
   registerDevice,
 } from "../api/admin";
+import { TimePeriod } from "../pages/new/DateSelector";
 
 export function useAddDeviceToClient() {
   return useMutation({
@@ -268,9 +269,10 @@ export function useChangeDeviceState() {
   });
 }
 
-export function useWeatherData(deviceId: string) {
+export function useWeatherData(deviceId: string, metric: string, date: TimePeriod) {
+  const day = parseFloat(date.split(" Day")[0]);
   return useQuery({
-    queryKey: ["get-weather-data", deviceId],
+    queryKey: ["get-weather-data", deviceId, metric, day],
     queryFn: getWeatherData,
     staleTime: 10000000,
     cacheTime: 10000000,
