@@ -32,9 +32,78 @@ const HomePage = () => {
       },10);
     }
   },[enabled,deviceId,liveDataFromDb, setLatestDeviceData]);
-  return ( 
+
+  const gridCols: any = {
+    2: "grid-cols-2",
+    3: "grid-cols-3",
+    4: "grid-cols-2 sm:grid-cols-4",
+    5: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
+    6: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-6",
+  };
+  const listOfValues = [
+    {
+      name: "Temprature",
+      value: "23",
+      unit: "C",
+    },
+    {
+      name: "Humidity",
+      value: "23",
+      unit: "%",
+    },
+    {
+      name: "VOC",
+      value: "23",
+      unit: "m2c",
+    },
+    {
+      name: "Productivity Meter",
+      value: "23",
+      unit: "%",
+    },
+    {
+      name: "Light",
+      value: "23",
+      unit: "lux",
+    },
+    {
+      name: "gas 1",
+      value: "23",
+      unit: "ppm",
+    },
+  ];
+  return (
     <VStack className="gap-6">
-      <SecondSection date={liveData && liveData.dateString} />
+      {/* <SecondSection date={liveData.dateString} /> */}
+      {/* <ResponsiveValueDisplay /> */}
+      <dl
+        className={`w-full mx-auto grid ${
+          gridCols[listOfValues.length]
+        } gap-px bg-gray-900/5 border border-borderColor shadow-sm rounded-lg`}
+      >
+        {listOfValues.map((stat) => (
+          <div
+            key={stat.name}
+            className={`flex cursor-pointer flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8
+             
+              `}
+          >
+            <dt className="text-sm font-medium leading-6 text-gray-500">
+              {stat.name}
+            </dt>
+
+            <dd className="w-full flex gap-2 flex-row text-3xl font-medium leading-10 tracking-tight text-gray-900">
+              <p className="text-secondary text-3xl font-semibold">
+                {stat.value}
+              </p>
+              <p className="text-gray-400 text-lg pt-2 font-medium">
+                {stat.unit}
+              </p>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      {/* <SecondSection date={liveData && liveData.dateString} /> */}
       <HomePageDashboardCard liveData={liveData} />
     </VStack>
   );

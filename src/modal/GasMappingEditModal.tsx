@@ -95,10 +95,10 @@ export default function GasMappingEditModal({
           autoClose: 2000,
         });
       },
-      onError: (data: any) => {
-        toast(data?.error ?? "Something went wrong!", {
+      onError(err: any) {
+        toast(err.response.data.errorMessage, {
           type: "error",
-          autoClose: 5000,
+          autoClose: 2000,
         });
       },
     });

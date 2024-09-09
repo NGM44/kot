@@ -16,6 +16,13 @@ export type CustomResponse<T> = {
   data: T;
 };
 
+interface BannerMessage {
+  id: string;
+  bannerMessage:string;
+  showBanner:boolean;
+  bannerLink: string;
+}
+
 export async function signIn(
   signInDetails: SignInDetailsModel
 ): Promise<CustomResponse<SignResponseModel>> {
@@ -34,9 +41,9 @@ export async function sendMessage(
   return api.post(`user/message`, message).then((res) => res.data);
 }
 export async function sendBannerMessage(
-  message: any
+  message: BannerMessage
 ): Promise<CustomResponse<SignResponseModel>> {
-  return api.post(`user/bannerMessage`, message).then((res) => res.data);
+  return api.put(`client/bannerMessage`, message).then((res) => res.data);
 }
 
 

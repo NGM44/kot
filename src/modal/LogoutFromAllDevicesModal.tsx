@@ -18,6 +18,8 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { queryClient } from "../queries/client";
+import { toast } from "react-toastify";
+import { useAuthStore } from "../store/useAuthStore";
 
 export default function LogoutFromAllDevices({
   isOpen,
@@ -27,7 +29,7 @@ export default function LogoutFromAllDevices({
   onClose: () => void;
 }) {
   const [confirmation, setConfirmation] = useState("");
-  const { id } = useParams();
+  const { id } = useAuthStore();
 
   const [showSuccess, setShowSuccess] = useState(false);
   const { mutate: logOutFromAllDevices } = useLogoutFromAllDevices();
@@ -48,15 +50,24 @@ export default function LogoutFromAllDevices({
     const logoutFromAllDevices: LogoutFromAllDevicesModel = {
       id: id ?? "",
     };
-    // logOutFromAllDevices(logoutFromAllDevices, {
-    // onSuccess() {
-    setShowSuccess(true);
-    setTimeout(() => {
-      navigate("/login");
-    }, 2000);
-
-    //   },
-    // });
+    logOutFromAllDevices(logoutFromAllDevices, {
+      onSuccess() {
+        toast("Logged out from all device", {
+          type: "success",
+          autoClose: 2000,
+        });
+        setShowSuccess(true);
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      },
+      onError(err: any) {
+        toast(err.response.data.errorMessage, {
+          type: "error",
+          autoClose: 2000,
+        });
+      },
+    });
   }
 
   return (

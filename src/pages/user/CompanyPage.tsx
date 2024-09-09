@@ -16,11 +16,14 @@ export interface ICompanyModel {
   email: string;
   phone: string;
   website: string;
+  bannerMessage: string;
+  showBanner: boolean;
+  bannerLink: string;
   createdAt: Date;
   updatedAt: Date;
   users: IUserModel[];
   devices: IDeviceModel[];
-  gasMapping: IGasMapping;
+  gasMapping?: IGasMapping;
 }
 export interface IUserModel {
   id: string;
@@ -39,7 +42,7 @@ export interface UserModel {
   email: string;
   role: any;
   clientId: string;
-  gasMapping: IGasMapping; 
+  gasMapping: IGasMapping;
   client: ClientDataModel;
   devices: IDeviceModel[];
 }
@@ -49,6 +52,9 @@ export interface ClientDataModel {
   name: string;
   logo: string;
   address: string;
+  showBanner: boolean;
+  bannerMessage: string;
+  bannerLink: string;
   email: string;
   phone: string;
   website: string;
@@ -67,23 +73,28 @@ export interface IDeviceModel {
 }
 
 export interface IGasMapping {
-  gas1:string;
-  gas2:string;
-  gas3:string;
-  gas4:string;
-  gas5:string;
-  gas6:string;
+  gas1: string;
+  gas2: string;
+  gas3: string;
+  gas4: string;
+  gas5: string;
+  gas6: string;
   clientId: string;
 }
 
 const CompanyDashboard = () => {
   const { id } = useParams();
   const { data: clientDetails } = useGetClientsDetail(id ?? "");
-  const [showBanner, setShowBanner] = useState(false);
+  const [showBanner, setShowBanner] = useState(
+    clientDetails?.showBanner ?? false
+  );
   const { mutate: sendBannerMessage } = useSendBannerMessage();
   const sendBanner = (banner: any) => {
     sendBannerMessage({
-      state: banner,
+      id: clientDetails?.id ?? "",
+      bannerMessage: clientDetails?.bannerMessage ?? "",
+      showBanner: banner,
+      bannerLink: clientDetails?.bannerLink ?? "",
     });
   };
   return (
@@ -103,9 +114,11 @@ const CompanyDashboard = () => {
             <CompanyDevice deviceList={clientDetails.devices ?? []} />
             <CompanyUser users={clientDetails.users} />
           </div>
-          <div className="mt-8">
-            <GasMapping gasMapping = {clientDetails.gasMapping}/>
-          </div>
+          {clientDetails.gasMapping && (
+            <div className="mt-8">
+              <GasMapping gasMapping={clientDetails.gasMapping} />
+            </div>
+          )}
         </div>
       ) : (
         <div>Empty</div>

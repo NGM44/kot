@@ -19,13 +19,13 @@ export default function RegisterDeviceModal({
 }) {
   const [name, setName] = useState("");
   const [modelType, setModelType] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Inventory");
 
   const [identifier, setIdentifier] = useState("");
   const { mutate: registerDevice } = useRegisterDevice();
   function handleRegisterDevice() {
     registerDevice(
-      { identifier, modelType, name,location },
+      { identifier, modelType, name, location },
       {
         onSuccess: () => {
           toast("Registered successfully", {
@@ -34,6 +34,12 @@ export default function RegisterDeviceModal({
           });
           queryClient.invalidateQueries("get-all-devices-client");
           onClose();
+        },
+        onError(err: any) {
+          toast(err.response.data.errorMessage, {
+            type: "error",
+            autoClose: 2000,
+          });
         },
       }
     );
@@ -67,9 +73,12 @@ export default function RegisterDeviceModal({
                   <h2 className="text-left text-2xl -ml-2 font-bold leading-9 tracking-tight text-gray-900">
                     Add Device
                   </h2>
-                  <XMarkIcon className="w-6 h-6" onClick={()=>{
-                    onClose()
-                  }} />
+                  <XMarkIcon
+                    className="w-6 h-6"
+                    onClick={() => {
+                      onClose();
+                    }}
+                  />
                 </div>
                 <div className="space-y-6">
                   <div className="flex flex-col">
@@ -96,14 +105,14 @@ export default function RegisterDeviceModal({
                       onChange={(e) => setModelType(e.target.value)}
                     ></input>
                   </div>
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <div>Device location</div>
                     <input
                       type="text"
                       className=" mt-2 block px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={(e) => setLocation(e.target.value)}
                     ></input>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div>

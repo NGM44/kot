@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddCompanyModal from "../../modal/AddCompanyModal";
 import { useGetAllClients, useGetAllDevices } from "../../queries/admin";
 import { ClientDetailModel } from "../../api/admin";
+import { HStack } from "../../component/utils";
+import GenericSearchBar from "../new/CommonSearchBar";
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -31,6 +33,20 @@ export default function UserPage() {
     { name: "Total Device", value: devicesList },
     { name: "Mesh", value: "0" },
   ];
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const filteredModels = useMemo(() => {
+    return (clientDetails ?? [])?.filter((model) => {
+      const searchTermLower = searchTerm.toLowerCase();
+      return (
+        model.name.toLowerCase().includes(searchTermLower) ||
+        model.email.toLowerCase().includes(searchTermLower) ||
+        model.address.toLowerCase().includes(searchTermLower) ||
+        model.phone.toLowerCase().includes(searchTermLower) ||
+        model.website.toLowerCase().includes(searchTermLower)
+      );
+    });
+  }, [clientDetails, searchTerm]);
   return (
     <div className="flex flex-col gap-8">
       {dialog && (
@@ -76,17 +92,25 @@ export default function UserPage() {
             </p>
           </div>
           {
-            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-              <button
-                type="button"
-                onClick={() => {
-                  setDialog(true);
+            <HStack>
+              <GenericSearchBar
+                onSearch={(data) => {
+                  setSearchTerm(data);
                 }}
-                className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Add Client
-              </button>
-            </div>
+              />
+
+              <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDialog(true);
+                  }}
+                  className="block rounded-md bg-indigo-600 px-3 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Add Client
+                </button>
+              </div>
+            </HStack>
           }
         </div>
         <div className="mt-8 flow-root">
@@ -128,7 +152,7 @@ export default function UserPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {(clientDetails ?? []).map((client) => (
+                  {(filteredModels ?? []).map((client) => (
                     <tr
                       onClick={() => {
                         navigate(`/user/${client.id}`);

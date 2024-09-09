@@ -8,6 +8,7 @@ const StackedBarChartsFullFledged = ({ value }: { value: number }) => {
     <div className="flex flex-row gap-[3px] my-2">
       {data.map((ele, index) => (
         <div
+        key={index}
           className={`h-10 w-[3px] ${
             point > index ? "bg-primary" : "bg-primary/30"
           }`}

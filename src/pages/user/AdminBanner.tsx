@@ -5,15 +5,18 @@ import { toast } from "react-toastify";
 
 const AdminBanner = ({ companyDetails }: { companyDetails: ICompanyModel }) => {
   const [addLink, setAddLink] = useState(false);
-  const [bannerMessage, setBannerMessage] = useState("");
-  const [link, setLink] = useState("");
+  const [bannerMessage, setBannerMessage] = useState(
+    companyDetails.bannerMessage ?? ""
+  );
+  const [link, setLink] = useState(companyDetails.bannerLink ?? "");
   const { mutate: sendBannerMessage } = useSendBannerMessage();
   const sendBanner = () => {
     sendBannerMessage(
       {
-        state: true,
-        link: link,
-        message: bannerMessage,
+        id: companyDetails?.id ?? "",
+        bannerMessage: bannerMessage ?? "",
+        showBanner: true,
+        bannerLink: link ?? "",
       },
       {
         onSuccess(data, variables, context) {

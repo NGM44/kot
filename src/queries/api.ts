@@ -33,17 +33,25 @@ api.interceptors.response.use(
         ...store,
         isAuthenticated: false,
       }));
+      window.location.href = process.env.REACT_APP_FRONT + "/login";
       return Promise.reject(res);
     }
     return res;
   },
   (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      useClearCredentials();
-      useAuthStore.setState((store) => ({ ...store, isAuthenticated: false }));
+
+    if (error?.status === 401) {
+      console.log("error", error?.status);
+      // useClearCredentials();
+      console.log("error", error?.status);
+      queryClient.clear();
+      useAuthStore.setState((store: any) => ({
+        ...store,
+        isAuthenticated: false,
+      }));
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export default api;

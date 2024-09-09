@@ -31,6 +31,7 @@ import RotatingRefreshIcon from "../new/Refresh";
 import { useGetUserDevices } from "../../queries/admin";
 import FooterSection from "../new/FooterSection";
 import { FloatingDockDemo } from "./FloatingDEmo";
+import Banner from "../new/Banner";
 const userNavigation = [{ name: "Log out", href: "#" }];
 
 export default function NewLayout() {
@@ -216,8 +217,14 @@ export default function NewLayout() {
       </Transition>
 
       {/* Static sidebar for desktop */}
-
+      {(user?.client?.showBanner ?? false)&& (
+          <Banner
+            bannerMessage={user?.client?.bannerMessage ?? ""}
+            bannerLink={user?.client?.bannerLink ?? ""}
+          />
+        )}
       <div className="mt-4 mx-4">
+       
         <div className="sticky bg-[#f6f9fb] top-0 z-50 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8">
           <button
             type="button"
@@ -281,7 +288,8 @@ export default function NewLayout() {
                   <div
                     className="flex"
                     onClick={() => {
-                      if (!isAdmin) navigate("/profile");
+                      // if (!isAdmin)
+                      navigate("/profile");
                     }}
                   >
                     <span className="sr-only">Open user menu</span>
@@ -372,7 +380,6 @@ export default function NewLayout() {
             <Outlet />
             <div className="mt-16">
               <FooterSection date={""} />
-            
             </div>
           </div>
         </main>

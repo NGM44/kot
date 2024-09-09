@@ -10,6 +10,7 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { queryClient } from "../queries/client";
+import { toast } from "react-toastify";
 
 export default function AddUserModal({
   isOpen,
@@ -43,6 +44,12 @@ export default function AddUserModal({
         queryClient.invalidateQueries("get-client-detail");
         queryClient.refetchQueries("get-client-detail");
         setShowSuccess(true);
+      },
+      onError(err: any) {
+        toast(err.response.data.errorMessage, {
+          type: "error",
+          autoClose: 2000,
+        });
       },
     });
   }

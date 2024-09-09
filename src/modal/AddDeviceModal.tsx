@@ -11,6 +11,8 @@ import { ConnectDeviceModel } from "../types/device";
 import { queryClient } from "../queries/client";
 import { useParams } from "react-router-dom";
 import { HStack } from "../component/utils";
+import { IDeviceModel } from "../pages/user/CompanyPage";
+import { toast } from "react-toastify";
 
 export default function AddDeviceModal({
   isOpen,
@@ -39,23 +41,40 @@ export default function AddDeviceModal({
   }, [showSuccess, onClose]);
 
   const { data: deviceDetails } = useGetAllDevices();
-
+  const [selectedDevice, setSelectedDevice] = useState<IDeviceModel>();
   function handleAddDevice() {
     const deviceDetails: ConnectDeviceModel = {
-      deviceId,
-      modelType: deviceType,
-      name: deviceName,
+      deviceId: selectedDevice?.id ?? "",
+      modelType: selectedDevice?.modelType ?? "",
+      name: selectedDevice?.name ?? "",
       location: deviceLocation,
       clientId: id ?? "",
     };
     addDeviceToClient(deviceDetails, {
       onSuccess() {
+        toast("Device added successfully", {
+          autoClose: 2000,
+          type: "success",
+        });
+
         setShowSuccess(true);
         queryClient.invalidateQueries("get-client-detail");
-        onClose()
+        queryClient.invalidateQueries("get-all-devices-client");
+        onClose();
+      },
+      onError(err: any) {
+        toast(err.response.data.errorMessage, {
+          type: "error",
+          autoClose: 2000,
+        });
       },
     });
   }
+
+  useEffect(() => {
+    const device = deviceDetails?.find((ele) => ele.name === deviceName);
+    if (device) setSelectedDevice(device);
+  }, [deviceName]);
 
   return (
     <Transition show={isOpen}>
@@ -113,81 +132,59 @@ export default function AddDeviceModal({
                       <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Add Device
                       </h2>
-                      <XMarkIcon className="w-6 h-6 cursor-pointer" onClick={()=>{
-                    onClose()
-                  }} />
+                      <XMarkIcon
+                        className="w-6 h-6 cursor-pointer"
+                        onClick={() => {
+                          onClose();
+                        }}
+                      />
                     </div>
                     <div className="space-y-6">
                       <div>
                         <label
-                          htmlFor="name"
+                          htmlFor="deviceType"
                           className="block text-sm font-medium leading-6 text-gray-900"
                         >
                           Device Name
                         </label>
-                        <div className="mt-2">
-                          <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            onChange={(e) => setDeviceName(e.target.value)}
-                            required
-                            className="block w-full px-2 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          />
-                        </div>
-                      </div>
-                      <HStack className="w-full justify-between">
-                        <div>
-                          <label
-                            htmlFor="deviceType"
-                            className="block text-sm font-medium leading-6 text-gray-900"
-                          >
-                            Device Type
-                          </label>
 
-                          <select
-                            id="deviceType"
-                            name="deviceType"
-                            autoComplete="off"
-                            onChange={(e) => setDeviceType(e.target.value)}
-                            className="block w-full px-2 rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                          >
-                            <option>--Select Device Type---</option>
-                            {deviceDetails?.map((options) => (
-                              <option>{options.modelType}</option>
+                        <select
+                          id="deviceName"
+                          name="deviceName"
+                          autoComplete="off"
+                          onChange={(e) => setDeviceName(e.target.value)}
+                          className="block w-full px-2 rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        >
+                          <option>--Select Device Type---</option>
+                          {deviceDetails
+                            ?.filter((ele) => ele.status === "REGISTERED")
+                            ?.map((options) => (
+                              <option>{options.name}</option>
                             ))}
-                          </select>
+                        </select>
+                      </div>
+                      {selectedDevice && (
+                        <div className="w-full px-4 py-2 border border-dashed border-green-600 rounded-xl bg-green-50">
+                          <p className="text-sm text-green-600 font-bold">
+                            Device Name: {selectedDevice?.name}
+                          </p>
+                          <p className="text-xs text-gray-600 font-semibold">
+                            ModelType: {selectedDevice?.modelType}
+                          </p>
+                          <p className="text-xs text-gray-600 font-semibold">
+                            Device Id: {selectedDevice?.id}
+                          </p>
                         </div>
-                        <div>
-                          <label
-                            htmlFor="deviceType"
-                            className="block text-sm font-medium leading-6 text-gray-900"
-                          >
-                            Device ID
-                          </label>
-                          <select
-                            id="deviceId"
-                            name="deviceId"
-                            autoComplete="off"
-                            onChange={(e) => setDeviceId(e.target.value)}
-                            className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                          >
-                            <option>--Select Device ID---</option>
-                            {deviceDetails?.map((options) => (
-                              <option>{options.id}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </HStack>
-                      <HStack className="w-full justify-start">
-                        <div>
-                          <label
-                            htmlFor="deviceLocation"
-                            className="block text-sm font-medium leading-6 text-gray-900"
-                          >
-                            Device Location
-                          </label>
-                          <div className="mt-2">
+                      )}
+
+                      <div className="space-y-6">
+                        <label
+                          htmlFor="deviceLocation"
+                          className="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                          Device Location
+                        </label>
+                        <div className="mt-2">
                           <input
                             id="location"
                             name="location"
@@ -197,8 +194,8 @@ export default function AddDeviceModal({
                             className="block w-full px-2 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                         </div>
-                          </div>
-                      </HStack>
+                      </div>
+
                       <div>
                         <button
                           type="submit"
