@@ -172,7 +172,10 @@ export default function AddDeviceModal({
                             ModelType: {selectedDevice?.modelType}
                           </p>
                           <p className="text-xs text-gray-600 font-semibold">
-                            Device Id: {selectedDevice?.id}
+                            Device Identifer: {selectedDevice?.identifier}
+                          </p>
+                          <p className="text-xs text-gray-600 font-semibold">
+                            Device ID: {selectedDevice?.id}
                           </p>
                         </div>
                       )}
