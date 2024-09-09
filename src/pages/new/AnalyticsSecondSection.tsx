@@ -28,7 +28,7 @@ const AnalyticsSecondSection = ({date}:{date:string}) => {
         <HStack className="gap-8">
           <TimeGap />
           <DateSelector />
-          <DeviceSelection />
+          {/* <DeviceSelection /> */}
           <DownloadExcel
             onClick={() => {
               setDialog(true);

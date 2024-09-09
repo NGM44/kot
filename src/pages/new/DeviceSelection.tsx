@@ -7,7 +7,7 @@ import { useGetUserDevices } from "../../queries/admin";
 import { IDeviceModel } from "../user/CompanyPage";
 import { useValueStore } from "../../store/useValueState";
 
-interface Device {
+export interface Device {
   id: string;
   name: string;
   location: string;
@@ -19,9 +19,8 @@ const DeviceSelection: React.FC = () => {
   //   { id: "7654321", name: "Arlikat Sensenode", location: "Arlikat Database" },
   //   // ... other devices
   // ];
-  const [devices, setDevices] = useState<IDeviceModel[]>([]);
+  const [devices, setDevices] = useState<any[]>([]);
   const { data: user } = useGetUserDevices();
-
   useEffect(() => {
     if (user) {
       setDevices(user?.devices);

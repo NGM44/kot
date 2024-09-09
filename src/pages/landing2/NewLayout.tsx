@@ -32,6 +32,8 @@ import { useGetUserDevices } from "../../queries/admin";
 import FooterSection from "../new/FooterSection";
 import { FloatingDockDemo } from "./FloatingDEmo";
 import Banner from "../new/Banner";
+import DeviceSelection from "../new/DeviceSelection";
+import { FlyoutProfile } from "./FlyoutProfile";
 const userNavigation = [{ name: "Log out", href: "#" }];
 
 export default function NewLayout() {
@@ -217,14 +219,13 @@ export default function NewLayout() {
       </Transition>
 
       {/* Static sidebar for desktop */}
-      {(user?.client?.showBanner ?? false)&& (
-          <Banner
-            bannerMessage={user?.client?.bannerMessage ?? ""}
-            bannerLink={user?.client?.bannerLink ?? ""}
-          />
-        )}
+      {(user?.client?.showBanner ?? false) && (
+        <Banner
+          bannerMessage={user?.client?.bannerMessage ?? ""}
+          bannerLink={user?.client?.bannerLink ?? ""}
+        />
+      )}
       <div className="mt-4 mx-4">
-       
         <div className="sticky bg-[#f6f9fb] top-0 z-50 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8">
           <button
             type="button"
@@ -277,7 +278,7 @@ export default function NewLayout() {
               {!isAdmin && <RotatingRefreshIcon />}
               <AnimatedThemeToggle />
 
-              <Menu as="div" className="relative">
+              {/* <Menu as="div" className="relative">
                 <div
                   className={`-ml-1.5 flex cursor-pointer items-center p-1  ${
                     "/profile" !== pathname
@@ -331,6 +332,7 @@ export default function NewLayout() {
                       </div>
                     </div>
                   </div>
+                  
                   <MenuButton>
                     <ChevronDownIcon
                       className={`w-4 ${
@@ -370,7 +372,8 @@ export default function NewLayout() {
                     ))}
                   </MenuItems>
                 </Transition>
-              </Menu>
+              </Menu> */}
+              <FlyoutProfile />
             </div>
           </div>
         </div>

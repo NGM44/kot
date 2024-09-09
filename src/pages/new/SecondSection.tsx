@@ -27,7 +27,7 @@ const SecondSection = ({ date }: { date?: string }) => {
           </p>
         </VStack>
         <HStack className="gap-8">
-          <DeviceSelection />
+          {/* <DeviceSelection /> */}
         </HStack>
       </HStack>
     </div>
