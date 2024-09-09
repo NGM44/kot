@@ -7,10 +7,12 @@ import { useChangeDeviceState, useGetAllDevices } from "../../queries/admin";
 import { EStatus } from "../../types/device";
 import { queryClient } from "../../queries/client";
 import { IDeviceModel } from "../user/CompanyPage";
+import EmptyTable from "./EmptyTable";
 
 export default function DevicePage() {
   const [dialog, setDialog] = useState(false);
   const [selected, setSelected] = useState("Registered");
+  const [selectedKey, setSelectedKey] = useState<string[]>([]);
   const { data: deviceDs } = useGetAllDevices();
   const [deviceDetails, setDeviceDetails] = useState<IDeviceModel[]>([]);
   useEffect(() => {
@@ -18,15 +20,23 @@ export default function DevicePage() {
   }, [deviceDs]);
   const { mutate: changeStatus } = useChangeDeviceState();
   //TODO: get stat details from deviceDetails
-  let connected = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "CONNECTED").length;
-  let registered = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "REGISTERED").length;
-  let unregistered = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "UNREGISTERED").length;
-  let terminated = deviceDetails.filter((ele:any) => ele.status.toUpperCase() === "TERMINATED").length;
+  let connected = deviceDetails.filter(
+    (ele: any) => ele.status.toUpperCase() === "CONNECTED"
+  ).length;
+  let registered = deviceDetails.filter(
+    (ele: any) => ele.status.toUpperCase() === "REGISTERED"
+  ).length;
+  let unregistered = deviceDetails.filter(
+    (ele: any) => ele.status.toUpperCase() === "UNREGISTERED"
+  ).length;
+  let terminated = deviceDetails.filter(
+    (ele: any) => ele.status.toUpperCase() === "TERMINATED"
+  ).length;
   const stats = [
-    { name: "Registered", value: registered },
-    { name: "Production", value: connected},
-    { name: "Un Registered", value: unregistered},
-    { name: "Terminated", value: terminated },
+    { name: "Registered", value: registered, key: ["REGISTERED"] },
+    { name: "Production", value: connected, key: ["CONNECTED"] },
+    { name: "Un Registered", value: unregistered, key: ["UNREGISTERED"] },
+    { name: "Terminated", value: terminated, key: ["TERMINATED"] },
   ];
   return (
     <div className="flex flex-col gap-8">
@@ -44,6 +54,7 @@ export default function DevicePage() {
             key={stat.name}
             onClick={() => {
               setSelected(stat.name);
+              setSelectedKey(stat.key);
             }}
             className={`flex cursor-pointer flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8 ${
               selected === stat.name ? "border-b-2 border-indigo-600" : ""
@@ -58,7 +69,7 @@ export default function DevicePage() {
             <dt className="text-sm font-medium leading-6 text-gray-500">
               {stat.name}
             </dt>
-            
+
             <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
               {stat.value}
             </dd>
@@ -104,6 +115,8 @@ export default function DevicePage() {
         <div className="mt-8 flow-root">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle">
+            {deviceDetails.filter((device) => selectedKey.includes(device.status)).length === 0 ? <EmptyTable />:
+            
               <table className="min-w-full divide-y divide-gray-300">
                 <thead>
                   <tr>
@@ -139,206 +152,210 @@ export default function DevicePage() {
                     </th>
                   </tr>
                 </thead>
+              
                 {deviceDetails && (
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {deviceDetails.map((device) => (
-                      <tr key={device.id}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                          {device.name}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {device.identifier}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {device.modelType}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {device.status}
-                        </td>
-                        <td className="whitespace-nowrap absolute z-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                          <DeviceMenu
-                            menu={
-                              selected === "Registered"
-                                ? [
-                                    {
-                                      name: "Un Register",
-                                      action: () => {
-                                        changeStatus(
-                                          {
-                                            deviceId: device.id,
-                                            state: EStatus.UNREGISTERED,
-                                          },
-                                          {
-                                            onSuccess() {
-                                              queryClient.invalidateQueries(
-                                                "get-all-devices-client"
-                                              );
+                  
+                    {deviceDetails
+                      .filter((device) => selectedKey.includes(device.status))
+                      .map((device) => (
+                        <tr key={device.id}>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                            {device.name}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {device.identifier}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {device.modelType}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {device.status}
+                          </td>
+                          <td className="whitespace-nowrap absolute z-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                            <DeviceMenu
+                              menu={
+                                selected === "Registered"
+                                  ? [
+                                      {
+                                        name: "Un Register",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.UNREGISTERED,
                                             },
-                                          }
-                                        );
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
+                                              },
+                                            }
+                                          );
+                                        },
                                       },
-                                    },
-                                    {
-                                      name: "Terminate",
-                                      action: () => {
-                                        changeStatus(
-                                          {
-                                            deviceId: device.id,
-                                            state: EStatus.TERMINATED,
-                                          },
-                                          {
-                                            onSuccess() {
-                                              queryClient.invalidateQueries(
-                                                "get-all-devices-client"
-                                              );
+                                      {
+                                        name: "Terminate",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.TERMINATED,
                                             },
-                                          }
-                                        );
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
+                                              },
+                                            }
+                                          );
+                                        },
                                       },
-                                    },
-                                  ]
-                                : selected === "Production"
-                                ? [
-                                    {
-                                      name: "Un Register",
-                                      action: () => {
-                                        changeStatus(
-                                          {
-                                            deviceId: device.id,
-                                            state: EStatus.UNREGISTERED,
-                                          },
-                                          {
-                                            onSuccess() {
-                                              queryClient.invalidateQueries(
-                                                "get-all-devices-client"
-                                              );
+                                    ]
+                                  : selected === "Production"
+                                  ? [
+                                      {
+                                        name: "Un Register",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.UNREGISTERED,
                                             },
-                                          }
-                                        );
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
+                                              },
+                                            }
+                                          );
+                                        },
                                       },
-                                    },
-                                    {
-                                      name: "Block",
-                                      action: () => {
-                                        changeStatus(
-                                          {
-                                            deviceId: device.id,
-                                            state: EStatus.BLOCKED,
-                                          },
-                                          {
-                                            onSuccess() {
-                                              queryClient.invalidateQueries(
-                                                "get-all-devices-client"
-                                              );
+                                      {
+                                        name: "Block",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.BLOCKED,
                                             },
-                                          }
-                                        );
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
+                                              },
+                                            }
+                                          );
+                                        },
                                       },
-                                    },
-                                    {
-                                      name: "Terminate",
-                                      action: () => {
-                                        changeStatus(
-                                          {
-                                            deviceId: device.id,
-                                            state: EStatus.TERMINATED,
-                                          },
-                                          {
-                                            onSuccess() {
-                                              queryClient.invalidateQueries(
-                                                "get-all-devices-client"
-                                              );
+                                      {
+                                        name: "Terminate",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.TERMINATED,
                                             },
-                                          }
-                                        );
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
+                                              },
+                                            }
+                                          );
+                                        },
                                       },
-                                    },
-                                  ]
-                                : selected === "Un Registered"
-                                ? [
-                                    {
-                                      name: "Register",
-                                      action: () => {
-                                        changeStatus(
-                                          {
-                                            deviceId: device.id,
-                                            state: EStatus.REGISTERED,
-                                          },
-                                          {
-                                            onSuccess() {
-                                              queryClient.invalidateQueries(
-                                                "get-all-devices-client"
-                                              );
+                                    ]
+                                  : selected === "Un Registered"
+                                  ? [
+                                      {
+                                        name: "Register",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.REGISTERED,
                                             },
-                                          }
-                                        );
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
+                                              },
+                                            }
+                                          );
+                                        },
                                       },
-                                    },
-                                    {
-                                      name: "Block",
-                                      action: () => {
-                                        changeStatus(
-                                          {
-                                            deviceId: device.id,
-                                            state: EStatus.BLOCKED,
-                                          },
-                                          {
-                                            onSuccess() {
-                                              queryClient.invalidateQueries(
-                                                "get-all-devices-client"
-                                              );
+                                      {
+                                        name: "Block",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.BLOCKED,
                                             },
-                                          }
-                                        );
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
+                                              },
+                                            }
+                                          );
+                                        },
                                       },
-                                    },
-                                    {
-                                      name: "Terminate",
-                                      action: () => {
-                                        changeStatus(
-                                          {
-                                            deviceId: device.id,
-                                            state: EStatus.TERMINATED,
-                                          },
-                                          {
-                                            onSuccess() {
-                                              queryClient.invalidateQueries(
-                                                "get-all-devices-client"
-                                              );
+                                      {
+                                        name: "Terminate",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.TERMINATED,
                                             },
-                                          }
-                                        );
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
+                                              },
+                                            }
+                                          );
+                                        },
                                       },
-                                    },
-                                  ]
-                                : [
-                                    {
-                                      name: "Register",
-                                      action: () => {
-                                        changeStatus(
-                                          {
-                                            deviceId: device.id,
-                                            state: EStatus.REGISTERED,
-                                          },
-                                          {
-                                            onSuccess() {
-                                              queryClient.invalidateQueries(
-                                                "get-all-devices-client"
-                                              );
+                                    ]
+                                  : [
+                                      {
+                                        name: "Register",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.REGISTERED,
                                             },
-                                          }
-                                        );
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
+                                              },
+                                            }
+                                          );
+                                        },
                                       },
-                                    },
-                                  ]
-                            }
-                          />
-                        </td>
-                      </tr>
-                    ))}
+                                    ]
+                              }
+                            />
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 )}
-              </table>
+              </table>}
             </div>
           </div>
         </div>
