@@ -63,7 +63,7 @@ const AnalyticsPage = () => {
     const metricToBeUpdated = metrics.find((m) => m.name === metric);
     if (metricToBeUpdated) {
       const field = metricDataMapping[metricToBeUpdated.name];
-      if (field && field !== 'dateString') {
+      if (field && field !== 'dateString' && field !== "deviceHealth") {
         const dataToCalculateMinAndMax = weatherData
         .map((data) => data[field])
         setDataToBePassed(dataToCalculateMinAndMax);

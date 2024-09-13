@@ -48,4 +48,6 @@ export interface IWeatherData {
   gas5: number;
   gas6: number;
   dateString: string;
+  productivityMeter: number;
+  deviceHealth: string;
 }

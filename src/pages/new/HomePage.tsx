@@ -42,33 +42,33 @@ const HomePage = () => {
   };
   const listOfValues = [
     {
-      name: "Temprature",
-      value: "23",
+      name: "Temperature",
+      value: liveData?.temperature.toFixed(2) || "-",
       unit: "C",
     },
     {
       name: "Humidity",
-      value: "23",
+      value: liveData?.humidity.toFixed(0) || "-",
       unit: "%",
     },
     {
       name: "VOC",
-      value: "23",
+      value: liveData?.vocs.toFixed(0) || "-",
       unit: "m2c",
     },
     {
       name: "Productivity Meter",
-      value: "23",
+      value: liveData?.productivityMeter?.toFixed(0) || "-",
       unit: "%",
     },
     {
       name: "Light",
-      value: "23",
+      value: liveData?.light.toFixed(0) || "-",
       unit: "lux",
     },
     {
       name: "gas 1",
-      value: "23",
+      value: liveData?.gas1.toFixed(0) || "-",
       unit: "ppm",
     },
   ];
