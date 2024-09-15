@@ -21,6 +21,7 @@ import useMqttStore from "../../store/useMqttStore";
 import { useValueStore } from "../../store/useValueState";
 import { Device } from "../new/DeviceSelection";
 import { topicPrefix } from "../../constant";
+import { Settings } from "lucide-react";
 
 export function FlyoutProfile() {
   let tasks: any[] = [];
@@ -50,10 +51,17 @@ export function FlyoutProfile() {
       icon: UserCircleIcon,
     },
     {
-      name: "Switch Device",
+      name: "Device setting",
       onClick: () => {
-        console.log("Data");
+        navigate("/setting");
+        setShown(false);
+        setShowDevice(false);
       },
+      icon: Settings,
+    },
+    {
+      name: "Switch Device",
+      onClick: () => {},
       icon: ArrowsRightLeftIcon,
     },
     {
@@ -67,10 +75,12 @@ export function FlyoutProfile() {
     },
   ];
 
-  function logout() {
-    console.log("Data");
-  }
   const [devices, setDevices] = useState<IDeviceModel[]>([]);
+
+  useEffect(() => {
+    if(devices.length > 0)
+    handleSelect(devices[0]);
+  }, [devices]);
   useEffect(() => {
     if (user?.devices) setDevices(user?.devices);
   }, [user]);
@@ -148,7 +158,6 @@ export function FlyoutProfile() {
                       onMouseDown={(e) => {
                         e.preventDefault();
                         handleSelect(device);
-                        
                       }}
                       key={device.id}
                       className="block px-4 py-2 hover:bg-gray-100 w-full"
@@ -192,7 +201,6 @@ export function FlyoutProfile() {
 
                 // className="inline-flex items-center gap-x-1 text-sm py-2 bg-white font-semibold leading-6 text-gray-900 "
               >
-              
                 <Avatar
                   isDark={"/profile" !== pathname}
                   name={user?.name || ""}

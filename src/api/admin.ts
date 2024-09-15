@@ -2,13 +2,19 @@ import { ClientModel } from "../types/auth";
 import { CustomResponse } from "./auth";
 import api from "../queries/api";
 import { QueryFunctionContext } from "react-query";
-import { ICompanyModel, IDeviceModel, IGasMapping, UserModel } from "../pages/user/CompanyPage";
+import {
+  ICompanyModel,
+  IDeviceModel,
+  IGasMapping,
+  UserModel,
+} from "../pages/user/CompanyPage";
 import {
   ChangeDeviceModel,
   ConnectDeviceModel,
   IWeatherData,
   RegisterDeviceDto,
 } from "../types/device";
+import { IWeatherDataRange } from "../pages/new/SetParameterRanges";
 
 interface Device {
   id: string;
@@ -19,6 +25,12 @@ interface Device {
   name: string;
   status: string; // You might want to define other possible statuses
   updatedAt: string;
+}
+
+export interface IPreference {
+  id?: string;
+  userId: string;
+  preference: string[];
 }
 
 interface User {
@@ -61,6 +73,13 @@ export async function getAllDevices(): Promise<IDeviceModel[]> {
   return api.get(`/device/all`).then((res) => res.data.data);
 }
 
+export async function getDevicesRange(
+  context: QueryFunctionContext
+): Promise<IWeatherDataRange> {
+  const id = context.queryKey[1];
+  return api.get(`/device/range?id=${id}`).then((res) => res.data.data);
+}
+
 export async function getUserDevices(): Promise<UserModel> {
   return api.get(`/device/user`).then((res) => res.data.data);
 }
@@ -84,8 +103,30 @@ export async function deleteUser(id: string): Promise<CustomResponse<any>> {
   return api.delete(`/user/${id}`).then((res) => res.data);
 }
 
-export async function editGasMapping(gasMapping: IGasMapping): Promise<CustomResponse<string>> {
+export async function editGasMapping(
+  gasMapping: IGasMapping
+): Promise<CustomResponse<string>> {
   return api.put(`/client/mapping`, gasMapping).then((res) => res.data);
+}
+
+export async function updateDeviceRange(
+  whetherData: IWeatherDataRange
+): Promise<CustomResponse<string>> {
+  return api.put(`/device/range`, whetherData).then((res) => res.data);
+}
+
+
+export async function getUserPreference(
+  context: QueryFunctionContext
+): Promise<IPreference> {
+  const id = context.queryKey[1];
+  return api.get(`/user/preference?id=${id}`).then((res) => res.data.data);
+}
+
+export async function updatePreference(
+  whetherData: IPreference
+): Promise<CustomResponse<string>> {
+  return api.put(`/user/preference`, whetherData).then((res) => res.data);
 }
 
 export async function generateCredentials(email: string): Promise<any> {
@@ -128,9 +169,5 @@ export async function getLiveWeatherData(
   context: QueryFunctionContext
 ): Promise<IWeatherData> {
   const deviceId = context.queryKey[1] as string;
-  return api
-    .get(
-      `/weather/latest/${deviceId}`
-    )
-    .then((res) => res.data.data);
+  return api.get(`/weather/latest/${deviceId}`).then((res) => res.data.data);
 }

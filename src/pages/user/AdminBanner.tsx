@@ -16,7 +16,7 @@ const AdminBanner = ({ companyDetails }: { companyDetails: ICompanyModel }) => {
         id: companyDetails?.id ?? "",
         bannerMessage: bannerMessage ?? "",
         showBanner: true,
-        bannerLink: link ?? "",
+        bannerLink: addLink ? link ?? "" : "",
       },
       {
         onSuccess(data, variables, context) {

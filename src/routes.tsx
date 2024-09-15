@@ -15,6 +15,7 @@ import ForgotPasswordPage from "./pages/auth/ForgotPassword";
 import ChangePasswordPage from "./pages/auth/ChangePassword";
 import NewLayout from "./pages/landing2/NewLayout";
 import HomePage from "./pages/new/HomePage";
+import DeviceSetting from "./pages/Profile/DeviceSetting";
 
 export default function Router() {
   const { isAuthenticated, role } = useAuthStore();
@@ -59,6 +60,7 @@ export default function Router() {
               { path: "grid", element: <GridPage /> },
               { path: "genie", element: <SupportPage /> },
               { path: "profile", element: <ProfilePage /> },
+              { path: "setting", element: <DeviceSetting /> },
             ]
           : [
               {
@@ -78,6 +80,7 @@ export default function Router() {
               { path: "grid", element: <GridPage /> },
               { path: "genie", element: <SupportPage /> },
               { path: "profile", element: <ProfilePage /> },
+              { path: "setting", element: <DeviceSetting /> },
             ],
     },
 

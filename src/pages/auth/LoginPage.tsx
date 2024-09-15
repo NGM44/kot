@@ -17,18 +17,9 @@ export default function LoginPage() {
   const [email, setEmail] = useState(id ?? "");
   const [password, setPassword] = useState(key ?? "");
 
-  // useEffect(() => {
-  //   setEmail(id ?? "");
-  //   setPassword(key ?? "");
-  //   // if (id || key) {
-  //     // const newPath = location.pathname.split('/').slice(0, -2).join('/');
-  //     navigate('/login', { replace: true });
-  //   // }
-  // }, [id, key]);
   useEffect(() => {
     const id = searchParams.get('id');
     const key = searchParams.get('key');
-console.log(searchParams,id,key);
 if (id) {
   // Decode the email address properly
   const decodedEmail = decodeURIComponent(id).replace(' ', '+');

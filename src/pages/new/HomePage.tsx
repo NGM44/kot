@@ -5,33 +5,34 @@ import { useValueStore } from "../../store/useValueState";
 import useMqttStore from "../../store/useMqttStore";
 import { useEffect, useState } from "react";
 import { IWeatherData } from "../../types/device";
-import { useGetLiveData } from "../../queries/admin";
+import { useGetLiveData, useGetUserPreference } from "../../queries/admin";
+import { CardModelOverview, extractDashboardOverViewValues } from "./GenerateDashboardDataOverview";
 
 const HomePage = () => {
   const { deviceId } = useValueStore();
-  const {deviceDataMap , setLatestDeviceData} = useMqttStore();
+  const { deviceDataMap, setLatestDeviceData } = useMqttStore();
+  const { data: userPreference } = useGetUserPreference();
+
   const [liveData, setLiveData] = useState<IWeatherData>();
   const [enabled, setEnabled] = useState(false);
-  const {data: liveDataFromDb} = useGetLiveData(enabled, deviceId);
+  const { data: liveDataFromDb } = useGetLiveData(enabled, deviceId);
   //NGM do this in better way- it works now
   useEffect(() => {
-    if(deviceId && deviceDataMap[deviceId]){
-      setLiveData(deviceDataMap[deviceId])
-    }
-    else{
+    if (deviceId && deviceDataMap[deviceId]) {
+      setLiveData(deviceDataMap[deviceId]);
+    } else {
       setEnabled(true);
     }
-    
-  },[deviceId,deviceDataMap]);
+  }, [deviceId, deviceDataMap]);
 
   useEffect(() => {
-    if(enabled && deviceId && liveDataFromDb){
+    if (enabled && deviceId && liveDataFromDb) {
       setTimeout(() => {
         setLatestDeviceData(deviceId, liveDataFromDb);
-      setEnabled(false);
-      },10);
+        setEnabled(false);
+      }, 10);
     }
-  },[enabled,deviceId,liveDataFromDb, setLatestDeviceData]);
+  }, [enabled, deviceId, liveDataFromDb, setLatestDeviceData]);
 
   const gridCols: any = {
     2: "grid-cols-2",
@@ -40,48 +41,59 @@ const HomePage = () => {
     5: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
     6: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-6",
   };
-  const listOfValues = [
-    {
-      name: "Temprature",
-      value: "23",
-      unit: "C",
-    },
-    {
-      name: "Humidity",
-      value: "23",
-      unit: "%",
-    },
-    {
-      name: "VOC",
-      value: "23",
-      unit: "m2c",
-    },
-    {
-      name: "Productivity Meter",
-      value: "23",
-      unit: "%",
-    },
-    {
-      name: "Light",
-      value: "23",
-      unit: "lux",
-    },
-    {
-      name: "gas 1",
-      value: "23",
-      unit: "ppm",
-    },
-  ];
+  const [listData ,setListData] = useState<CardModelOverview[]>([]);
+  useEffect(() => {
+    if ((userPreference?.preference ?? []).length > 0){
+      console.log("listData",userPreference?.preference);
+      const value = extractDashboardOverViewValues(userPreference?.preference ?? []);
+      console.log("listDatavalue",value);
+      setListData(value??[]);
+    }
+    
+  }, [userPreference]);
+console.log("listData",listData);
+  // const listOfValues = [
+  //   {
+  //     name: "Temprature",
+  //     value: "23",
+  //     unit: "C",
+  //   },
+  //   {
+  //     name: "Humidity",
+  //     value: "23",
+  //     unit: "%",
+  //   },
+  //   {
+  //     name: "VOC",
+  //     value: "23",
+  //     unit: "m2c",
+  //   },
+  //   {
+  //     name: "Productivity Meter",
+  //     value: "23",
+  //     unit: "%",
+  //   },
+  //   {
+  //     name: "Light",
+  //     value: "23",
+  //     unit: "lux",
+  //   },
+  //   {
+  //     name: "gas 1",
+  //     value: "23",
+  //     unit: "ppm",
+  //   },
+  // ];
   return (
     <VStack className="gap-6">
       {/* <SecondSection date={liveData.dateString} /> */}
       {/* <ResponsiveValueDisplay /> */}
       <dl
         className={`w-full mx-auto grid ${
-          gridCols[listOfValues.length]
+          gridCols[listData.length]
         } gap-px bg-gray-900/5 border border-borderColor shadow-sm rounded-lg`}
       >
-        {listOfValues.map((stat) => (
+        {listData.map((stat) => (
           <div
             key={stat.name}
             className={`flex cursor-pointer flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8

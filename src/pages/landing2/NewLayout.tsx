@@ -28,17 +28,19 @@ import { HStack } from "../../component/utils";
 import AnimatedThemeToggle from "../new/Theme";
 import { Icon } from "@iconify/react";
 import RotatingRefreshIcon from "../new/Refresh";
-import { useGetUserDevices } from "../../queries/admin";
+import { useGetMessage, useGetUserDevices } from "../../queries/admin";
 import FooterSection from "../new/FooterSection";
 import { FloatingDockDemo } from "./FloatingDEmo";
 import Banner from "../new/Banner";
 import DeviceSelection from "../new/DeviceSelection";
 import { FlyoutProfile } from "./FlyoutProfile";
+import { constructNow } from "date-fns";
 const userNavigation = [{ name: "Log out", href: "#" }];
 
 export default function NewLayout() {
   const [dialogLogout, setDialogLogout] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { data: notifcation } = useGetMessage();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { data: user } = useGetUserDevices();
@@ -144,7 +146,7 @@ export default function NewLayout() {
     },
   ];
 
-  const [highlightedComponents, setHighlightedComponents] = useState([]);
+
 
   return (
     <div>
@@ -237,7 +239,12 @@ export default function NewLayout() {
           </button>
 
           {/* Separator */}
-          <div className="flex h-11 bg-white rounded-xl drop-shadow-box p-4 shrink-0 items-center">
+          <div
+            onClick={() =>
+              isAdmin ? navigate("/user") : navigate("/dashboard")
+            }
+            className="flex h-11 bg-white rounded-xl drop-shadow-box p-4 shrink-0 items-center"
+          >
             <img
               src="/onlylogo.png"
               className="h-6 w-auto"
@@ -378,10 +385,10 @@ export default function NewLayout() {
           </div>
         </div>
 
-        <main className="py-6">
+        <main className="py-6 pt-4">
           <div className="px-2 sm:px-4 lg:px-8">
             <Outlet />
-            <div className="mt-16">
+            <div className="mt-6">
               <FooterSection date={""} />
             </div>
           </div>

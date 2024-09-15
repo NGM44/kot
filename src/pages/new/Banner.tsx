@@ -12,7 +12,7 @@ export default function Banner({
   return (
     <>
       {show && (
-        <div className="relative top-0 isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+        <div className="relative top-0 isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 border-b border-purple-300 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
           <div
             aria-hidden="true"
             className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
@@ -39,9 +39,9 @@ export default function Banner({
           </div>
           <p className="text-sm leading-6 text-gray-900">
             {bannerMessage}
-            <a href={bannerLink} className="whitespace-nowrap font-semibold pl-2">
+           {bannerLink && <a href={bannerLink} className="whitespace-nowrap font-semibold pl-2">
               Click here&nbsp;<span aria-hidden="true">&rarr;</span>
-            </a>
+            </a>}
           </p>
           <div className="flex flex-1 justify-end">
             <button

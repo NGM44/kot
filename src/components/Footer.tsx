@@ -1,11 +1,11 @@
-import qrCode from '../qr-code.svg'
-import { Container } from './Container'
-import { Logomark } from './Logo'
-import { NavLinks } from './NavLinks'
-import { TextField } from './Fields'
-import { Button } from './Button'
+import qrCode from "../qr-code.svg";
+import { Container } from "./Container";
+import { Logomark } from "./Logo";
+import { NavLinks } from "./NavLinks";
+import { TextField } from "./Fields";
+import { Button } from "./Button";
 
-function QrCodeBorder(props: React.ComponentPropsWithoutRef<'svg'>) {
+function QrCodeBorder(props: React.ComponentPropsWithoutRef<"svg">) {
   return (
     <svg viewBox="0 0 96 96" fill="none" aria-hidden="true" {...props}>
       <path
@@ -14,7 +14,7 @@ function QrCodeBorder(props: React.ComponentPropsWithoutRef<'svg'>) {
         strokeLinecap="round"
       />
     </svg>
-  )
+  );
 }
 
 export function Footer() {
@@ -53,7 +53,7 @@ export function Footer() {
           </div>
         </div>
         <div className="flex flex-col items-center border-t border-gray-200 pb-12 pt-8 md:flex-row-reverse md:justify-between md:pt-6">
-          <form className="flex w-full justify-center md:w-auto">
+          <div className="flex w-full justify-center md:w-auto">
             <TextField
               type="email"
               aria-label="Email address"
@@ -66,12 +66,12 @@ export function Footer() {
               <span className="hidden lg:inline">Join our newsletter</span>
               <span className="lg:hidden">Join newsletter</span>
             </Button>
-          </form>
+          </div>
           <p className="mt-6 text-sm text-gray-500 md:mt-0">
             &copy; Copyright {new Date().getFullYear()}. All rights reserved.
           </p>
         </div>
       </Container>
     </footer>
-  )
+  );
 }
