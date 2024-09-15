@@ -53,7 +53,7 @@ export default function AddCompanyModal({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                <form>
+                <>
                   <div className="space-y-2">
                     <div className="border-b border-gray-900/10 pb-2 flex flex-row items-center justify-between">
                       <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -245,7 +245,7 @@ export default function AddCompanyModal({
                       Save
                     </button>
                   </div>
-                </form>
+                </>
               </DialogPanel>
             </TransitionChild>
           </div>

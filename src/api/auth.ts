@@ -18,8 +18,8 @@ export type CustomResponse<T> = {
 
 interface BannerMessage {
   id: string;
-  bannerMessage:string;
-  showBanner:boolean;
+  bannerMessage: string;
+  showBanner: boolean;
   bannerLink: string;
 }
 
@@ -40,12 +40,16 @@ export async function sendMessage(
 ): Promise<CustomResponse<SignResponseModel>> {
   return api.post(`user/message`, message).then((res) => res.data);
 }
+
+export async function getMessage(): Promise<any> {
+  return api.get(`user/message`).then((res) => res.data.data);
+}
+
 export async function sendBannerMessage(
   message: BannerMessage
 ): Promise<CustomResponse<SignResponseModel>> {
   return api.put(`client/bannerMessage`, message).then((res) => res.data);
 }
-
 
 export async function changePasswordAuth(
   changePasswordAuth: ChangePasswordDetailModelAuth

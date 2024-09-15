@@ -10,12 +10,17 @@ import {
   getAllClients,
   getAllDevices,
   getClientDetail,
+  getDevicesRange,
   getLiveWeatherData,
   getUserDevices,
+  getUserPreference,
   getWeatherData,
   registerDevice,
+  updateDeviceRange,
+  updatePreference,
 } from "../api/admin";
 import { TimePeriod } from "../pages/new/DateSelector";
+import { getMessage } from "../api/auth";
 
 export function useAddDeviceToClient() {
   return useMutation({
@@ -58,8 +63,6 @@ export function useConnectDeviceWithClient() {
     },
   });
 }
-
-
 
 export function useAddClient() {
   return useMutation({
@@ -123,6 +126,112 @@ export function useGetAllDevices() {
     },
   });
 }
+
+export function useGetDeviceRange(id: string) {
+  return useQuery({
+    queryKey: ["get-device-range", id],
+    queryFn: getDevicesRange,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "get-device-range",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "get-device-range",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useUpdateDeviceRange() {
+  return useMutation({
+    mutationKey: "update-device-range",
+    mutationFn: updateDeviceRange,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "update-device-range",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "update-device-range",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useGetMessage() {
+  return useQuery({
+    queryKey: "get-user-message",
+    queryFn: getMessage,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "get-user-message",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "get-user-message",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useGetUserPreference() {
+  return useQuery({
+    queryKey: "get-user-preference",
+    queryFn: getUserPreference,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "get-user-preference",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "get-user-preference",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+export function useUpdateUserPreference() {
+  return useMutation({
+    mutationKey: "update-user-preference",
+    mutationFn: updatePreference,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "update-user-preference",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "update-user-preference",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
 export function useGetUserDevices() {
   return useQuery({
     queryKey: "get-all-devices",
@@ -165,11 +274,11 @@ export function useGetClientsDetail(id: string) {
   });
 }
 
-export function useEditGasMappingDetails(){
+export function useEditGasMappingDetails() {
   return useMutation({
     mutationKey: "edit-gas-mapping",
     mutationFn: editGasMapping,
-    onSuccess:() => {
+    onSuccess: () => {
       handleEventForTracking({
         eventName: "edit-gas-mapping",
         success: true,
@@ -183,7 +292,7 @@ export function useEditGasMappingDetails(){
         eventType: "API",
       });
     },
-  })
+  });
 }
 
 export function useDeleteUser() {
@@ -269,7 +378,11 @@ export function useChangeDeviceState() {
   });
 }
 
-export function useWeatherData(deviceId: string, metric: string, date: TimePeriod) {
+export function useWeatherData(
+  deviceId: string,
+  metric: string,
+  date: TimePeriod
+) {
   const day = parseFloat(date.split(" Day")[0]);
   return useQuery({
     queryKey: ["get-weather-data", deviceId, metric, day],
@@ -293,7 +406,7 @@ export function useWeatherData(deviceId: string, metric: string, date: TimePerio
   });
 }
 
-export function useGetLiveData(enabled: boolean,deviceId?: string){
+export function useGetLiveData(enabled: boolean, deviceId?: string) {
   return useQuery({
     queryKey: ["get-live-weather-data", deviceId],
     queryFn: getLiveWeatherData,

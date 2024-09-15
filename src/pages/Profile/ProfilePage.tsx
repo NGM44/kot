@@ -7,9 +7,10 @@ import { useAuthStore } from "../../store/useAuthStore";
 import ParameterRangeUI from "../new/SetParameterRanges";
 import ParameterSelector from "../new/SelectDasshboardParam";
 
-export default function Example() {
+export default function Profile() {
   const { data: user } = useGetUserDevices();
   const [dialog, setDialog] = useState(false);
+
   const { role } = useAuthStore();
   const [logOutDialog, setLogoutDialog] = useState(false);
   const [companyName, setCompanyName] = useState(user?.client?.name ?? "");
@@ -37,7 +38,7 @@ export default function Example() {
     setUserName(user?.name);
   }, [user]);
   return (
-    <form>
+    <>
       {dialog && (
         <ChangePasswordModal
           isOpen={dialog}
@@ -77,7 +78,7 @@ export default function Example() {
                 <div className="mt-2">
                   <input
                     id="company-name"
-                    readOnly
+                    disabled
                     name="company-name"
                     value={companyName}
                     onChange={(e) => {
@@ -100,7 +101,7 @@ export default function Example() {
                 <div className="mt-2">
                   <input
                     id="phone-nunber"
-                    readOnly
+                    disabled
                     name="phone-nunber"
                     value={companyPhone}
                     onChange={(e) => {
@@ -121,7 +122,7 @@ export default function Example() {
                 <div className="mt-2">
                   <input
                     id="website"
-                    readOnly
+                    disabled
                     name="website"
                     value={companyWebsite}
                     onChange={(e) => {
@@ -145,7 +146,7 @@ export default function Example() {
                     id="companyemail"
                     name="companyemail"
                     type="email"
-                    readOnly
+                    disabled
                     value={companyEmail}
                     onChange={(e) => {
                       setCompanyEmail(e.target.value);
@@ -165,6 +166,7 @@ export default function Example() {
                   <textarea
                     id="address"
                     name="address"
+                    disabled
                     value={companyAddress}
                     onChange={(e) => {
                       setCompanyAddress(e.target.value);
@@ -273,7 +275,7 @@ export default function Example() {
             )}
           </div>
         </div>
-        {!isAdmin && (
+        {/* {!isAdmin && (
           <div className="grid grid-cols-1 gap-x-8 gap-y-10  pb-12 md:grid-cols-3">
             <div>
               <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -287,10 +289,10 @@ export default function Example() {
               <ParameterRangeUI />
             </div>
 
-            {/* </div> */}
+         
           </div>
-        )}
-        {!isAdmin && (
+        )} */}
+        {/* {!isAdmin && (
           <div className="grid grid-cols-1 gap-x-8 gap-y-10  pb-12 md:grid-cols-3">
             <div>
               <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -304,8 +306,8 @@ export default function Example() {
               <ParameterSelector />
             </div>
           </div>
-        )}
+        )} */}
       </div>
-    </form>
+    </>
   );
 }

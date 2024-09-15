@@ -16,7 +16,7 @@ import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
 export default function AddClient() {
   return (
-    <form>
+    <>
       <div className="space-y-12 my-9">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
@@ -444,6 +444,6 @@ export default function AddClient() {
           Save
         </button>
       </div>
-    </form>
+    </>
   );
 }
