@@ -6,7 +6,10 @@ import useMqttStore from "../../store/useMqttStore";
 import { useEffect, useState } from "react";
 import { IWeatherData } from "../../types/device";
 import { useGetLiveData, useGetUserPreference } from "../../queries/admin";
-import { CardModelOverview, extractDashboardOverViewValues } from "./GenerateDashboardDataOverview";
+import {
+  CardModelOverview,
+  extractDashboardOverViewValues,
+} from "./GenerateDashboardDataOverview";
 
 const HomePage = () => {
   const { deviceId } = useValueStore();
@@ -41,53 +44,20 @@ const HomePage = () => {
     5: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
     6: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-6",
   };
-  const [listData ,setListData] = useState<CardModelOverview[]>([]);
+  const [listData, setListData] = useState<CardModelOverview[]>([]);
   useEffect(() => {
-    if ((userPreference?.preference ?? []).length > 0){
-      console.log("listData",userPreference?.preference);
-      const value = extractDashboardOverViewValues(userPreference?.preference ?? []);
-      console.log("listDatavalue",value);
-      setListData(value??[]);
+    if ((userPreference?.preference ?? []).length > 0) {
+      console.log("listData", userPreference?.preference);
+      const value = extractDashboardOverViewValues(
+        userPreference?.preference ?? []
+      );
+      console.log("listDatavalue", value);
+      setListData(value ?? []);
     }
-    
   }, [userPreference]);
-console.log("listData",listData);
-  // const listOfValues = [
-  //   {
-  //     name: "Temprature",
-  //     value: "23",
-  //     unit: "C",
-  //   },
-  //   {
-  //     name: "Humidity",
-  //     value: "23",
-  //     unit: "%",
-  //   },
-  //   {
-  //     name: "VOC",
-  //     value: "23",
-  //     unit: "m2c",
-  //   },
-  //   {
-  //     name: "Productivity Meter",
-  //     value: "23",
-  //     unit: "%",
-  //   },
-  //   {
-  //     name: "Light",
-  //     value: "23",
-  //     unit: "lux",
-  //   },
-  //   {
-  //     name: "gas 1",
-  //     value: "23",
-  //     unit: "ppm",
-  //   },
-  // ];
+
   return (
     <VStack className="gap-6">
-      {/* <SecondSection date={liveData.dateString} /> */}
-      {/* <ResponsiveValueDisplay /> */}
       <dl
         className={`w-full mx-auto grid ${
           gridCols[listData.length]

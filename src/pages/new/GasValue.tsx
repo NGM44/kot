@@ -7,9 +7,10 @@ import StackedBarCharts from "./StackedBarCharts";
 import StackedBarChartsFullFledged from "./StackedBarChartsFullFledged";
 import { Icon } from "@iconify/react";
 import { CardModel } from "./GenerateDashboardData";
+import { IWeatherData } from "../../types/device";
 
 
-const GasValues = ({ value }: { value: CardModel }) => {
+const GasValues = ({ value, liveData }: { value: CardModel , liveData?: IWeatherData}) => {
   return (
     <div id={value.key} className="flex-1 bg-white p-4 shadow-box rounded-xl">
       <HStack className="w-full whitespace-nowrap items-center justify-between">
@@ -42,7 +43,7 @@ const GasValues = ({ value }: { value: CardModel }) => {
         title="PM1"
         subtitle="Below 15 µg/m³ for optimal comfort"
         dotColor="#6278FB"
-        value="50"
+        value={liveData?.pm1.toFixed(0) || "-"}
       />
 
 
@@ -51,21 +52,21 @@ const GasValues = ({ value }: { value: CardModel }) => {
         title="PM2.5"
         subtitle="Below 25 µg/m³ for optimal comfort"
         dotColor="#61CBF9"
-        value="50"
+        value={liveData?.pm25.toFixed(0) || "-"}
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="PM4"
         subtitle="Below 50 µg/m³ for optimal comfort"
         dotColor="#D9FB55"
-        value="50"
+        value={liveData?.pm4.toFixed(0)|| "-"}
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="PM10"
         subtitle="Below 50 µg/m³ for optimal comfort"
         dotColor="#F6F961"
-        value="50"
+        value={liveData?.pm10.toFixed(0) || "-"}
       />
       {/* <hr className={`border-t border-gray-200 my-1`} /> */}
       {/* <InfoRow 

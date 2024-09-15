@@ -7,8 +7,9 @@ import StackedBarCharts from "./StackedBarCharts";
 import StackedBarChartsFullFledged from "./StackedBarChartsFullFledged";
 import { Icon } from "@iconify/react";
 import { CardModel } from "./GenerateDashboardData";
+import { IWeatherData } from "../../types/device";
 
-const AQISensor = ({ value }: { value: CardModel }) => {
+const AQISensor = ({ value, liveData }: { value: CardModel, liveData?: IWeatherData }) => {
   return (
     <div id={value.key} className="flex-1 bg-white p-4 shadow-box rounded-xl">
       <HStack className="w-full whitespace-nowrap items-center justify-between">
@@ -45,28 +46,28 @@ const AQISensor = ({ value }: { value: CardModel }) => {
         title="Temperature"
         subtitle="Calculated value based on formula"
         dotColor="#6278FB"
-        value="50"
+        value={liveData?.temperature.toFixed(2) || "-"}
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="Humidity"
         subtitle="Calculated value based on formula"
         dotColor="#61CBF9"
-        value="50"
+        value={liveData?.humidity.toFixed(0) || "-"}
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
-        title="Atmopheric Pressure"
+        title="Atmospheric Pressure"
         subtitle="Calculated value based on formula"
         dotColor="#D9FB55"
-        value="50"
+        value={liveData?.pressure.toFixed(0) || "-"}
       />
       <hr className={`border-t border-gray-200 my-1`} />
       <InfoRow
         title="VOCs"
          subtitle="Calculated value based on formula"
         dotColor="#F6F961"
-        value="50"
+        value={liveData?.vocs.toFixed(0) || "-"}
       />
       {/* <hr className={`border-t border-gray-200 my-1`} /> */}
       {/* <InfoRow 

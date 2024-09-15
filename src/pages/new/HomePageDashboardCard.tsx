@@ -10,11 +10,21 @@ import {
 } from "./GenerateDashboardData";
 import { useGetUserDevices } from "../../queries/admin";
 import { IWeatherData } from "../../types/device";
+import { useEffect, useState } from "react";
 
 const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
   const { data: user } = useGetUserDevices();
   const { data1, data2, data3, data4, productivityMeter } =
     extractDashboardCardValues(liveData,user?.gasMapping);
+  const [particulateValue, setParticulateValue] = useState(0);
+  useEffect(()=> {
+    if(!!liveData){
+      const pmValues =[liveData.pm1, liveData.pm10, liveData.pm25, liveData.pm4];
+      const totalPmValues = pmValues.reduce((sum, value) => sum + value, 0);
+      setParticulateValue(totalPmValues / pmValues.length);
+    }
+    
+  },[liveData])
   return (
     <VStack className="gap-6">
       <div className="flex flex-wrap gap-6 w-full">
@@ -36,7 +46,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
           <GasValues
             value={{
               name: "Gas Meter",
-              value: "32",
+              value: particulateValue.toFixed(0) || "-",
               key: "Particulate Matter",
               change: "83.2%",
               unit: "",
@@ -45,11 +55,12 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
               graph: "Line",
               iconName: "",
             }}
+            liveData = {liveData}
           />
           <VirtualSensor
             value={{
               name: "Gas Meter",
-              value: "32",
+              value:`${liveData?.aiq.toFixed(0) || "-"}`,
               change: "83.2%",
               info: "Mold Growth",
               key: "Air Quality Index",
@@ -58,6 +69,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
               graph: "Line",
               iconName: "",
             }}
+            liveData={liveData}
           />
         </HStack>
       </HStack>
