@@ -41,9 +41,6 @@ api.interceptors.response.use(
   (error: AxiosError) => {
 
     if (error?.status === 401) {
-      console.log("error", error?.status);
-      // useClearCredentials();
-      console.log("error", error?.status);
       queryClient.clear();
       useAuthStore.setState((store: any) => ({
         ...store,

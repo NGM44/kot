@@ -8,14 +8,17 @@ import {
   CardModel,
   extractDashboardCardValues,
 } from "./GenerateDashboardData";
-import { useGetUserDevices } from "../../queries/admin";
+import { useGetDeviceRange, useGetUserDevices } from "../../queries/admin";
 import { IWeatherData } from "../../types/device";
 import { useEffect, useState } from "react";
+import { useValueStore } from "../../store/useValueState";
 
 const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
   const { data: user } = useGetUserDevices();
+  const { deviceId } = useValueStore();
+  const { data: deviceRange, refetch } = useGetDeviceRange(deviceId ?? "");
   const { data1, data2, data3, data4, productivityMeter } =
-    extractDashboardCardValues(liveData,user?.gasMapping);
+    extractDashboardCardValues(liveData,user?.gasMapping,deviceRange);
   const [particulateValue, setParticulateValue] = useState(0);
   useEffect(()=> {
     if(!!liveData){
@@ -37,7 +40,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
           <DataCards key={ele.name} value={ele} />
         ))}
       </div>
-
+     
       <HStack className="gap-6 w-full">
         <HStack className="flex-1">
           <ProductivityMeter value={productivityMeter} />
@@ -48,7 +51,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
               name: "Gas Meter",
               value: particulateValue.toFixed(0) || "-",
               key: "Particulate Matter",
-              change: "83.2%",
+              // change: "83.2%",
               unit: "",
               info: "Mold Growth",
               content: "Particulate Matter Value is calculated by the formula taking PM1, PM2.5 ,PM4,PM10 into Consideration",
@@ -61,7 +64,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
             value={{
               name: "Gas Meter",
               value:`${liveData?.aiq.toFixed(0) || "-"}`,
-              change: "83.2%",
+              // change: "83.2%",
               info: "Mold Growth",
               key: "Air Quality Index",
               unit: "",

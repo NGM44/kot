@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 export default function LoginPage() {
   const { id, key } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(id,key);
   const [email, setEmail] = useState(id ?? "");
   const [password, setPassword] = useState(key ?? "");
 
@@ -101,7 +100,7 @@ if (id) {
         */}
       <div className="flex h-screen">
         <div className="flex flex-1 bg-white flex-col items-center justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 max-h-full">
-          <div className="mx-auto justify-center items-center w-full max-w-sm lg:w-96 mb-24 lg:border-none lg:shadow-none shadow-md border-borderColor border lg:px-0 lg:pt-0 lg:pb-0 rounded-md px-6 pt-10 pb-16">
+          <div className="mx-auto justify-center items-center w-full max-w-sm lg:w-96 mb-24 lg:border-none lg:shadow-none lg:px-0 lg:pt-0 lg:pb-0 rounded-md px-6 pt-10 pb-16">
             <div>
               <HStack className="items-baseline">
                 <img

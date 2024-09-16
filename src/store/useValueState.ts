@@ -37,7 +37,7 @@ export const useValueStore = createStore<ValueStore>(
       metric: "Temperature",
       metricUnit: "°C",
       index: 0,
-      gap: "1 Hour",
+      gap: "1 hour",
       deviceName: "",
       deviceId: "",
       date: "1 Day",

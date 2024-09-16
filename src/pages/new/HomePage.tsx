@@ -5,7 +5,11 @@ import { useValueStore } from "../../store/useValueState";
 import useMqttStore from "../../store/useMqttStore";
 import { useEffect, useState } from "react";
 import { IWeatherData } from "../../types/device";
-import { useGetLiveData, useGetUserPreference } from "../../queries/admin";
+import {
+  useGetLiveData,
+  useGetUserDevices,
+  useGetUserPreference,
+} from "../../queries/admin";
 import {
   CardModelOverview,
   extractDashboardOverViewValues,
@@ -36,7 +40,7 @@ const HomePage = () => {
       }, 10);
     }
   }, [enabled, deviceId, liveDataFromDb, setLatestDeviceData]);
-
+  const { data: user } = useGetUserDevices();
   const gridCols: any = {
     2: "grid-cols-2",
     3: "grid-cols-3",
@@ -47,15 +51,16 @@ const HomePage = () => {
   const [listData, setListData] = useState<CardModelOverview[]>([]);
   useEffect(() => {
     if ((userPreference?.preference ?? []).length > 0) {
-      console.log("listData", userPreference?.preference);
+   
       const value = extractDashboardOverViewValues(
-        userPreference?.preference ?? []
+        userPreference?.preference ?? [],
+        liveData,
+        user?.gasMapping
       );
-      console.log("listDatavalue", value);
+
       setListData(value ?? []);
     }
-  }, [userPreference]);
-
+  }, [userPreference, liveData]);
   return (
     <VStack className="gap-6">
       <dl
@@ -63,11 +68,17 @@ const HomePage = () => {
           gridCols[listData.length]
         } gap-px bg-gray-900/5 border border-borderColor shadow-sm rounded-lg`}
       >
-        {listData.map((stat) => (
+        {listData.map((stat, index) => (
           <div
             key={stat.name}
             className={`flex cursor-pointer flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8
-             
+             ${
+               index === 0
+                 ? "rounded-l-xl"
+                 : index === listData.length - 1
+                 ? "rounded-r-xl"
+                 : ""
+             }
               `}
           >
             <dt className="text-sm font-medium leading-6 text-gray-500">
