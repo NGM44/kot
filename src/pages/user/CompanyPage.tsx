@@ -4,7 +4,7 @@ import CompanyCard from "./CompanyCard";
 import { useGetClientsDetail } from "../../queries/admin";
 import { useParams } from "react-router-dom";
 import AdminBanner from "./AdminBanner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSendBannerMessage } from "../../queries/auth";
 import GasMapping from "./GasMapping";
 
@@ -85,9 +85,12 @@ export interface IGasMapping {
 const CompanyDashboard = () => {
   const { id } = useParams();
   const { data: clientDetails } = useGetClientsDetail(id ?? "");
-  const [showBanner, setShowBanner] = useState(
-    clientDetails?.showBanner ?? false
-  );
+  const [showBanner, setShowBanner] = useState(false);
+  useEffect(()=>{
+    if(clientDetails){
+      setShowBanner(clientDetails.showBanner);
+    }
+  },[clientDetails]);
   const { mutate: sendBannerMessage } = useSendBannerMessage();
   const sendBanner = (banner: any) => {
     sendBannerMessage({

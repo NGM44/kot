@@ -282,7 +282,6 @@ export default function NewLayout() {
                   aria-hidden="true"
                 />
               </button>
-              {!isAdmin && <RotatingRefreshIcon />}
               <AnimatedThemeToggle />
 
               {/* <Menu as="div" className="relative">

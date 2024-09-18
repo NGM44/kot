@@ -1,7 +1,4 @@
-import React, { useState } from "react";
 import { ICompanyModel } from "./CompanyPage";
-import { useSendBannerMessage } from "../../queries/auth";
-import { toast } from "react-toastify";
 
 const CompanyCard = ({
   companyDetails,

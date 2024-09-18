@@ -1,6 +1,5 @@
 import DataCards from "./DataCards";
 import { HStack, VStack } from "../../component/utils";
-import DataCards2 from "./DataCards2";
 import ProductivityMeter from "./ProductivityMeter";
 import GasValues from "./GasValue";
 import VirtualSensor from "./AQISensor";
@@ -16,7 +15,7 @@ import { useValueStore } from "../../store/useValueState";
 const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
   const { data: user } = useGetUserDevices();
   const { deviceId } = useValueStore();
-  const { data: deviceRange, refetch } = useGetDeviceRange(deviceId ?? "");
+  const { data: deviceRange } = useGetDeviceRange(deviceId ?? "");
   const { data1, data2, data3, data4, productivityMeter } =
     extractDashboardCardValues(liveData,user?.gasMapping,deviceRange);
   const [particulateValue, setParticulateValue] = useState(0);
@@ -43,7 +42,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
      
       <HStack className="gap-6 w-full">
         <HStack className="flex-1">
-          <ProductivityMeter value={productivityMeter} />
+          <ProductivityMeter value={productivityMeter} liveData={liveData} deviceRange={deviceRange} />
         </HStack>
         <HStack className="flex-1 gap-6">
           <GasValues

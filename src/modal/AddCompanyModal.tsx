@@ -6,10 +6,9 @@ import {
 } from "@headlessui/react";
 import { useAddClient } from "../queries/admin";
 import { ClientModel } from "../types/auth";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { XMarkIcon } from "@heroicons/react/24/solid";
-import { on } from "events";
+import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { queryClient } from "../queries/client";
 
 export default function AddCompanyModal({
@@ -19,6 +18,7 @@ export default function AddCompanyModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const inputFileRef = useRef<HTMLInputElement | null>(null);
   const [clientModel, setClientModel] = useState<ClientModel>({
     name: "",
     logo: "",
@@ -28,6 +28,26 @@ export default function AddCompanyModal({
     website: "",
   });
   const { mutate: addClient } = useAddClient();
+  const handleLogoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setClientModel({
+          ...clientModel,
+          logo: reader.result as string,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleButtonClick = () => {
+    if (inputFileRef.current) {
+      inputFileRef.current.click();
+    }
+  };
+
   return (
     <Transition show={isOpen}>
       <Dialog className="relative z-50" onClose={onClose}>
@@ -59,9 +79,12 @@ export default function AddCompanyModal({
                       <h2 className="text-base font-semibold leading-7 text-gray-900">
                         Add Company
                       </h2>
-                      <XMarkIcon className="w-6 h-6" onClick={()=>{
-                    onClose()
-                  }} />
+                      <XMarkIcon
+                        className="w-6 h-6"
+                        onClick={() => {
+                          onClose();
+                        }}
+                      />
                     </div>
 
                     <div className="border-b border-gray-900/10">
@@ -185,7 +208,7 @@ export default function AddCompanyModal({
                             />
                           </div>
                         </div>
-                        {/* <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                           <div className="col-span-full">
                             <label
                               htmlFor="logo"
@@ -194,19 +217,31 @@ export default function AddCompanyModal({
                               Company Logo
                             </label>
                             <div className="mt-2 flex items-center gap-x-3">
-                              <UserCircleIcon
-                                aria-hidden="true"
-                                className="h-12 w-12 text-gray-300"
-                              />
+                              {clientModel.logo ? (
+                                <img className="w-12 h-12 rounded-full" src={clientModel.logo} alt="client-logo" />
+                              ) : (
+                                <UserCircleIcon
+                                  aria-hidden="true"
+                                  className="h-12 w-12 text-gray-300"
+                                />
+                              )}
                               <button
                                 type="button"
+                                onClick={handleButtonClick}
                                 className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                               >
+                                <input
+                                  ref={inputFileRef}
+                                  className="hidden"
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={handleLogoChange}
+                                />
                                 Change
                               </button>
                             </div>
                           </div>
-                        </div> */}
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -54,13 +54,13 @@ const CompanyDevice = ({ deviceList }: { deviceList: IDeviceModel[] }) => {
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Model ID
+                    Device ID
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Model Type
+                    Type
                   </th>
                   <th
                     scope="col"
@@ -83,7 +83,7 @@ const CompanyDevice = ({ deviceList }: { deviceList: IDeviceModel[] }) => {
                       {device.name}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {device.identifier}
+                      {device.id}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {device.modelType}
