@@ -5,10 +5,11 @@ import DownloadExcel from "./DownloadExcel";
 import TimeGap from "./Timegap";
 import DeviceSelection from "./DeviceSelection";
 import ReportModal from "../../modal/ReportModal";
+import { useValueStore } from "../../store/useValueState";
 
 const AnalyticsSecondSection = ({date}:{date:string}) => {
   const [dialog, setDialog] = useState(false);
-  const deviceId = "";
+  const {deviceId} = useValueStore();
   return (
     <div>
       <HStack className="bg-white z-30 rounded-xl shadow-box p-4 w-full justify-between">

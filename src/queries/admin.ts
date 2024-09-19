@@ -7,6 +7,7 @@ import {
   deleteUser,
   editGasMapping,
   generateCredentials,
+  generateReport,
   getAllClients,
   getAllDevices,
   getClientDetail,
@@ -376,6 +377,27 @@ export function useChangeDeviceState() {
       });
     },
   });
+}
+
+export function useGenerateReport(){
+  return useMutation({
+    mutationKey: "generate-report",
+    mutationFn: generateReport,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "generate-report",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "generate-report",
+        success: false,
+        eventType: "API",
+      });
+    },
+  })
 }
 
 export function useWeatherData(

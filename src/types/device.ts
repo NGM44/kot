@@ -51,3 +51,9 @@ export interface IWeatherData {
   productivityMeter: number;
   deviceHealth: string;
 }
+
+export interface ReportRequestDto{
+  deviceId: string;
+  to: string;
+  from: string;
+}

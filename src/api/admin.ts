@@ -13,6 +13,7 @@ import {
   ConnectDeviceModel,
   IWeatherData,
   RegisterDeviceDto,
+  ReportRequestDto,
 } from "../types/device";
 import { IWeatherDataRange } from "../pages/new/SetParameterRanges";
 
@@ -170,4 +171,8 @@ export async function getLiveWeatherData(
 ): Promise<IWeatherData> {
   const deviceId = context.queryKey[1] as string;
   return api.get(`/weather/latest/${deviceId}`).then((res) => res.data.data);
+}
+
+export async function generateReport(reportReqDto: ReportRequestDto): Promise<string>{
+  return api.post(`/weather/report`,reportReqDto).then((res) => res.data.data);
 }
