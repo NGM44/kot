@@ -24,7 +24,7 @@ export const extractDashboardOverViewValues = (
     },
     {
       name: "Humidity",
-      value: `${liveData?.humidity.toFixed(2) || "-"}`,
+      value: `${liveData?.humidity.toFixed(0) || "-"}`,
       unit: "%",
       key: "Humidity",
     },
@@ -33,7 +33,7 @@ export const extractDashboardOverViewValues = (
       name: "Pressure",
       unit: "hPa",
       key: "Pressure",
-      value: `${liveData?.pressure.toFixed(2) || "-"}`,
+      value: `${liveData?.pressure.toFixed(0) || "-"}`,
     },
 
     {
@@ -45,7 +45,7 @@ export const extractDashboardOverViewValues = (
 
     {
       name: "Carbon Dioxide (CO2)",
-      value: `${liveData?.co2.toFixed(2) || "-"}`,
+      value: `${liveData?.co2.toFixed(0) || "-"}`,
       unit: "ppm",
       key: "Carbon Dioxide",
     },
@@ -53,60 +53,60 @@ export const extractDashboardOverViewValues = (
     {
       name: "VOCs",
       key: "VOCs",
-      value: `${liveData?.vocs.toFixed(2) || "-"}`,
+      value: `${liveData?.vocs.toFixed(0) || "-"}`,
       unit: "µg/m³",
     },
 
     {
       name: "Light",
       key: "Light",
-      value: `${liveData?.light.toFixed(2) || "-"}`,
+      value: `${liveData?.light.toFixed(0) || "-"}`,
       unit: "lux",
     },
 
     {
       name: "Noise",
       key: "Noise",
-      value: `${liveData?.noise.toFixed(2) || "-"}`,
+      value: `${liveData?.noise.toFixed(0) || "-"}`,
       unit: "dB",
     },
 
     {
       name: gasMapping?.gas1 ?? "Gas 1",
       key: "Gas 1",
-      value: `${liveData?.gas1.toFixed(2) || "-"}`,
+      value: `${liveData?.gas1.toFixed(0) || "-"}`,
       unit: "ppm",
     },
 
     {
       name: gasMapping?.gas2 ?? "Gas 2",
       key: "Gas 2",
-      value: `${liveData?.gas2.toFixed(2) || "-"}`,
+      value: `${liveData?.gas2.toFixed(0) || "-"}`,
       unit: "ppm",
     },
     {
       name: gasMapping?.gas3 ?? "Gas 3",
       key: "Gas 3",
-      value: `${liveData?.gas3.toFixed(2) || "-"}`,
+      value: `${liveData?.gas3.toFixed(0) || "-"}`,
       unit: "ppm",
     },
 
     {
       name: gasMapping?.gas4 ?? "Gas 4",
       key: "Gas 4",
-      value: `${liveData?.gas4.toFixed(2) || "-"}`,
+      value: `${liveData?.gas4.toFixed(0) || "-"}`,
       unit: "ppm",
     },
     {
       name: gasMapping?.gas5 ?? "Gas 5",
       key: "Gas 5",
-      value: `${liveData?.gas5.toFixed(2) || "-"}`,
+      value: `${liveData?.gas5.toFixed(0) || "-"}`,
       unit: "ppm",
     },
     {
       name: gasMapping?.gas6 ?? "Gas 6",
       key: "Gas 6",
-      value: `${liveData?.gas6.toFixed(2) || "-"}`,
+      value: `${liveData?.gas6.toFixed(0) || "-"}`,
       unit: "ppm",
     },
 
