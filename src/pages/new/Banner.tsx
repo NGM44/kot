@@ -39,7 +39,7 @@ export default function Banner({
           </div>
           <p className="text-sm leading-6 text-gray-900">
             {bannerMessage}
-           {bannerLink && <a href={bannerLink} className="whitespace-nowrap font-semibold pl-2">
+           {bannerLink && <a href={bannerLink} target="_blank" className="whitespace-nowrap font-semibold pl-2">
               Click here&nbsp;<span aria-hidden="true">&rarr;</span>
             </a>}
           </p>
@@ -47,7 +47,7 @@ export default function Banner({
             <button
               onClick={() => setShow(false)}
               type="button"
-              className="-m-3 p-3 focus-visible:outline-offset-[-4px]"
+              className="-m-3 p-3 focus-visible:outline-offset-[-4px] cursor-pointer"
             >
               <span className="sr-only">Dismiss</span>
               <XMarkIcon aria-hidden="true" className="h-5 w-5 text-gray-900" />

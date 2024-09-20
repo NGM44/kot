@@ -12,7 +12,7 @@ const AnimatedThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="relative w-11 h-11 rounded-xl bg-white shadow-box text-secondary overflow-hidden"
+      className="relative cursor-pointer w-11 h-11 rounded-xl bg-white shadow-box text-secondary overflow-hidden"
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
     >
       <div

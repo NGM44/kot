@@ -338,7 +338,7 @@ const ParameterRangeUI = () => {
             ))}
           </div>
           <div
-            className="mt-6 w-full bg-blue-500 text-center text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
+            className="mt-6 w-full bg-blue-500 text-center text-white cursor-pointer py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
             onClick={handleApplyRanges}
           >
             Apply Ranges

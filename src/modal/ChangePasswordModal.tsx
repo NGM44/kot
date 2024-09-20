@@ -177,7 +177,7 @@ export default function ChangePasswordModal({
                             confirmPassword !== password || password.length < 8
                           }
                           onClick={handleSignUp}
-                          className={`flex w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2  ${
+                          className={`flex w-full cursor-pointer justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2  ${
                             confirmPassword !== password || password.length < 8
                               ? "bg-gray-400"
                               : "focus-visible:outline-indigo-600 hover:bg-primary bg-primary"

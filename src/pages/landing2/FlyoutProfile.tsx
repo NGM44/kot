@@ -27,9 +27,10 @@ export function FlyoutProfile() {
   let tasks: any[] = [];
   const [dialogLogout, setDialogLogout] = useState(false);
   const [show, setShown] = useState(false);
+
   const { setAuth, role, email, clear } = useAuthStore();
   const [showDevice, setShowDevice] = useState(false);
-
+  let isAdmin = role?.toUpperCase() === "ADMIN";
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -40,46 +41,67 @@ export function FlyoutProfile() {
   const contextRef = React.useRef<HTMLDivElement>(null);
   const contextRef2 = React.useRef<HTMLDivElement>(null);
 
-  const routes = [
-    {
-      name: "Profile",
-      onClick: () => {
-        navigate("/profile");
-        setShown(false);
-        setShowDevice(false);
-      },
-      icon: UserCircleIcon,
-    },
-    {
-      name: "Device setting",
-      onClick: () => {
-        navigate("/setting");
-        setShown(false);
-        setShowDevice(false);
-      },
-      icon: Settings,
-    },
-    {
-      name: "Switch Device",
-      onClick: () => {},
-      icon: ArrowsRightLeftIcon,
-    },
-    {
-      name: "Log Out",
-      onClick: () => {
-        setDialogLogout(true);
-        setShown(false);
-        setShowDevice(false);
-      },
-      icon: ArrowLeftOnRectangleIcon,
-    },
-  ];
+  const routes = isAdmin
+    ? [
+        {
+          name: "Profile",
+          onClick: () => {
+            navigate("/profile");
+            setShown(false);
+            setShowDevice(false);
+          },
+          icon: UserCircleIcon,
+        },
+
+        {
+          name: "Log Out",
+          onClick: () => {
+            setDialogLogout(true);
+            setShown(false);
+            setShowDevice(false);
+          },
+          icon: ArrowLeftOnRectangleIcon,
+        },
+      ]
+    : [
+        {
+          name: "Profile",
+          onClick: () => {
+            navigate("/profile");
+            setShown(false);
+            setShowDevice(false);
+          },
+          icon: UserCircleIcon,
+        },
+        {
+          name: "Device setting",
+          onClick: () => {
+            navigate("/setting");
+            setShown(false);
+            setShowDevice(false);
+          },
+          icon: Settings,
+        },
+        {
+          name: "Switch Device",
+          onClick: () => {},
+          icon: ArrowsRightLeftIcon,
+        },
+        {
+          name: "Log Out",
+          onClick: () => {
+            setDialogLogout(true);
+            setShown(false);
+            setShowDevice(false);
+          },
+          icon: ArrowLeftOnRectangleIcon,
+        },
+      ];
 
   const [devices, setDevices] = useState<IDeviceModel[]>([]);
 
   useEffect(() => {
-    if(devices.length > 0)
-    handleSelect(devices[0]);
+    if (devices.length > 0) handleSelect(devices[0]);
   }, [devices]);
   useEffect(() => {
     if (user?.devices) setDevices(user?.devices);

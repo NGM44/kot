@@ -61,7 +61,7 @@ export default function UserPage() {
         {stats.map((stat) => (
           <div
             key={stat.name}
-            className={`flex cursor-pointer flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8
+            className={`flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8
               ${
                 stat.name === "No. of Clients"
                   ? "rounded-s-md"
@@ -105,7 +105,7 @@ export default function UserPage() {
                   onClick={() => {
                     setDialog(true);
                   }}
-                  className="block rounded-md bg-indigo-600 px-3 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="block cursor-pointer rounded-md bg-indigo-600 px-3 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Add Client
                 </button>

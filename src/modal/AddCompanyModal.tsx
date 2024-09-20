@@ -80,7 +80,7 @@ export default function AddCompanyModal({
                         Add Company
                       </h2>
                       <XMarkIcon
-                        className="w-6 h-6"
+                        className="w-6 cursor-pointer h-6"
                         onClick={() => {
                           onClose();
                         }}
@@ -228,7 +228,7 @@ export default function AddCompanyModal({
                               <button
                                 type="button"
                                 onClick={handleButtonClick}
-                                className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                className="rounded-md cursor-pointer bg-white cursor-pointer px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                               >
                                 <input
                                   ref={inputFileRef}
@@ -250,7 +250,7 @@ export default function AddCompanyModal({
                     <button
                       type="button"
                       onClick={onClose}
-                      className="text-sm font-semibold leading-6 text-gray-900"
+                      className="text-sm cursor-pointer font-semibold leading-6 text-gray-900"
                     >
                       Cancel
                     </button>
@@ -275,7 +275,7 @@ export default function AddCompanyModal({
                           },
                         });
                       }}
-                      className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="rounded-md cursor-pointer bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                       Save
                     </button>

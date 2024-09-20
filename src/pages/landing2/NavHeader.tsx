@@ -17,7 +17,7 @@ const NavHeader = ({
       <button
         aria-label="Open the menu"
         ref={menuBtnEl || null}
-        className="text-gray-400 hover:text-gray-50"
+        className="text-gray-400 cursor-pointer hover:text-gray-50"
         onClick={onClick}
       >
         {state ? (
