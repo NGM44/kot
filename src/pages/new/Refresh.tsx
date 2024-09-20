@@ -13,6 +13,8 @@ const RotatingRefreshIcon = () => {
       setValue({
         isRefresh: !isRefresh,
       });
+      window.location.reload(); 
+     
     }, 1000); // Stop rotation after 1 second
   };
 

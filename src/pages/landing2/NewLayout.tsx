@@ -35,6 +35,8 @@ import Banner from "../new/Banner";
 import DeviceSelection from "../new/DeviceSelection";
 import { FlyoutProfile } from "./FlyoutProfile";
 import { constructNow } from "date-fns";
+import NotificationPopUP from "../analytics/Notification";
+import { FlyoutNotification } from "./FlyoutNotification";
 const userNavigation = [{ name: "Log out", href: "#" }];
 
 export default function NewLayout() {
@@ -146,7 +148,7 @@ export default function NewLayout() {
     },
   ];
 
-
+  const [onHover, setOnHover] = useState(false);
 
   return (
     <div>
@@ -267,118 +269,10 @@ export default function NewLayout() {
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 justify-end">
             <div className="flex items-center gap-x-4 lg:gap-x-6">
               {!isAdmin && <SearchBar onHighlight={() => {}} />}
-              <button
-                type="button"
-                onClick={() => {
-                  setAuth({
-                    role: isAdmin ? "USER" : "ADMIN",
-                  });
-                }}
-                className="p-3 bg-white cursor-pointer h-11 drop-shadow-box rounded-xl text-secondary hover:text-gray-500"
-              >
-                <span className="sr-only">View notifications</span>
-                <BellIcon
-                  className="h-5 w-5 text-secondary"
-                  aria-hidden="true"
-                />
-              </button>
+
+              {!isAdmin && <RotatingRefreshIcon />}
               <AnimatedThemeToggle />
-
-              {/* <Menu as="div" className="relative">
-                <div
-                  className={`-ml-1.5 flex cursor-pointer items-center p-1  ${
-                    "/profile" !== pathname
-                      ? "bg-white text-secondary"
-                      : "bg-secondary text-white"
-                  } drop-shadow-box h-11 rounded-xl`}
-                >
-                  <div
-                    className="flex"
-                    onClick={() => {
-                      // if (!isAdmin)
-                      navigate("/profile");
-                    }}
-                  >
-                    <span className="sr-only">Open user menu</span>
-
-                    <span className="inline-flex h-8 w-8 ml-1 items-center justify-center">
-                      <span className="text-sm font-light leading-none text-white">
-                        <UserCog
-                          className={`${
-                            "/profile" !== pathname
-                              ? "text-secondary"
-                              : "text-white"
-                          }`}
-                        />
-                      </span>
-                    </span>
-
-                    <div className="hidden lg:flex lg:items-center mr-2">
-                      <div className="flex flex-col gap-0 justify-start items-start">
-                        <span
-                          className={`ml-2 text-xs font-bold leading-0 ${
-                            "/profile" !== pathname
-                              ? "text-gray-900"
-                              : "text-white"
-                          }`}
-                          aria-hidden="true"
-                        >
-                          {user?.name}
-                        </span>
-                        <span
-                          className={`ml-2 text-[11px] mb-0 font-semibold leading-0  ${
-                            "/profile" !== pathname
-                              ? "text-gray-500"
-                              : "text-gray-200"
-                          }`}
-                          aria-hidden="true"
-                        >
-                          {role}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <MenuButton>
-                    <ChevronDownIcon
-                      className={`w-4 ${
-                        "/profile" !== pathname
-                          ? "text-secondary"
-                          : "text-white"
-                      } font-extrabold h-4 mx-1`}
-                    />
-                  </MenuButton>
-                </div>
-                <Transition
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-                >
-                  <MenuItems className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                    {userNavigation.map((item) => (
-                      <MenuItem key={item.name}>
-                        {({ focus }) => (
-                          <button
-                            //   href={item.href}
-                            onClick={() => {
-                              setDialogLogout(true);
-                            }}
-                            className={classNames(
-                              focus ? "bg-gray-50" : "",
-                              "block px-3 py-1 text-sm1 leading-6 text-gray-900"
-                            )}
-                          >
-                            {item.name}
-                          </button>
-                        )}
-                      </MenuItem>
-                    ))}
-                  </MenuItems>
-                </Transition>
-              </Menu> */}
+             {notifcation && <FlyoutNotification notifcation={notifcation.sort((a:any, b:any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())} />}
               <FlyoutProfile />
             </div>
           </div>

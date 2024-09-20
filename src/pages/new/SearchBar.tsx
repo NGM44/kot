@@ -75,7 +75,12 @@ export default function SearchBar({ onHighlight }: { onHighlight: any }) {
     if (value) {
       filtered.forEach((ele: any) => {
         const element1 = document.getElementById(ele);
-        if (element1) element1.style.backgroundColor = "#f2f0ff";
+        if (element1) 
+        {
+           element1.style.border = "#f2f0ff";
+ 
+        }
+         
         if (element1 && filtered.length >= 1) {
           element1.scrollIntoView({ behavior: "smooth", block: "center" });
         }

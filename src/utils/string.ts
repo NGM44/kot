@@ -34,3 +34,21 @@ export function globalFilter<T>(
   arr = data;
   return data;
 }
+
+export function convertDate(dateString:any) {
+  const date = new Date(dateString);
+  
+  const day = date.getUTCDate().toString().padStart(2, '0');
+  const month = date.toLocaleString('en-US', { month: 'short' });
+  const year = date.getUTCFullYear();
+  
+  let hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  
+  hours = hours % 12;
+  hours = hours || 12; // the hour '0' should be '12'
+  const hoursString = hours.toString().padStart(2, '0');
+
+  return `${day}-${month}-${year} ${hoursString}:${minutes} ${ampm}`;
+}

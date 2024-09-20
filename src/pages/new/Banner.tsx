@@ -39,7 +39,7 @@ export default function Banner({
           </div>
           <p className="text-sm leading-6 text-gray-900">
             {bannerMessage}
-           {bannerLink && <a href={bannerLink} className="whitespace-nowrap font-semibold pl-2">
+           {bannerLink && <a href={bannerLink} target="_blank" className="whitespace-nowrap font-semibold pl-2">
               Click here&nbsp;<span aria-hidden="true">&rarr;</span>
             </a>}
           </p>
