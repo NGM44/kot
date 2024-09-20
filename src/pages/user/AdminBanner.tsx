@@ -90,7 +90,7 @@ const AdminBanner = ({ companyDetails }: { companyDetails: ICompanyModel }) => {
       <button
         type="submit"
         onClick={sendBanner}
-        className="flex w-40 my-4 justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="flex w-40 cursor-pointer my-4 justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
         Update banner
       </button>

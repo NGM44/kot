@@ -74,7 +74,7 @@ export default function RegisterDeviceModal({
                     Add Device
                   </h2>
                   <XMarkIcon
-                    className="w-6 h-6"
+                    className="w-6 h-6 cursor-pointer"
                     onClick={() => {
                       onClose();
                     }}
@@ -119,7 +119,7 @@ export default function RegisterDeviceModal({
                   <button
                     type="submit"
                     onClick={handleRegisterDevice}
-                    className="mt-6 flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="mt-6 cursor-pointer flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Confirm
                   </button>

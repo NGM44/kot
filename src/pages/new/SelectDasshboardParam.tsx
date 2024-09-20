@@ -84,7 +84,7 @@ const ParameterSelector: React.FC = () => {
               {param}
               <button
                 onClick={() => handleRemove(param)}
-                className="ml-2 focus:outline-none hover:text-red-200"
+                className="cursor-pointer ml-2 focus:outline-none hover:text-red-200"
               >
                 <X size={14} />
               </button>
@@ -116,7 +116,7 @@ const ParameterSelector: React.FC = () => {
             <button
               key={param}
               onClick={() => handleSelect(param)}
-              className="flex items-center bg-white border border-gray-300 rounded-full px-3 py-1 text-sm font-semibold transition-all hover:bg-gray-50"
+              className="flex cursor-pointer items-center bg-white border border-gray-300 rounded-full px-3 py-1 text-sm font-semibold transition-all hover:bg-gray-50"
             >
               <span>{param}</span>
               <Plus size={14} className="ml-1 text-blue-500" />

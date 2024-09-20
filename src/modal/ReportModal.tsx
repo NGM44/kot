@@ -70,7 +70,7 @@ export default function ReportModal({
                   <div className="flex flex-row justify-between gap-9">
                     <button
                       onClick={() => onClose()}
-                      className="text-gray-400 bg-slate-50"
+                      className="text-gray-400 cursor-pointer bg-slate-50"
                     >
                       Cancel
                     </button>
@@ -79,7 +79,7 @@ export default function ReportModal({
                       onClick={
                         handleDownloadReport
                       }
-                      className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="block cursor-pointer rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                       Download Report
                     </button>

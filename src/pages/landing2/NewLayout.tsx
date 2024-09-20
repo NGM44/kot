@@ -194,7 +194,7 @@ export default function NewLayout() {
                   <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
                     <button
                       type="button"
-                      className="-m-2.5 p-2.5"
+                      className="-m-2.5 p-2.5 cursor-pointer"
                       onClick={() => setSidebarOpen(false)}
                     >
                       <span className="sr-only">Close sidebar</span>
@@ -233,7 +233,7 @@ export default function NewLayout() {
         <div className="sticky bg-[#f6f9fb] top-0 z-50 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8">
           <button
             type="button"
-            className="-m-2.5 p-2.5 text-gray-700 lg:hidden bg-white rounded-md"
+            className="-m-2.5 p-2.5 text-gray-700 lg:hidden bg-white rounded-md cursor-pointer"
             onClick={() => setSidebarOpen(true)}
           >
             <span className="sr-only">Open sidebar</span>
@@ -245,7 +245,7 @@ export default function NewLayout() {
             onClick={() =>
               isAdmin ? navigate("/user") : navigate("/dashboard")
             }
-            className="flex h-11 bg-white rounded-xl drop-shadow-box p-4 shrink-0 items-center"
+            className="flex h-11 bg-white cursor-pointer rounded-xl drop-shadow-box p-4 shrink-0 items-center"
           >
             <img
               src="/onlylogo.png"

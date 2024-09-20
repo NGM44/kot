@@ -75,7 +75,7 @@ const UpdatePage = () => {
               {!isUpdating ? (
                 <button
                   onClick={handleUpdate}
-                  className="w-full py-3 bg-gradient-to-r from-indigo-600 to-indigo-400 text-white rounded-lg font-semibold shadow-md hover:from-indigo-700 hover:to-indigo-700 transition duration-300 ease-in-out transform hover:-translate-y-0.5"
+                  className="w-full cursor-pointer py-3 bg-gradient-to-r from-indigo-600 to-indigo-400 text-white rounded-lg font-semibold shadow-md hover:from-indigo-700 hover:to-indigo-700 transition duration-300 ease-in-out transform hover:-translate-y-0.5"
                 >
                   Update Now
                 </button>

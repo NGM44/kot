@@ -47,7 +47,7 @@ export default function Banner({
             <button
               onClick={() => setShow(false)}
               type="button"
-              className="-m-3 p-3 focus-visible:outline-offset-[-4px]"
+              className="-m-3 p-3 focus-visible:outline-offset-[-4px] cursor-pointer"
             >
               <span className="sr-only">Dismiss</span>
               <XMarkIcon aria-hidden="true" className="h-5 w-5 text-gray-900" />

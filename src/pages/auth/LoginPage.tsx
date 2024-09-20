@@ -186,7 +186,7 @@ if (id) {
                     onClick={() => {
                       navigate("/forgotPassword");
                     }}
-                    className="text-sm font-semibold underline text-primary cursor-pointer"
+                    className="text-sm cursor-pointer font-semibold underline text-primary cursor-pointer"
                   >
                     Forgot Password?
                   </div>
@@ -195,7 +195,7 @@ if (id) {
                 <button
                   type="submit"
                   onClick={handleLogin}
-                  className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="flex w-full cursor-pointer justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Log in
                 </button>
@@ -222,46 +222,22 @@ if (id) {
               <HStack className="gap-4 mt-6 w-full justify-center">
                 <div
                   onClick={() => setActiveIndex(0)}
-                  className="w-4 h-4 bg-white rounded-full"
+                  className="w-4 h-4 cursor-pointer bg-white rounded-full"
                 ></div>
                 <div
                   onClick={() => setActiveIndex(1)}
-                  className="w-4 h-4 bg-transparent border-2 border-white rounded-full"
+                  className="w-4 h-4 cursor-pointer bg-transparent border-2 border-white rounded-full"
                 ></div>
                 <div
                   onClick={() => setActiveIndex(2)}
-                  className="w-4 h-4 bg-transparent border-2 border-white rounded-full"
+                  className="w-4 h-4 cursor-pointer bg-transparent border-2 border-white rounded-full"
                 ></div>
               </HStack>
             </div>
 
-            {/* : activeIndex === 1 ? (
-              <div className="px-10 pb-10 text-2xl font-semibold text-center text-white">
-                <p> Share, collect, and organize project files securely</p>
-                <p>all in one central hub</p>
-                <HStack className="gap-4 mt-6 w-full justify-center">
-                  <div onClick={()=>setActiveIndex(0)} className="w-4 h-4 bg-transparent border-2 border-white rounded-full"></div>
-                  <div onClick={()=>setActiveIndex(1)} className="w-4 h-4 bg-white rounded-full"></div>
-                  <div onClick={()=>setActiveIndex(2)} className="w-4 h-4 bg-transparent border-2 border-white rounded-full"></div>
-                </HStack>
-              </div>
-            ) : (
-              <div className="px-10 pb-10 text-2xl mx-auto font-semibold text-center text-white">
-                <p> Never miss deadlines</p>
-                <p>Automated reminders keep tasks on track</p>
-                <HStack className="gap-4 mt-6 w-full justify-center">
-                  <div onClick={()=>setActiveIndex(0)} className="w-4 h-4 bg-transparent border-2 border-white rounded-full"></div>
-                  <div onClick={()=>setActiveIndex(1)} className="w-4 h-4 bg-transparent border-2 border-white rounded-full"></div>
-                  <div onClick={()=>setActiveIndex(2)} className="w-4 h-4 bg-white rounded-full"></div>
-                </HStack>
-              </div>
-            )} */}
+           
           </VStack>
-          {/* <img
-            className="absolute inset-0 h-full w-full object-fill"
-            src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-            alt=""
-          /> */}
+         
         </div>
       </div>
     </>

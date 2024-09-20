@@ -536,7 +536,7 @@ function FeaturesMobile() {
             type="button"
             key={featureIndex}
             className={clsx(
-              'relative h-0.5 w-4 rounded-full',
+              'relative h-0.5 w-4 cursor-pointer rounded-full',
               featureIndex === activeIndex ? 'bg-gray-300' : 'bg-gray-500',
             )}
             aria-label={`Go to slide ${featureIndex + 1}`}

@@ -71,7 +71,7 @@ const HomePage = () => {
         {listData.map((stat, index) => (
           <div
             key={stat.name}
-            className={`flex cursor-pointer flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8
+            className={`flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-8 sm:px-6 xl:px-8
              ${
                index === 0
                  ? "rounded-l-xl"

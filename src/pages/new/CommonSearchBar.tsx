@@ -50,10 +50,6 @@ export default function GenericSearchBar({
     onSearch(value);
   };
 
-  const handleSuggestionClick = (suggestion: string) => {
-    setSearchTerm(suggestion);
-  };
-
   return (
     <div className="relative">
       <div className="relative flex items-center">

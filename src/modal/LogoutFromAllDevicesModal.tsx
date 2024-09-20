@@ -156,7 +156,7 @@ export default function LogoutFromAllDevices({
                           className={`flex w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2  ${
                             confirmation !== "Confirm"
                               ? "bg-gray-400"
-                              : "focus-visible:outline-indigo-600 hover:bg-primary/60 bg-primary"
+                              : "focus-visible:outline-indigo-600 cursor-pointer hover:bg-primary/60 bg-primary"
                           }`}
                         >
                           Log out from all devices

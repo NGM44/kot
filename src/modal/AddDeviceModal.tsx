@@ -133,7 +133,7 @@ export default function AddDeviceModal({
                         Add Device
                       </h2>
                       <XMarkIcon
-                        className="w-6 h-6 cursor-pointer"
+                        className="w-6 h-6 cursor-pointer cursor-pointer"
                         onClick={() => {
                           onClose();
                         }}

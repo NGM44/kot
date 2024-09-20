@@ -75,7 +75,7 @@ function GenericDropdown<T extends Option>({
             <li
               key={option.id}
               onClick={() => handleSelection(option)}
-              className={`group relative min-w-28 items-center cursor-pointer hover:bg-indigo-600 hover:text-white select-none py-2 pl-3 pr-9 text-gray-900 ${
+              className={`group  relative min-w-28 items-center cursor-pointer hover:bg-indigo-600 hover:text-white select-none py-2 pl-3 pr-9 text-gray-900 ${
                 selected.id === option.id ? "bg-indigo-600 text-white" : ""
               }`}
             >
