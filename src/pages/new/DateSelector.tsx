@@ -3,27 +3,15 @@ import React from 'react';
 import { useValueStore } from "../../store/useValueState";
 import { CheckIcon } from 'lucide-react';
 import GenericDropdown from './GenericSelection';
-
-export type TimePeriod = "1 Day" | "7 Days" | "30 Days" | "60 Days" | "90 Days";
-
-interface TimeModel {
-  id: string;
-  name: TimePeriod;
-}
-
-const timePeriods: TimeModel[] = [
-  { id: "0", name: "1 Day" },
-  { id: "1", name: "7 Days" },
-  { id: "2", name: "30 Days" },
-  { id: "3", name: "60 Days" },
-  { id: "4", name: "90 Days" },
-];
+import { calculateTimeGaps, TimeModel, timePeriods } from '../analytics/ContantData';
 
 const DateSelector: React.FC = () => {
   const { date, setValue } = useValueStore();
 
   const handleSelect = (selectedPeriod: TimeModel) => {
     setValue({ date: selectedPeriod.name });
+    const newTimeGaps = calculateTimeGaps(selectedPeriod.name);
+    setValue({gap: newTimeGaps[0].name});
   };
 
   const renderOption = (option: TimeModel, isSelected: boolean) => (
@@ -41,7 +29,7 @@ const DateSelector: React.FC = () => {
     <GenericDropdown<TimeModel>
       options={timePeriods}
       onSelect={handleSelect}
-      initialSelectedId={timePeriods.find(period => period.name === date)?.id ?? ""}
+      initialSelectedId={timePeriods.find(period => period.name === date)?.id ?? timePeriods[0].id}
       renderOption={renderOption}
       buttonClassName="w-32 font-semibold"
       dropdownClassName="w-32"

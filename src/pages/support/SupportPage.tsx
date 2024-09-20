@@ -1,18 +1,20 @@
 import React, { useState } from "react";
+import { useSendEmail } from "../../queries/admin";
 
 const SupportPage = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
+  const {mutate: sendEmail} = useSendEmail();
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    sendEmail({html: message+ "From"+ name, subject:"Support Email"});
 
     setSubmitted(true);
     // Reset form after submission
     setName("");
-    setEmail("");
     setMessage("");
   };
 
@@ -47,22 +49,6 @@ const SupportPage = () => {
                       onChange={(e) => setName(e.target.value)}
                       required
                       className="mt-1 border py-2 px-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="mt-1 py-2 px-2  border block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
                   <div>

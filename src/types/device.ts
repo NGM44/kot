@@ -57,3 +57,8 @@ export interface ReportRequestDto{
   to: string;
   from: string;
 }
+
+export interface SendEmailDto {
+  subject: string;
+  html: string;
+}

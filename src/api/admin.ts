@@ -14,6 +14,7 @@ import {
   IWeatherData,
   RegisterDeviceDto,
   ReportRequestDto,
+  SendEmailDto,
 } from "../types/device";
 import { IWeatherDataRange } from "../pages/new/SetParameterRanges";
 
@@ -175,4 +176,8 @@ export async function getLiveWeatherData(
 
 export async function generateReport(reportReqDto: ReportRequestDto): Promise<string>{
   return api.post(`/weather/report`,reportReqDto).then((res) => res.data.data);
+}
+
+export async function sendEmail(sendEmailDto: SendEmailDto){
+  return api.post('/email/sendEmail',sendEmailDto)
 }
