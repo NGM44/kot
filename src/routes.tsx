@@ -58,7 +58,7 @@ export default function Router() {
               { path: "dashboard", element: <HomePage /> },
               { path: "analytics", element: <AnalyticsPage /> },
               { path: "grid", element: <GridPage /> },
-              { path: "genie", element: <SupportPage /> },
+              { path: "support", element: <SupportPage /> },
               { path: "profile", element: <ProfilePage /> },
               { path: "setting", element: <DeviceSetting /> },
             ]
@@ -78,7 +78,7 @@ export default function Router() {
               { path: "dashboard", element: <HomePage /> },
               { path: "analytics", element: <AnalyticsPage /> },
               { path: "grid", element: <GridPage /> },
-              { path: "genie", element: <SupportPage /> },
+              { path: "support", element: <SupportPage /> },
               { path: "profile", element: <ProfilePage /> },
               { path: "setting", element: <DeviceSetting /> },
             ],

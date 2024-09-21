@@ -19,6 +19,10 @@ export interface IWeatherDataRange {
   temperatureMax: number;
   humidityMin: number;
   humidityMax: number;
+  odorMin: number;
+  odorMax: number;
+  moldGrowthMin: number;
+  moldGrowthMax: number;
   pressureMin: number;
   pressureMax: number;
   co2Min: number;
@@ -180,6 +184,7 @@ const ParameterRangeUI = () => {
           max: deviceRange.noiseMax,
           step: 1,
         },
+        
         {
           label: "PM1",
           unit: "µg/m³",
@@ -213,6 +218,20 @@ const ParameterRangeUI = () => {
           unit: "",
           min: deviceRange.aiqMin,
           max: deviceRange.aiqMax,
+          step: 1,
+        },
+        {
+          label: "Odor",
+          unit: "",
+          min: deviceRange.odorMin ?? 0,
+          max: deviceRange.odorMax ?? 100,
+          step: 1,
+        },
+        {
+          label: "Mold Growth",
+          unit: "%",
+          min: deviceRange.moldGrowthMin ?? 0,
+          max: deviceRange.moldGrowthMax ?? 100,
           step: 1,
         },
         {

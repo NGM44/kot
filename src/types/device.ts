@@ -36,6 +36,8 @@ export interface IWeatherData {
   vocs: number;
   light: number;
   noise: number;
+  odor: number;
+  moldGrowth: number;
   pm1: number;
   pm25 : number;
   pm4 : number;

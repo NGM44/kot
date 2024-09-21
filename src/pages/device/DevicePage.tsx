@@ -13,7 +13,7 @@ import GenericSearchBar from "../new/CommonSearchBar";
 export default function DevicePage() {
   const [dialog, setDialog] = useState(false);
   const [selected, setSelected] = useState("Registered");
-  const [selectedKey, setSelectedKey] = useState<string[]>([]);
+  const [selectedKey, setSelectedKey] = useState<string[]>(["REGISTERED"]);
   const { data: deviceDs } = useGetAllDevices();
   const [deviceDetails, setDeviceDetails] = useState<IDeviceModel[]>([]);
   useEffect(() => {
@@ -42,19 +42,22 @@ export default function DevicePage() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredModels = useMemo(() => {
-    return (deviceDetails ?? [])?.filter((model) => {
-      const searchTermLower = searchTerm.toLowerCase();
-      return (
-        (model?.name ?? "").toLowerCase().includes(searchTermLower) ||
-        (model?.location ?? "").toLowerCase().includes(searchTermLower) ||
-        (model?.status ?? "").toLowerCase().includes(searchTermLower) ||
-        (model?.modelType ?? "").toLowerCase().includes(searchTermLower) ||
-        (model?.identifier ?? "").toLowerCase().includes(searchTermLower) ||
-        (model?.id ?? "").toLowerCase().includes(searchTermLower)
-      );
-    });
-  }, [deviceDetails, searchTerm]);
+    return (deviceDetails ?? [])
+      ?.filter((device) => selectedKey.includes(device.status))
+      .filter((model) => {
+        const searchTermLower = searchTerm.toLowerCase();
+        return (
+          (model?.name ?? "").toLowerCase().includes(searchTermLower) ||
+          (model?.location ?? "").toLowerCase().includes(searchTermLower) ||
+          (model?.status ?? "").toLowerCase().includes(searchTermLower) ||
+          (model?.modelType ?? "").toLowerCase().includes(searchTermLower) ||
+          (model?.identifier ?? "").toLowerCase().includes(searchTermLower) ||
+          (model?.id ?? "").toLowerCase().includes(searchTermLower)
+        );
+      });
+  }, [deviceDetails, searchTerm, selectedKey, deviceDs]);
 
+  console.log("filteredModels", filteredModels, deviceDetails);
   return (
     <div className="flex flex-col gap-8">
       {dialog && (
@@ -139,9 +142,7 @@ export default function DevicePage() {
         <div className="mt-8 flow-root">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle">
-              {filteredModels.filter((device) =>
-                selectedKey.includes(device.status)
-              ).length === 0 ? (
+              {filteredModels.length === 0 ? (
                 <EmptyTable />
               ) : (
                 <table className="min-w-full divide-y divide-gray-300">
@@ -182,203 +183,201 @@ export default function DevicePage() {
 
                   {filteredModels && (
                     <tbody className="divide-y divide-gray-200 bg-white">
-                      {filteredModels
-                        .filter((device) => selectedKey.includes(device.status))
-                        .map((device) => (
-                          <tr key={device.id}>
-                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                              {device.name}
-                            </td>
-                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                              {device.identifier}
-                            </td>
-                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                              {device.modelType}
-                            </td>
-                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                              {device.status}
-                            </td>
-                            <td className="whitespace-nowrap absolute z-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                              <DeviceMenu
-                                menu={
-                                  selected === "Registered"
-                                    ? [
-                                        {
-                                          name: "Un Register",
-                                          action: () => {
-                                            changeStatus(
-                                              {
-                                                deviceId: device.id,
-                                                state: EStatus.UNREGISTERED,
+                      {filteredModels.map((device) => (
+                        <tr key={device.id}>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                            {device.name}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {device.identifier}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {device.modelType}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {device.status}
+                          </td>
+                          <td className="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                            <DeviceMenu
+                              menu={
+                                selected === "Registered"
+                                  ? [
+                                      {
+                                        name: "Un Register",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.UNREGISTERED,
+                                            },
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
                                               },
-                                              {
-                                                onSuccess() {
-                                                  queryClient.invalidateQueries(
-                                                    "get-all-devices-client"
-                                                  );
-                                                },
-                                              }
-                                            );
-                                          },
+                                            }
+                                          );
                                         },
-                                        {
-                                          name: "Terminate",
-                                          action: () => {
-                                            changeStatus(
-                                              {
-                                                deviceId: device.id,
-                                                state: EStatus.TERMINATED,
+                                      },
+                                      {
+                                        name: "Terminate",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.TERMINATED,
+                                            },
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
                                               },
-                                              {
-                                                onSuccess() {
-                                                  queryClient.invalidateQueries(
-                                                    "get-all-devices-client"
-                                                  );
-                                                },
-                                              }
-                                            );
-                                          },
+                                            }
+                                          );
                                         },
-                                      ]
-                                    : selected === "Production"
-                                    ? [
-                                        {
-                                          name: "Un Register",
-                                          action: () => {
-                                            changeStatus(
-                                              {
-                                                deviceId: device.id,
-                                                state: EStatus.UNREGISTERED,
+                                      },
+                                    ]
+                                  : selected === "Production"
+                                  ? [
+                                      {
+                                        name: "Un Register",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.UNREGISTERED,
+                                            },
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
                                               },
-                                              {
-                                                onSuccess() {
-                                                  queryClient.invalidateQueries(
-                                                    "get-all-devices-client"
-                                                  );
-                                                },
-                                              }
-                                            );
-                                          },
+                                            }
+                                          );
                                         },
-                                        {
-                                          name: "Block",
-                                          action: () => {
-                                            changeStatus(
-                                              {
-                                                deviceId: device.id,
-                                                state: EStatus.BLOCKED,
+                                      },
+                                      {
+                                        name: "Block",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.BLOCKED,
+                                            },
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
                                               },
-                                              {
-                                                onSuccess() {
-                                                  queryClient.invalidateQueries(
-                                                    "get-all-devices-client"
-                                                  );
-                                                },
-                                              }
-                                            );
-                                          },
+                                            }
+                                          );
                                         },
-                                        {
-                                          name: "Terminate",
-                                          action: () => {
-                                            changeStatus(
-                                              {
-                                                deviceId: device.id,
-                                                state: EStatus.TERMINATED,
+                                      },
+                                      {
+                                        name: "Terminate",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.TERMINATED,
+                                            },
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
                                               },
-                                              {
-                                                onSuccess() {
-                                                  queryClient.invalidateQueries(
-                                                    "get-all-devices-client"
-                                                  );
-                                                },
-                                              }
-                                            );
-                                          },
+                                            }
+                                          );
                                         },
-                                      ]
-                                    : selected === "Un Registered"
-                                    ? [
-                                        {
-                                          name: "Register",
-                                          action: () => {
-                                            changeStatus(
-                                              {
-                                                deviceId: device.id,
-                                                state: EStatus.REGISTERED,
+                                      },
+                                    ]
+                                  : selected === "Un Registered"
+                                  ? [
+                                      {
+                                        name: "Register",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.REGISTERED,
+                                            },
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
                                               },
-                                              {
-                                                onSuccess() {
-                                                  queryClient.invalidateQueries(
-                                                    "get-all-devices-client"
-                                                  );
-                                                },
-                                              }
-                                            );
-                                          },
+                                            }
+                                          );
                                         },
-                                        {
-                                          name: "Block",
-                                          action: () => {
-                                            changeStatus(
-                                              {
-                                                deviceId: device.id,
-                                                state: EStatus.BLOCKED,
+                                      },
+                                      {
+                                        name: "Block",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.BLOCKED,
+                                            },
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
                                               },
-                                              {
-                                                onSuccess() {
-                                                  queryClient.invalidateQueries(
-                                                    "get-all-devices-client"
-                                                  );
-                                                },
-                                              }
-                                            );
-                                          },
+                                            }
+                                          );
                                         },
-                                        {
-                                          name: "Terminate",
-                                          action: () => {
-                                            changeStatus(
-                                              {
-                                                deviceId: device.id,
-                                                state: EStatus.TERMINATED,
+                                      },
+                                      {
+                                        name: "Terminate",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.TERMINATED,
+                                            },
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
                                               },
-                                              {
-                                                onSuccess() {
-                                                  queryClient.invalidateQueries(
-                                                    "get-all-devices-client"
-                                                  );
-                                                },
-                                              }
-                                            );
-                                          },
+                                            }
+                                          );
                                         },
-                                      ]
-                                    : [
-                                        {
-                                          name: "Register",
-                                          action: () => {
-                                            changeStatus(
-                                              {
-                                                deviceId: device.id,
-                                                state: EStatus.REGISTERED,
+                                      },
+                                    ]
+                                  : [
+                                      {
+                                        name: "Register",
+                                        action: () => {
+                                          changeStatus(
+                                            {
+                                              deviceId: device.id,
+                                              state: EStatus.REGISTERED,
+                                            },
+                                            {
+                                              onSuccess() {
+                                                queryClient.invalidateQueries(
+                                                  "get-all-devices-client"
+                                                );
                                               },
-                                              {
-                                                onSuccess() {
-                                                  queryClient.invalidateQueries(
-                                                    "get-all-devices-client"
-                                                  );
-                                                },
-                                              }
-                                            );
-                                          },
+                                            }
+                                          );
                                         },
-                                      ]
-                                }
-                              />
-                            </td>
-                          </tr>
-                        ))}
+                                      },
+                                    ]
+                              }
+                            />
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   )}
                 </table>

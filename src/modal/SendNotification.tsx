@@ -119,13 +119,15 @@ export default function SendNotification({
                   </Transition>
                 ) : (
                   <>
-                    <div className="w-full pb-4 flex flex-row items-center justify-between">
-                      <h2 className="text-left text-xl font-bold leading-9 tracking-tight text-gray-900">
+                    <div className="border-b border-gray-900/10 pb-2 mb-2 flex flex-row items-center justify-between">
+                      <h2 className="text-base font-semibold leading-7 text-gray-900">
                         Send Notification
                       </h2>
                       <XMarkIcon
-                        onClick={onClose}
-                        className="w-6 h-6 cursor-pointer"
+                        className="w-6 cursor-pointer h-6"
+                        onClick={() => {
+                          onClose();
+                        }}
                       />
                     </div>
                     <div className="space-y-6">

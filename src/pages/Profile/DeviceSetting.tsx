@@ -10,7 +10,7 @@ import ParameterSelector from "../new/SelectDasshboardParam";
 export default function DeviceSetting() {
   const { data: user } = useGetUserDevices();
   const [dialog, setDialog] = useState(false);
- 
+
   const { role } = useAuthStore();
   const [logOutDialog, setLogoutDialog] = useState(false);
   const [companyName, setCompanyName] = useState(user?.client?.name ?? "");
@@ -56,7 +56,6 @@ export default function DeviceSetting() {
         />
       )}
       <div className="space-y-12 bg-white rounded-xl shadow-box p-8">
-   
         {!isAdmin && (
           <div className="grid grid-cols-1 gap-x-8 gap-y-10  pb-12 md:grid-cols-3">
             <div>
@@ -64,7 +63,7 @@ export default function DeviceSetting() {
                 Set Parameter Ranges
               </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
-                Details of the user
+                Details of the optimal values of the Device
               </p>
             </div>
             <div className="grid col-span-2 gap-x-8 gap-y-10 pb-12">
@@ -78,10 +77,10 @@ export default function DeviceSetting() {
           <div className="grid grid-cols-1 gap-x-8 gap-y-10  pb-12 md:grid-cols-3">
             <div>
               <h2 className="text-base font-semibold leading-7 text-gray-900">
-                Set Parameter Ranges
+                Set Overview Values
               </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
-                Details of the user
+                select which values matter most for you
               </p>
             </div>
             <div className="grid col-span-2 gap-x-8 gap-y-10 pb-12">

@@ -9,6 +9,7 @@ import { queryClient } from "../queries/client";
 import { IGasMapping } from "../pages/user/CompanyPage";
 import { useEditGasMappingDetails } from "../queries/admin";
 import { toast } from "react-toastify";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 export default function GasMappingEditModal({
   gasNameToBeUpdated,
@@ -130,11 +131,18 @@ export default function GasMappingEditModal({
             >
               <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <>
-                  <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4">
-                    <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                 
+                  <div className="border-b border-gray-900/10 pb-2 mb-2 flex flex-row items-center justify-between">
+                      <h2 className="text-base font-semibold leading-7 text-gray-900">
                       Edit Gas Mapping
-                    </h2>
-                  </div>
+                      </h2>
+                      <XMarkIcon
+                        className="w-6 cursor-pointer h-6"
+                        onClick={() => {
+                          onClose();
+                        }}
+                      />
+                    </div>
                   <div className="space-y-6">
                     <div>
                       <label

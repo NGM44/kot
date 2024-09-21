@@ -315,13 +315,13 @@ export default function AddClient() {
                       id="comments"
                       name="comments"
                       type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                      className="h-4 w-4 cursor-pointer rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
                   </div>
                   <div className="text-sm leading-6">
                     <label
                       htmlFor="comments"
-                      className="font-medium text-gray-900"
+                      className="font-medium cursor-pointer text-gray-900"
                     >
                       Comments
                     </label>
@@ -336,13 +336,13 @@ export default function AddClient() {
                       id="candidates"
                       name="candidates"
                       type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                      className="h-4 w-4 cursor-pointer rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
                   </div>
                   <div className="text-sm leading-6">
                     <label
                       htmlFor="candidates"
-                      className="font-medium text-gray-900"
+                      className="font-medium cursor-pointer text-gray-900"
                     >
                       Candidates
                     </label>
@@ -357,7 +357,7 @@ export default function AddClient() {
                       id="offers"
                       name="offers"
                       type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                      className="h-4 w-4  cursor-pointer rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
                   </div>
                   <div className="text-sm leading-6">

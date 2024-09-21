@@ -275,38 +275,6 @@ export default function Profile() {
             )}
           </div>
         </div>
-        {/* {!isAdmin && (
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10  pb-12 md:grid-cols-3">
-            <div>
-              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                Set Parameter Ranges
-              </h2>
-              <p className="mt-1 text-sm leading-6 text-gray-600">
-                Details of the user
-              </p>
-            </div>
-            <div className="grid col-span-2 gap-x-8 gap-y-10 pb-12">
-              <ParameterRangeUI />
-            </div>
-
-         
-          </div>
-        )} */}
-        {/* {!isAdmin && (
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10  pb-12 md:grid-cols-3">
-            <div>
-              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                Set Parameter Ranges
-              </h2>
-              <p className="mt-1 text-sm leading-6 text-gray-600">
-                Details of the user
-              </p>
-            </div>
-            <div className="grid col-span-2 gap-x-8 gap-y-10 pb-12">
-              <ParameterSelector />
-            </div>
-          </div>
-        )} */}
       </div>
     </>
   );

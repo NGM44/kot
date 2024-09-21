@@ -4,11 +4,10 @@ import { useLocation } from "react-router";
 import * as React from "react";
 import { useAuthStore } from "../../store/useAuthStore";
 import LogoutModal from "../../modal/LogoutModal";
-import { BellIcon, Settings } from "lucide-react";
+import { BellIcon } from "lucide-react";
 import NotificationPopUP from "../analytics/Notification";
 
 export function FlyoutNotification({ notifcation }: { notifcation: any }) {
-  console.log("notifcation", notifcation);
   const [dialogLogout, setDialogLogout] = useState(false);
   const [show, setShown] = useState(false);
   const { setAuth, role } = useAuthStore();
@@ -76,11 +75,7 @@ export function FlyoutNotification({ notifcation }: { notifcation: any }) {
                 setShown(false);
                 setShowDevice(false);
               }}
-              className={`-ml-1.5 flex gap-2 cursor-pointer items-center p-1  ${
-                "/profile" !== pathname
-                  ? "bg-white text-secondary"
-                  : "bg-secondary text-white"
-              } drop-shadow-box h-11 rounded-xl`}
+              className={`-ml-1.5 flex gap-2 cursor-pointer items-center p-1 bg-white text-secondary drop-shadow-box h-11 rounded-xl`}
             >
               <button
                 type="button"

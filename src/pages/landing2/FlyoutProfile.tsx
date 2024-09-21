@@ -21,7 +21,7 @@ import useMqttStore from "../../store/useMqttStore";
 import { useValueStore } from "../../store/useValueState";
 import { Device } from "../new/DeviceSelection";
 import { topicPrefix } from "../../constant";
-import { Settings } from "lucide-react";
+import { HandHelping, Settings } from "lucide-react";
 
 export function FlyoutProfile() {
   let tasks: any[] = [];
@@ -86,6 +86,15 @@ export function FlyoutProfile() {
           name: "Switch Device",
           onClick: () => {},
           icon: ArrowsRightLeftIcon,
+        },
+        {
+          name: "Support",
+          onClick: () => {
+            navigate("/support");
+            setShown(false);
+            setShowDevice(false);
+          },
+          icon: HandHelping,
         },
         {
           name: "Log Out",

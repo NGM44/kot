@@ -92,11 +92,11 @@ export default function ChangePasswordPage() {
                       type="checkbox"
                       checked={showPassword}
                       onChange={() => setShowPassword(!showPassword)}
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 border-2 focus:ring-indigo-600"
+                      className="h-4 w-4 rounded cursor-pointer border-gray-300 text-indigo-600 border-2 focus:ring-indigo-600"
                     />
                     <label
                       htmlFor="remember-me"
-                      className="ml-3 block text-sm leading-6 text-gray-900"
+                      className="ml-3 block text-sm cursor-pointer leading-6 text-gray-900"
                     >
                       Show Password
                     </label>

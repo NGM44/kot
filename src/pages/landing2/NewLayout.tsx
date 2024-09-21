@@ -272,7 +272,7 @@ export default function NewLayout() {
 
               {!isAdmin && <RotatingRefreshIcon />}
               <AnimatedThemeToggle />
-             {notifcation && <FlyoutNotification notifcation={notifcation.sort((a:any, b:any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())} />}
+             {notifcation && notifcation.length > 0 && <FlyoutNotification notifcation={notifcation.sort((a:any, b:any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())} />}
               <FlyoutProfile />
             </div>
           </div>

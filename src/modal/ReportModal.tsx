@@ -1,4 +1,3 @@
-
 import {
   Dialog,
   DialogPanel,
@@ -9,6 +8,7 @@ import { format } from "date-fns";
 import { ReportRequestDto } from "../types/device";
 import { useGenerateReport } from "../queries/admin";
 import { toast } from "react-toastify";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 export default function ReportModal({
   isOpen,
@@ -17,7 +17,7 @@ export default function ReportModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  deviceId?: string
+  deviceId?: string;
 }) {
   const { mutate: generateReport } = useGenerateReport();
   function handleDownloadReport() {
@@ -32,11 +32,10 @@ export default function ReportModal({
             autoClose: 2000,
             type: "success",
           });
-        }
+        },
       });
       onClose();
     }
-
   }
   return (
     <Transition show={isOpen}>
@@ -64,8 +63,16 @@ export default function ReportModal({
             >
               <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <div className="flex flex-col justify-between p-9 bg-white rounded h-[300px] ">
-                  <div className="flex flex-col items-center justify-center gap-6 grow">
-                    <p className="text-sm font-normal text-gray-600">Download Report</p>
+                  <div className="border-b border-gray-900/10 pb-2 mb-2 flex flex-row items-center justify-between">
+                    <h2 className="text-base font-semibold leading-7 text-gray-900">
+                      Download Report
+                    </h2>
+                    <XMarkIcon
+                      className="w-6 cursor-pointer h-6"
+                      onClick={() => {
+                        onClose();
+                      }}
+                    />
                   </div>
                   <div className="flex flex-row justify-between gap-9">
                     <button
@@ -76,9 +83,7 @@ export default function ReportModal({
                     </button>
                     <button
                       type="button"
-                      onClick={
-                        handleDownloadReport
-                      }
+                      onClick={handleDownloadReport}
                       className="block cursor-pointer rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                       Download Report

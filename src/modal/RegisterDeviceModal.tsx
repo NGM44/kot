@@ -69,12 +69,12 @@ export default function RegisterDeviceModal({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4 flex flex-row items-center justify-between">
-                  <h2 className="text-left text-2xl -ml-2 font-bold leading-9 tracking-tight text-gray-900">
+                <div className="border-b border-gray-900/10 pb-2 mb-2 flex flex-row items-center justify-between">
+                  <h2 className="text-base font-semibold leading-7 text-gray-900">
                     Add Device
                   </h2>
                   <XMarkIcon
-                    className="w-6 h-6 cursor-pointer"
+                    className="w-6 cursor-pointer h-6"
                     onClick={() => {
                       onClose();
                     }}
@@ -105,14 +105,6 @@ export default function RegisterDeviceModal({
                       onChange={(e) => setModelType(e.target.value)}
                     ></input>
                   </div>
-                  {/* <div className="flex flex-col">
-                    <div>Device location</div>
-                    <input
-                      type="text"
-                      className=" mt-2 block px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={(e) => setLocation(e.target.value)}
-                    ></input>
-                  </div> */}
                 </div>
 
                 <div>

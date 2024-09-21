@@ -128,12 +128,23 @@ export default function AddDeviceModal({
                   </Transition>
                 ) : (
                   <>
-                    <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4 justify-between flex flex-row items-center">
+                    {/* <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4 justify-between flex flex-row items-center">
                       <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Add Device
                       </h2>
                       <XMarkIcon
                         className="w-6 h-6 cursor-pointer cursor-pointer"
+                        onClick={() => {
+                          onClose();
+                        }}
+                      />
+                    </div> */}
+                     <div className="border-b border-gray-900/10 pb-2 mb-2 flex flex-row items-center justify-between">
+                      <h2 className="text-base font-semibold leading-7 text-gray-900">
+                      Add Device
+                      </h2>
+                      <XMarkIcon
+                        className="w-6 cursor-pointer h-6"
                         onClick={() => {
                           onClose();
                         }}

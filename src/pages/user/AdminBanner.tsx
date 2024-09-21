@@ -60,7 +60,7 @@ const AdminBanner = ({ companyDetails }: { companyDetails: ICompanyModel }) => {
           type="checkbox"
           checked={addLink}
           onChange={() => setAddLink(!addLink)}
-          className="h-4 w-4 rounded  cursor-pointer border-gray-300 text-indigo-600 border-2 focus:ring-indigo-600"
+          className="h-4 w-4 rounded   cursor-pointer border-gray-300 text-indigo-600 border-2 focus:ring-indigo-600"
         />
         <label
           htmlFor="addLink"

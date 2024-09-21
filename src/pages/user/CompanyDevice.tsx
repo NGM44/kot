@@ -5,6 +5,7 @@ import DeviceMenu from "../device/DeviceMenu";
 
 const CompanyDevice = ({ deviceList }: { deviceList: IDeviceModel[] }) => {
   const [dialog, setDialog] = useState(false);
+  const [showDeviceId, setShowDeviceId] = useState(false);
   return (
     <div className="px-4 sm:px-6 col-span-2 lg:px-8 bg-white pt-6 border border-borderColor shadow-md rounded-md">
       {dialog && (
@@ -20,10 +21,24 @@ const CompanyDevice = ({ deviceList }: { deviceList: IDeviceModel[] }) => {
           <h1 className="text-base font-semibold leading-6 text-gray-900">
             Device Subscribed
           </h1>
-          <p className="mt-2 text-sm text-gray-700">
-            A list of device associated with company.
-          </p>
+          <div className="flex items-center ">
+            <input
+              id="showDeviceId"
+              name="showDeviceId"
+              type="checkbox"
+              checked={showDeviceId}
+              onChange={() => setShowDeviceId(!showDeviceId)}
+              className="h-4 w-4 rounded cursor-pointer border-gray-300 text-indigo-600 border-2 focus:ring-indigo-600"
+            />
+            <label
+              htmlFor="showDeviceId"
+              className="ml-3 block text-sm cursor-pointer leading-6 text-gray-900"
+            >
+              Show Device Id
+            </label>
+          </div>
         </div>
+
         {
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
             <button
@@ -38,6 +53,7 @@ const CompanyDevice = ({ deviceList }: { deviceList: IDeviceModel[] }) => {
           </div>
         }
       </div>
+
       <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle">
@@ -50,12 +66,14 @@ const CompanyDevice = ({ deviceList }: { deviceList: IDeviceModel[] }) => {
                   >
                     Device Name
                   </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
-                    Device ID
-                  </th>
+                  {showDeviceId && (
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Device ID
+                    </th>
+                  )}
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
@@ -76,22 +94,24 @@ const CompanyDevice = ({ deviceList }: { deviceList: IDeviceModel[] }) => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
+              <tbody className="divide-y divide-gray-200 bg-white overflow-auto">
                 {deviceList.map((device) => (
                   <tr key={device.id}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                       {device.name}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {device.id}
-                    </td>
+                    {showDeviceId && (
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {device.id}
+                      </td>
+                    )}
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {device.modelType}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {device.status}
                     </td>
-                    <td className="whitespace-nowrap absolute z-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                    <td className="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                       <DeviceMenu
                         menu={[
                           {

@@ -41,9 +41,16 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
       </div>
      
       <HStack className="gap-6 w-full">
-        <HStack className="flex-1">
-          <ProductivityMeter value={productivityMeter} liveData={liveData} deviceRange={deviceRange} />
-        </HStack>
+        <VStack className="flex-1 gap-6">
+         
+          <div className="flex flex-wrap gap-6 w-full">
+
+         
+          {data2.slice(0,2).map((ele: CardModel) => (
+          <DataCards key={ele.name} value={ele} />
+        ))}</div>
+         <ProductivityMeter value={productivityMeter} liveData={liveData} deviceRange={deviceRange} />
+        </VStack>
         <HStack className="flex-1 gap-6">
           <GasValues
             value={{
