@@ -1,42 +1,19 @@
-import AddUserModal from "../../modal/AddUserModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ChangePasswordModal from "../../modal/ChangePasswordModal";
 import LogoutFromAllDevices from "../../modal/LogoutFromAllDevicesModal";
-import { useGetUserDevices } from "../../queries/admin";
 import { useAuthStore } from "../../store/useAuthStore";
 import ParameterRangeUI from "../new/SetParameterRanges";
 import ParameterSelector from "../new/SelectDasshboardParam";
 
 export default function DeviceSetting() {
-  const { data: user } = useGetUserDevices();
+  
   const [dialog, setDialog] = useState(false);
 
   const { role } = useAuthStore();
   const [logOutDialog, setLogoutDialog] = useState(false);
-  const [companyName, setCompanyName] = useState(user?.client?.name ?? "");
-  const [companyAddress, setCompanyAddress] = useState(
-    user?.client?.address ?? ""
-  );
-  const [companyEmail, setCompanyEmail] = useState(user?.client?.email ?? "");
-  const [companyLogo, setCompanyLogo] = useState(user?.client?.logo ?? "");
-  const [companyPhone, setCompanyPhone] = useState(user?.client?.phone ?? "");
-  const [companyWebsite, setCompanyWebsite] = useState(
-    user?.client?.website ?? ""
-  );
-  let isAdmin = role?.toUpperCase() === "ADMIN";
-  const [userName, setUserName] = useState(user?.name);
-  const [email, setEmail] = useState(user?.email);
 
-  useEffect(() => {
-    setCompanyName(user?.client?.name ?? "");
-    setCompanyAddress(user?.client?.address ?? "");
-    setCompanyEmail(user?.client?.email ?? "");
-    setCompanyLogo(user?.client?.logo ?? "");
-    setCompanyPhone(user?.client?.phone ?? "");
-    setCompanyWebsite(user?.client?.website ?? "");
-    setEmail(user?.email);
-    setUserName(user?.name);
-  }, [user]);
+  let isAdmin = role?.toUpperCase() === "ADMIN";
+
   return (
     <>
       {dialog && (
@@ -69,8 +46,6 @@ export default function DeviceSetting() {
             <div className="grid col-span-2 gap-x-8 gap-y-10 pb-12">
               <ParameterRangeUI />
             </div>
-
-            {/* </div> */}
           </div>
         )}
         {!isAdmin && (

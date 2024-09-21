@@ -1,6 +1,5 @@
-import { IWeatherData } from "../../types/device";
+import { IWeatherData, IWeatherDataRange } from "../../types/device";
 import { IGasMapping } from "../user/CompanyPage";
-import { IWeatherDataRange } from "./SetParameterRanges";
 
 export interface CardModel {
   key: string;

@@ -19,7 +19,7 @@ export default function RegisterDeviceModal({
 }) {
   const [name, setName] = useState("");
   const [modelType, setModelType] = useState("");
-  const [location, setLocation] = useState("Inventory");
+  const location = "Inventory";
 
   const [identifier, setIdentifier] = useState("");
   const { mutate: registerDevice } = useRegisterDevice();

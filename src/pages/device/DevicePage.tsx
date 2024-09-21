@@ -1,6 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-
-import { classNames } from "../../utils/string";
 import DeviceMenu from "./DeviceMenu";
 import RegisterDeviceModal from "../../modal/RegisterDeviceModal";
 import { useChangeDeviceState, useGetAllDevices } from "../../queries/admin";

@@ -3,8 +3,7 @@ import { HStack, VStack } from "../../component/utils";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { Icon } from "@iconify/react";
 import { CardModel } from "./GenerateDashboardData";
-import { IWeatherData } from "../../types/device";
-import { IWeatherDataRange } from "./SetParameterRanges";
+import { IWeatherData, IWeatherDataRange } from "../../types/device";
 
 const ProductivityMeter = ({ value, liveData, deviceRange }: { value: CardModel , liveData?:IWeatherData, deviceRange?: IWeatherDataRange}) => {
   //Nikhil do take liveData and deviceRange data to plot the graph

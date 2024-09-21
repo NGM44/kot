@@ -1,64 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetDeviceRange, useUpdateDeviceRange } from "../../queries/admin";
 import { useValueStore } from "../../store/useValueState";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { queryClient } from "../../queries/client";
-interface DataValue {
-  min?: number;
-  max?: number;
-}
-
-interface Data {
-  [key: string]: DataValue;
-}
-
-export interface IWeatherDataRange {
-  id: string;
-  temperatureMin: number;
-  temperatureMax: number;
-  humidityMin: number;
-  humidityMax: number;
-  odorMin: number;
-  odorMax: number;
-  moldGrowthMin: number;
-  moldGrowthMax: number;
-  pressureMin: number;
-  pressureMax: number;
-  co2Min: number;
-  co2Max: number;
-  vocsMin: number;
-  vocsMax: number;
-  lightMin: number;
-  lightMax: number;
-  noiseMin: number;
-  noiseMax: number;
-  pm1Min: number;
-  pm1Max: number;
-  pm25Min: number;
-  pm25Max: number;
-  pm4Min: number;
-  pm4Max: number;
-  pm10Min: number;
-  pm10Max: number;
-  aiqMin: number;
-  aiqMax: number;
-  gas1Min: number;
-  gas1Max: number;
-  gas2Min: number;
-  gas2Max: number;
-  gas3Min: number;
-  gas3Max: number;
-  gas4Min: number;
-  gas4Max: number;
-  gas5Min: number;
-  gas5Max: number;
-  gas6Min: number;
-  gas6Max: number;
-  deviceId: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { Data } from "../../types/device";
 
 const ParameterRange = ({
   label,

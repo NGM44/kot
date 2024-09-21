@@ -5,21 +5,13 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import {
-  ChangePasswordDetailModel,
-  ChangePasswordDetailModelAuth,
   ResetPasswordDetailModel,
-  SignUpDetailsModel,
 } from "../types/auth";
 import {
   useChangeNewPassword,
-  useChangePassword,
-  useChangePasswordAuth,
-  useSignUp,
 } from "../queries/auth";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { queryClient } from "../queries/client";
 import { useAuthStore } from "../store/useAuthStore";
 
 export default function ChangePasswordModal({
@@ -31,7 +23,6 @@ export default function ChangePasswordModal({
 }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { id } = useParams();
 
   const [showSuccess, setShowSuccess] = useState(false);
   const { mutate: changePassword } = useChangeNewPassword();

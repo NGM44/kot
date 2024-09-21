@@ -1,11 +1,8 @@
-import AddUserModal from "../../modal/AddUserModal";
 import { useEffect, useState } from "react";
 import ChangePasswordModal from "../../modal/ChangePasswordModal";
 import LogoutFromAllDevices from "../../modal/LogoutFromAllDevicesModal";
 import { useGetUserDevices } from "../../queries/admin";
 import { useAuthStore } from "../../store/useAuthStore";
-import ParameterRangeUI from "../new/SetParameterRanges";
-import ParameterSelector from "../new/SelectDasshboardParam";
 
 export default function Profile() {
   const { data: user } = useGetUserDevices();

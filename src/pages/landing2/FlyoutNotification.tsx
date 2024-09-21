@@ -1,6 +1,5 @@
 import { useState, Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
-import { useLocation } from "react-router";
 import * as React from "react";
 import { useAuthStore } from "../../store/useAuthStore";
 import LogoutModal from "../../modal/LogoutModal";
@@ -14,8 +13,6 @@ export function FlyoutNotification({ notifcation }: { notifcation: any }) {
   const [showDevice, setShowDevice] = useState(false);
   const contextRef = React.useRef<HTMLDivElement>(null);
   const contextRef2 = React.useRef<HTMLDivElement>(null);
-
-  const { pathname } = useLocation();
 
   let isAdmin = role?.toUpperCase() === "ADMIN";
 

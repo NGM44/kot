@@ -5,19 +5,14 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import {
-  ChangePasswordDetailModelAuth,
   LogoutFromAllDevicesModel,
-  SignUpDetailsModel,
 } from "../types/auth";
 import {
-  useChangePasswordAuth,
   useLogoutFromAllDevices,
-  useSignUp,
 } from "../queries/auth";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { queryClient } from "../queries/client";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuthStore } from "../store/useAuthStore";
 

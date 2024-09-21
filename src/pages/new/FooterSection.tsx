@@ -1,23 +1,13 @@
-import { useState } from "react";
-import { HStack, VStack } from "../../component/utils";
-
+import { HStack } from "../../component/utils";
 import { FloatingDock } from "../landing2/Floating";
 import {
-  CircleAlert,
   Facebook,
-  Github,
-  Home,
-  HomeIcon,
-  Instagram,
   Linkedin,
   Mail,
   Twitter,
 } from "lucide-react";
-import { CubeIcon } from "@heroicons/react/24/solid";
 
 const FooterSection = ({ date }: { date: string }) => {
-  const [dialog, setDialog] = useState(false);
-  const deviceId = "";
   const links = [
     {
       title: "Sensormagics",
