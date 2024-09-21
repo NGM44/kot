@@ -1,26 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useValueStore } from "../../store/useValueState";
 import { CheckIcon } from "lucide-react";
 import GenericDropdown from "./GenericSelection";
-
-type TimeGap = "1 hour" | "2 hour" | "6 hour" | "12 hour" | "24 hour";
-
-interface GapModel {
-  id: string;
-  name: TimeGap;
-}
-
-const timeGaps: GapModel[] = [
-  { id: "6", name: "1 hour" },
-  { id: "7", name: "2 hour" },
-  { id: "8", name: "6 hour" },
-  { id: "9", name: "12 hour" },
-  { id: "10", name: "24 hour" },
-];
+import { calculateTimeGaps, GapModel } from "../analytics/ContantData";
 
 const TimeGapSelector: React.FC = () => {
-  const { gap, setValue } = useValueStore();
+  const { gap, setValue,date } = useValueStore();
+
+  const timeGaps = calculateTimeGaps(date || "1 Day");
+
 
   const handleSelect = (selectedGap: GapModel) => {
     setValue({ gap: selectedGap.name });
@@ -44,7 +33,7 @@ const TimeGapSelector: React.FC = () => {
       options={timeGaps}
       onSelect={handleSelect}
       initialSelectedId={
-        timeGaps.find((g) => g.name === (gap ?? "1 hour"))?.id ?? ""
+        timeGaps.find((g) => g.name === (gap))?.id ?? timeGaps[0].id
       }
       renderOption={renderOption}
       buttonClassName="w-32 font-semibold"

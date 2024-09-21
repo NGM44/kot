@@ -17,11 +17,12 @@ import {
   getUserPreference,
   getWeatherData,
   registerDevice,
+  sendEmail,
   updateDeviceRange,
   updatePreference,
 } from "../api/admin";
-import { TimePeriod } from "../pages/new/DateSelector";
 import { getMessage } from "../api/auth";
+import { TimePeriod } from "../pages/analytics/ContantData";
 
 export function useAddDeviceToClient() {
   return useMutation({
@@ -393,6 +394,27 @@ export function useGenerateReport(){
     onError: () => {
       handleEventForTracking({
         eventName: "generate-report",
+        success: false,
+        eventType: "API",
+      });
+    },
+  })
+}
+
+export function useSendEmail(){
+  return useMutation({
+    mutationKey:"send-email",
+    mutationFn: sendEmail, 
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "send-email",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "send-email",
         success: false,
         eventType: "API",
       });

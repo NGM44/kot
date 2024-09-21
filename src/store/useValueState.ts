@@ -1,6 +1,7 @@
 /* eslint-disable */
 import createStore from "zustand";
 import { configurePersist } from "zustand-persist";
+import { TimePeriod, TimeGap } from "../pages/analytics/ContantData";
 
 
 const { persist: _persist } = configurePersist({
@@ -9,8 +10,6 @@ const { persist: _persist } = configurePersist({
 });
 
 const persist = _persist as any;
-type TimePeriod = "1 Day" | "7 Days" | "30 Days" | "60 Days" | "90 Days";
-type TimeGap = "1 hour" | "2 hour" | "6 hour" | "12 hour" | "24 hour";
 
 interface Value {
   isRefresh?: boolean;
