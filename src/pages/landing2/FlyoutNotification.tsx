@@ -76,11 +76,6 @@ export function FlyoutNotification({ notifcation }: { notifcation: any }) {
             >
               <button
                 type="button"
-                onClick={() => {
-                  setAuth({
-                    role: isAdmin ? "USER" : "ADMIN",
-                  });
-                }}
                 className="p-2 cursor-pointer h-11 rounded-xl text-secondary hover:text-gray-500"
               >
                 <span className="sr-only">View notifications</span>

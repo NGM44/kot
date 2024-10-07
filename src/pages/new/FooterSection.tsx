@@ -52,7 +52,7 @@ const FooterSection = ({ date }: { date: string }) => {
         <HStack className="items-baseline relative justify-between w-full">
           <div className="absolute mt-4 ml-4">
             <p className="text-center text-xs leading-5 text-gray-500">
-              &copy; 2024 Sensormagics, Inc. All rights reserved.
+              &copy; 2024 Sensormagics. All rights reserved.
             </p>
           </div>
           <div></div>

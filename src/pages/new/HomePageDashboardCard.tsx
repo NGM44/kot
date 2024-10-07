@@ -16,7 +16,7 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
   const { data: user } = useGetUserDevices();
   const { deviceId } = useValueStore();
   const { data: deviceRange } = useGetDeviceRange(deviceId ?? "");
-  const { data1, data2, data3, data4, productivityMeter } =
+  const { data1, data2, data3, data4,data5, productivityMeter } =
     extractDashboardCardValues(liveData,user?.gasMapping,deviceRange);
   const [particulateValue, setParticulateValue] = useState(0);
   useEffect(()=> {
@@ -43,13 +43,14 @@ const HomePageDashboardCard = ({ liveData }: { liveData?: IWeatherData }) => {
       <HStack className="gap-6 w-full">
         <VStack className="flex-1 gap-6">
          
-          <div className="flex flex-wrap gap-6 w-full">
+       
+         <ProductivityMeter value={productivityMeter} liveData={liveData} deviceRange={deviceRange} />
+         <div className="flex flex-wrap gap-6 w-full">
 
          
-          {data2.slice(0,2).map((ele: CardModel) => (
-          <DataCards key={ele.name} value={ele} />
-        ))}</div>
-         <ProductivityMeter value={productivityMeter} liveData={liveData} deviceRange={deviceRange} />
+{data5.slice(0,2).map((ele: CardModel) => (
+<DataCards key={ele.name} value={ele} />
+))}</div>
         </VStack>
         <HStack className="flex-1 gap-6">
           <GasValues
