@@ -1,23 +1,13 @@
-import { useState } from "react";
-import { HStack, VStack } from "../../component/utils";
-
+import { HStack } from "../../component/utils";
 import { FloatingDock } from "../landing2/Floating";
 import {
-  CircleAlert,
   Facebook,
-  Github,
-  Home,
-  HomeIcon,
-  Instagram,
   Linkedin,
   Mail,
   Twitter,
 } from "lucide-react";
-import { CubeIcon } from "@heroicons/react/24/solid";
 
 const FooterSection = ({ date }: { date: string }) => {
-  const [dialog, setDialog] = useState(false);
-  const deviceId = "";
   const links = [
     {
       title: "Sensormagics",
@@ -62,7 +52,7 @@ const FooterSection = ({ date }: { date: string }) => {
         <HStack className="items-baseline relative justify-between w-full">
           <div className="absolute mt-4 ml-4">
             <p className="text-center text-xs leading-5 text-gray-500">
-              &copy; 2024 Sensormagics, Inc. All rights reserved.
+              &copy; 2024 Sensormagics. All rights reserved.
             </p>
           </div>
           <div></div>

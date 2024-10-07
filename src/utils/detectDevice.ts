@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useIsMobile = (breakpoint = 640) => {
   const checkForDevice = () => window.innerWidth <= breakpoint;

@@ -6,7 +6,7 @@ import {
 } from "@headlessui/react";
 import { SignUpDetailsModel } from "../types/auth";
 import { useSignUp } from "../queries/auth";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { queryClient } from "../queries/client";
@@ -106,10 +106,16 @@ export default function AddUserModal({
                   </Transition>
                 ) : (
                   <>
-                    <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4">
-                      <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        Add User
+                    <div className="border-b border-gray-900/10 pb-2 mb-2 flex flex-row items-center justify-between">
+                      <h2 className="text-base font-semibold leading-7 text-gray-900">
+                      Add User
                       </h2>
+                      <XMarkIcon
+                        className="w-6 cursor-pointer h-6"
+                        onClick={() => {
+                          onClose();
+                        }}
+                      />
                     </div>
                     <div className="space-y-6">
                       <div>

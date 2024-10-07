@@ -9,9 +9,8 @@ import {
 } from "@heroicons/react/20/solid";
 import { useLocation, useMatch, useNavigate } from "react-router";
 import * as React from "react";
-import { toast } from "react-toastify";
 import { useAuthStore } from "../../store/useAuthStore";
-import { useGetAllDevices, useGetUserDevices } from "../../queries/admin";
+import { useGetUserDevices } from "../../queries/admin";
 import { HStack, VStack } from "../../component/utils";
 import Avatar from "./Avatar";
 import LogoutModal from "../../modal/LogoutModal";
@@ -21,17 +20,15 @@ import useMqttStore from "../../store/useMqttStore";
 import { useValueStore } from "../../store/useValueState";
 import { Device } from "../new/DeviceSelection";
 import { topicPrefix } from "../../constant";
-import { Settings } from "lucide-react";
+import { HandHelping, Settings } from "lucide-react";
 
 export function FlyoutProfile() {
-  let tasks: any[] = [];
   const [dialogLogout, setDialogLogout] = useState(false);
   const [show, setShown] = useState(false);
 
-  const { setAuth, role, email, clear } = useAuthStore();
+  const { role } = useAuthStore();
   const [showDevice, setShowDevice] = useState(false);
   let isAdmin = role?.toUpperCase() === "ADMIN";
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { data: user } = useGetUserDevices();
@@ -86,6 +83,15 @@ export function FlyoutProfile() {
           name: "Switch Device",
           onClick: () => {},
           icon: ArrowsRightLeftIcon,
+        },
+        {
+          name: "Support",
+          onClick: () => {
+            navigate("/support");
+            setShown(false);
+            setShowDevice(false);
+          },
+          icon: HandHelping,
         },
         {
           name: "Log Out",
@@ -267,15 +273,15 @@ export function FlyoutProfile() {
                       </div>
                       <VStack className="w-full">
                         <HStack className="justify-between items-center w-full">
-                          <a className="font-semibold text-gray-900 flex-1">
+                          <p className="font-semibold text-gray-900 flex-1">
                             {user?.name}
 
                             <span className="absolute inset-0" />
-                          </a>
+                          </p>
 
-                          <a className="ml-1 text-sm text-gray-500 text-ellipsis overflow-clip">
+                          <p className="ml-1 text-sm text-gray-500 text-ellipsis overflow-clip">
                             {role}
-                          </a>
+                          </p>
                         </HStack>
 
                         <p className="text-gray-600 whitespace-nowrap">
@@ -308,7 +314,7 @@ export function FlyoutProfile() {
                           />
                         </div>
                         <div>
-                          <a
+                          <p
                             className={`font-semibold text-gray-900 group-hover:text-primary ${
                               profileMatch && item.name === "Profile"
                                 ? "text-primary"
@@ -317,7 +323,7 @@ export function FlyoutProfile() {
                           >
                             {item.name}
                             <span className="absolute inset-0" />
-                          </a>
+                          </p>
                         </div>
                       </div>
                     ))}

@@ -1,5 +1,4 @@
-import { ClientModel } from "../types/auth";
-import { CustomResponse } from "./auth";
+
 import api from "../queries/api";
 import { QueryFunctionContext } from "react-query";
 import {
@@ -11,55 +10,14 @@ import {
 import {
   ChangeDeviceModel,
   ConnectDeviceModel,
+  IPreference,
   IWeatherData,
+  IWeatherDataRange,
   RegisterDeviceDto,
   ReportRequestDto,
   SendEmailDto,
 } from "../types/device";
-import { IWeatherDataRange } from "../pages/new/SetParameterRanges";
-
-interface Device {
-  id: string;
-  clientId: string;
-  createdAt: string;
-  identifier: string;
-  modelType: string;
-  name: string;
-  status: string; // You might want to define other possible statuses
-  updatedAt: string;
-}
-
-export interface IPreference {
-  id?: string;
-  userId: string;
-  preference: string[];
-}
-
-interface User {
-  id: string;
-  clientId: string;
-  createdAt: string;
-  deactivated: boolean;
-  email: string;
-  name: string;
-  password: string;
-  role: string; // You might want to define other possible roles
-  updatedAt: string;
-}
-
-export interface ClientDetailModel {
-  id: string;
-  address: string;
-  createdAt: string;
-  email: string;
-  logo: string;
-  name: string;
-  phone: string;
-  updatedAt: string;
-  website: string;
-  devices: Device[];
-  users: User[];
-}
+import { ClientDetailModel, ClientModel, CustomResponse } from "../types/user";
 
 export async function addClient(
   clientDetail: ClientModel
@@ -117,7 +75,6 @@ export async function updateDeviceRange(
   return api.put(`/device/range`, whetherData).then((res) => res.data);
 }
 
-
 export async function getUserPreference(
   context: QueryFunctionContext
 ): Promise<IPreference> {
@@ -174,10 +131,12 @@ export async function getLiveWeatherData(
   return api.get(`/weather/latest/${deviceId}`).then((res) => res.data.data);
 }
 
-export async function generateReport(reportReqDto: ReportRequestDto): Promise<string>{
-  return api.post(`/weather/report`,reportReqDto).then((res) => res.data.data);
+export async function generateReport(
+  reportReqDto: ReportRequestDto
+): Promise<string> {
+  return api.post(`/weather/report`, reportReqDto).then((res) => res.data.data);
 }
 
-export async function sendEmail(sendEmailDto: SendEmailDto){
-  return api.post('/email/sendEmail',sendEmailDto)
+export async function sendEmail(sendEmailDto: SendEmailDto) {
+  return api.post("/email/sendEmail", sendEmailDto);
 }

@@ -1,34 +1,33 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddCompanyModal from "../../modal/AddCompanyModal";
-import { useGetAllClients, useGetAllDevices } from "../../queries/admin";
-import { ClientDetailModel } from "../../api/admin";
+import { useGetAllClients } from "../../queries/admin";
 import { HStack } from "../../component/utils";
 import GenericSearchBar from "../new/CommonSearchBar";
+import { ClientDetailModel } from "../../types/user";
 
 export default function UserPage() {
   const navigate = useNavigate();
   const { data: _clientDetails } = useGetAllClients();
-  const clientDetails = _clientDetails || [];
+  // const clientDetails = _clientDetails || [];
   const [dialog, setDialog] = useState(false);
-  const sum = clientDetails.reduce(
+  const sum = (_clientDetails ?? [])?.reduce(
     (accumulator: number, currentValue: ClientDetailModel) => {
       const user = currentValue.users ?? [];
       return accumulator + user.length;
     },
     0
   );
-  const devicesList = clientDetails.reduce(
+  const devicesList = (_clientDetails ?? [])?.reduce(
     (accumulator: number, currentValue: ClientDetailModel) => {
       const user = currentValue.devices ?? [];
       return accumulator + user.length;
     },
     0
   );
-  const { data: deviceDs } = useGetAllDevices();
 
   const stats = [
-    { name: "No. of Clients", value: clientDetails.length },
+    { name: "No. of Clients", value: (_clientDetails ?? [])?.length },
     { name: "No. of User", value: sum },
     { name: "Total Device", value: devicesList },
     { name: "Mesh", value: "0" },
@@ -36,7 +35,7 @@ export default function UserPage() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const filteredModels = useMemo(() => {
-    return (clientDetails ?? [])?.filter((model) => {
+    return (_clientDetails ?? [])?.filter((model) => {
       const searchTermLower = searchTerm.toLowerCase();
       return (
         model.name.toLowerCase().includes(searchTermLower) ||
@@ -46,7 +45,7 @@ export default function UserPage() {
         model.website.toLowerCase().includes(searchTermLower)
       );
     });
-  }, [clientDetails, searchTerm]);
+  }, [_clientDetails, searchTerm]);
   return (
     <div className="flex flex-col gap-8">
       {dialog && (
@@ -172,7 +171,7 @@ export default function UserPage() {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {client.website}
                       </td>
-                      <td className="whitespace-nowrap absolute z-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8"></td>
+                      <td className="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8"></td>
                     </tr>
                   ))}
                 </tbody>

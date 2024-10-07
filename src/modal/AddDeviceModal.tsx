@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogPanel,
@@ -10,7 +10,6 @@ import { useAddDeviceToClient, useGetAllDevices } from "../queries/admin";
 import { ConnectDeviceModel } from "../types/device";
 import { queryClient } from "../queries/client";
 import { useParams } from "react-router-dom";
-import { HStack } from "../component/utils";
 import { IDeviceModel } from "../pages/user/CompanyPage";
 import { toast } from "react-toastify";
 
@@ -22,9 +21,7 @@ export default function AddDeviceModal({
   onClose: () => void;
 }) {
   const [deviceName, setDeviceName] = useState("");
-  const [deviceType, setDeviceType] = useState("");
   const [deviceLocation, setDeviceLocation] = useState("");
-  const [deviceId, setDeviceId] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
   const { mutate: addDeviceToClient } = useAddDeviceToClient();
   const { id } = useParams();
@@ -74,7 +71,7 @@ export default function AddDeviceModal({
   useEffect(() => {
     const device = deviceDetails?.find((ele) => ele.name === deviceName);
     if (device) setSelectedDevice(device);
-  }, [deviceName]);
+  }, [deviceDetails, deviceName]);
 
   return (
     <Transition show={isOpen}>
@@ -128,12 +125,23 @@ export default function AddDeviceModal({
                   </Transition>
                 ) : (
                   <>
-                    <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4 justify-between flex flex-row items-center">
+                    {/* <div className="sm:mx-auto sm:w-full sm:max-w-md pb-4 justify-between flex flex-row items-center">
                       <h2 className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Add Device
                       </h2>
                       <XMarkIcon
                         className="w-6 h-6 cursor-pointer cursor-pointer"
+                        onClick={() => {
+                          onClose();
+                        }}
+                      />
+                    </div> */}
+                     <div className="border-b border-gray-900/10 pb-2 mb-2 flex flex-row items-center justify-between">
+                      <h2 className="text-base font-semibold leading-7 text-gray-900">
+                      Add Device
+                      </h2>
+                      <XMarkIcon
+                        className="w-6 cursor-pointer h-6"
                         onClick={() => {
                           onClose();
                         }}

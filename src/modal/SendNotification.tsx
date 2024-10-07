@@ -4,11 +4,9 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { SignUpDetailsModel } from "../types/auth";
-import { useSendMessage, useSignUp } from "../queries/auth";
+import { useSendMessage } from "../queries/auth";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { queryClient } from "../queries/client";
 import { toast } from "react-toastify";
 
@@ -29,8 +27,6 @@ export default function SendNotification({
 }) {
   const [message, setMessage] = useState("");
   const [sendMail, setSendMessage] = useState(true);
-
-  const { id } = useParams();
 
   const [showSuccess, setShowSuccess] = useState(false);
   const { mutate: sendMessage } = useSendMessage();
@@ -119,13 +115,15 @@ export default function SendNotification({
                   </Transition>
                 ) : (
                   <>
-                    <div className="w-full pb-4 flex flex-row items-center justify-between">
-                      <h2 className="text-left text-xl font-bold leading-9 tracking-tight text-gray-900">
+                    <div className="border-b border-gray-900/10 pb-2 mb-2 flex flex-row items-center justify-between">
+                      <h2 className="text-base font-semibold leading-7 text-gray-900">
                         Send Notification
                       </h2>
                       <XMarkIcon
-                        onClick={onClose}
-                        className="w-6 h-6 cursor-pointer"
+                        className="w-6 cursor-pointer h-6"
+                        onClick={() => {
+                          onClose();
+                        }}
                       />
                     </div>
                     <div className="space-y-6">
@@ -164,7 +162,22 @@ export default function SendNotification({
                           />
                         </div>
                       </div>
-
+                      <div className="flex items-center">
+                        <input
+                          id="sendMail"
+                          name="sendMail"
+                          type="checkbox"
+                          checked={sendMail}
+                          onChange={() => setSendMessage(!sendMail)}
+                          className="h-4 w-4 rounded cursor-pointer border-gray-300 text-indigo-600 border-2 focus:ring-indigo-600"
+                        />
+                        <label
+                          htmlFor="sendMail"
+                          className="ml-3 block text-sm cursor-pointer leading-6 text-gray-900"
+                        >
+                          Send Mail
+                        </label>
+                      </div>
                       <div>
                         <button
                           type="submit"

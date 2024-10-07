@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { useValueStore } from "../../store/useValueState";
 import { CheckIcon } from "lucide-react";

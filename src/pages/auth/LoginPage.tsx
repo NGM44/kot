@@ -5,10 +5,8 @@ import { SignInDetailsModel } from "../../types/auth";
 import { useAuthStore } from "../../store/useAuthStore";
 import { decodeAuthToken } from "../../utils/auth";
 import { HStack, VStack } from "../../component/utils";
-import { Key, Lock, Mail } from "lucide-react";
+import { Lock, Mail } from "lucide-react";
 import { toast } from "react-toastify";
-
-// export const loginPageImageUrl = ["/login.png", "/login2.png", "/login3.png"];
 
 export default function LoginPage() {
   const { id, key } = useParams();
@@ -17,20 +15,20 @@ export default function LoginPage() {
   const [password, setPassword] = useState(key ?? "");
 
   useEffect(() => {
-    const id = searchParams.get('id');
-    const key = searchParams.get('key');
-if (id) {
-  // Decode the email address properly
-  const decodedEmail = decodeURIComponent(id).replace(' ', '+');
-  setEmail(decodedEmail);
-}
- 
+    const id = searchParams.get("id");
+    const key = searchParams.get("key");
+    if (id) {
+      // Decode the email address properly
+      const decodedEmail = decodeURIComponent(id).replace(" ", "+");
+      setEmail(decodedEmail);
+    }
+
     if (key) setPassword(key);
 
     // Remove id and key from URL
     if (id || key) {
-      searchParams.delete('id');
-      searchParams.delete('key');
+      searchParams.delete("id");
+      searchParams.delete("key");
       setSearchParams(searchParams, { replace: true });
     }
   }, [searchParams]);
@@ -82,22 +80,12 @@ if (id) {
           type: "error",
           autoClose: 2000,
         });
-
-        //  toast(data.)
       },
     });
   }
 
   return (
     <>
-      {/*
-          This example requires updating your template:
-  
-          ```
-          <html class="h-full bg-white">
-          <body class="h-full">
-          ```
-        */}
       <div className="flex h-screen">
         <div className="flex flex-1 bg-white flex-col items-center justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 max-h-full">
           <div className="mx-auto justify-center items-center w-full max-w-sm lg:w-96 mb-24 lg:border-none lg:shadow-none lg:px-0 lg:pt-0 lg:pb-0 rounded-md px-6 pt-10 pb-16">
@@ -173,11 +161,11 @@ if (id) {
                       type="checkbox"
                       checked={showPassword}
                       onChange={() => setShowPassword(!showPassword)}
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 border-2 focus:ring-indigo-600"
+                      className="h-4 w-4 rounded cursor-pointer border-gray-300 text-indigo-600 border-2 focus:ring-indigo-600"
                     />
                     <label
                       htmlFor="remember-me"
-                      className="ml-3 block text-sm leading-6 text-gray-900"
+                      className="ml-3 block text-sm cursor-pointer leading-6 text-gray-900"
                     >
                       Show Password
                     </label>
@@ -211,8 +199,6 @@ if (id) {
               alt=""
             />
 
-            {/* {activeIndex === 0 ? */}
-
             <div className="px-10 text-2xl font-semibold text-center text-white">
               <p>Live Workspace Monitor</p>
               <p className="text-base text-gray-200">
@@ -234,10 +220,7 @@ if (id) {
                 ></div>
               </HStack>
             </div>
-
-           
           </VStack>
-         
         </div>
       </div>
     </>

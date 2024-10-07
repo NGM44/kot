@@ -5,11 +5,11 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import { useAddClient } from "../queries/admin";
-import { ClientModel } from "../types/auth";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { queryClient } from "../queries/client";
+import { ClientModel } from "../types/user";
 
 export default function AddCompanyModal({
   isOpen,

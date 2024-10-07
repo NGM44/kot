@@ -4,6 +4,9 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
+import { useValueStore } from "../store/useValueState";
+import useMqttStore from "../store/useMqttStore";
 
 export default function LogoutModal({
   isOpen,
@@ -13,6 +16,9 @@ export default function LogoutModal({
   onClose: () => void;
 }) {
   const navigate = useNavigate();
+  const  {clear: authClear} = useAuthStore();
+  const  {clear: valueClear} =useValueStore();
+  const  {disconnectMqtt: mqttClear} = useMqttStore();
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in" />
@@ -56,7 +62,9 @@ export default function LogoutModal({
                 type="button"
                 onClick={() => {
                   onClose();
-                 
+                  authClear();
+                  valueClear();
+                  mqttClear();
                   localStorage.clear();
                   navigate("/login");
                 }}

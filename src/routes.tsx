@@ -8,7 +8,6 @@ import SupportPage from "./pages/support/SupportPage";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import { useAuthStore } from "./store/useAuthStore";
 import { ManualPage } from "./pages/manual/manualPage";
-import { Layout } from "./pages/demo/Layout";
 import LoginPage from "./pages/auth/LoginPage";
 import CompanyDashboard from "./pages/user/CompanyPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPassword";
@@ -55,42 +54,64 @@ export default function Router() {
                 path: "device",
                 element: <DevicePage />,
               },
-              { path: "dashboard", element: <HomePage /> },
-              { path: "analytics", element: <AnalyticsPage /> },
-              { path: "grid", element: <GridPage /> },
-              { path: "genie", element: <SupportPage /> },
+
               { path: "profile", element: <ProfilePage /> },
-              { path: "setting", element: <DeviceSetting /> },
             ]
           : [
-              {
-                path: "user",
-                element: <UserPage />,
-              },
-              {
-                path: "user/:id",
-                element: <CompanyDashboard />,
-              },
-              {
-                path: "device",
-                element: <DevicePage />,
-              },
               { path: "dashboard", element: <HomePage /> },
               { path: "analytics", element: <AnalyticsPage /> },
               { path: "grid", element: <GridPage /> },
-              { path: "genie", element: <SupportPage /> },
+              { path: "support", element: <SupportPage /> },
               { path: "profile", element: <ProfilePage /> },
               { path: "setting", element: <DeviceSetting /> },
             ],
+      // FOR LOCAL DEVELOPMENT UNCOMMENT FOR EASIER NAVIGATION
+      // role?.toUpperCase() === "ADMIN"
+      //   ? [
+      //       {
+      //         path: "user",
+      //         element: <UserPage />,
+      //       },
+      //       {
+      //         path: "user/:id",
+      //         element: <CompanyDashboard />,
+      //       },
+      //       {
+      //         path: "device",
+      //         element: <DevicePage />,
+      //       },
+      //       { path: "dashboard", element: <HomePage /> },
+      //       { path: "analytics", element: <AnalyticsPage /> },
+      //       { path: "grid", element: <GridPage /> },
+      //       { path: "support", element: <SupportPage /> },
+      //       { path: "profile", element: <ProfilePage /> },
+      //       { path: "setting", element: <DeviceSetting /> },
+      //     ]
+      //   : [
+      //       {
+      //         path: "user",
+      //         element: <UserPage />,
+      //       },
+      //       {
+      //         path: "user/:id",
+      //         element: <CompanyDashboard />,
+      //       },
+      //       {
+      //         path: "device",
+      //         element: <DevicePage />,
+      //       },
+      //       { path: "dashboard", element: <HomePage /> },
+      //       { path: "analytics", element: <AnalyticsPage /> },
+      //       { path: "grid", element: <GridPage /> },
+      //       { path: "support", element: <SupportPage /> },
+      //       { path: "profile", element: <ProfilePage /> },
+      //       { path: "setting", element: <DeviceSetting /> },
+      //     ],
     },
 
     {
       path: "/manual",
       element: <ManualPage />,
-    },
-    {
-      path: "/demo",
-      element: <Layout />,
     },
     {
       path: "/404",

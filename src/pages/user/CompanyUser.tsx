@@ -58,9 +58,9 @@ const CompanyUser = ({ users }: { users: IUserModel[] }) => {
         }
       </div>
       <div className="mt-8 flow-root">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle">
-            <table className="min-w-full divide-y divide-gray-300">
+        <div className="-mx-4 -my-2 h-full overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block h-full min-w-full py-2 align-middle">
+            <table className="min-w-full h-full divide-y divide-gray-300">
               <thead>
                 <tr>
                   <th
@@ -84,7 +84,7 @@ const CompanyUser = ({ users }: { users: IUserModel[] }) => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
+              <tbody className="divide-y h-full divide-gray-200 bg-white">
                 {users.map((user) => (
                   <tr key={user.email}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
@@ -94,7 +94,7 @@ const CompanyUser = ({ users }: { users: IUserModel[] }) => {
                       {user.email}
                     </td>
 
-                    <td className="whitespace-nowrap absolute z-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                    <td className="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                       <DeviceMenu
                         menu={[
                           {

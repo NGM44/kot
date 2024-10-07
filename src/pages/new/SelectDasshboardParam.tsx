@@ -132,30 +132,34 @@ const ParameterSelector: React.FC = () => {
         Select 2-6 parameters. Currently selected: {selected.length}
       </p>
       <div
-        className="mt-6 w-full bg-blue-500 text-center text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
-        onClick={() => {
-          updateUserPreference(
-            {
-              userId: id ?? "",
-              preference: selected,
-            },
-            {
-              onSuccess() {
-                toast("Preference Updated", {
-                  type: "success",
-                  autoClose: 2000,
-                });
-                queryClient.invalidateQueries("get-user-preference");
-              },
-              onError() {
-                toast("Something went Wrong", {
-                  type: "error",
-                  autoClose: 2000,
-                });
-              },
-            }
-          );
-        }}
+        className={`mt-6 w-full ${selected.length >= 2 && selected.length ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-500 cursor-not-allowed"}  text-center text-white py-2 px-4 rounded-md  transition duration-300 ease-in-out`}
+        onClick={
+          selected.length >= 2 && selected.length <= 6
+            ? () => {
+                updateUserPreference(
+                  {
+                    userId: id ?? "",
+                    preference: selected,
+                  },
+                  {
+                    onSuccess() {
+                      toast("Preference Updated", {
+                        type: "success",
+                        autoClose: 2000,
+                      });
+                      queryClient.invalidateQueries("get-user-preference");
+                    },
+                    onError() {
+                      toast("Something went Wrong", {
+                        type: "error",
+                        autoClose: 2000,
+                      });
+                    },
+                  }
+                );
+              }
+            : () => {}
+        }
       >
         Update Parameter
       </div>

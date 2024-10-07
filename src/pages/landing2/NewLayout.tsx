@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import {
   DialogPanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
   Transition,
   TransitionChild,
   Dialog,
@@ -13,31 +9,22 @@ import {
 import {
   ArrowTopRightOnSquareIcon,
   Bars3Icon,
-  BellIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
 import LogoutModal from "../../modal/LogoutModal";
 import NavLayout from "../../layout/NavLayout";
-import { classNames } from "../../utils/string";
 import SearchBar from "../new/SearchBar";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { UserCog } from "lucide-react";
 import { HStack } from "../../component/utils";
 import AnimatedThemeToggle from "../new/Theme";
 import { Icon } from "@iconify/react";
 import RotatingRefreshIcon from "../new/Refresh";
 import { useGetMessage, useGetUserDevices } from "../../queries/admin";
 import FooterSection from "../new/FooterSection";
-import { FloatingDockDemo } from "./FloatingDEmo";
 import Banner from "../new/Banner";
-import DeviceSelection from "../new/DeviceSelection";
 import { FlyoutProfile } from "./FlyoutProfile";
-import { constructNow } from "date-fns";
-import NotificationPopUP from "../analytics/Notification";
 import { FlyoutNotification } from "./FlyoutNotification";
-const userNavigation = [{ name: "Log out", href: "#" }];
 
 export default function NewLayout() {
   const [dialogLogout, setDialogLogout] = useState(false);
@@ -46,7 +33,7 @@ export default function NewLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { data: user } = useGetUserDevices();
-  const { role, setAuth } = useAuthStore();
+  const { role } = useAuthStore();
   let isAdmin = role?.toUpperCase() === "ADMIN";
 
   useEffect(() => {
@@ -81,18 +68,6 @@ export default function NewLayout() {
           icon: <Icon className="w-5 h-5" icon={"f7:circle-grid-hex"} />,
           current: false,
         },
-        // {
-        //   name: "Dashboard",
-        //   href: "/dashboard",
-        //   icon: <Icon className="w-5 h-5" icon={"radix-icons:dashboard"} />,
-        //   current: true,
-        // },
-        // {
-        //   name: "Data Analysis",
-        //   href: "/analytics",
-        //   icon: <Icon className="w-5 h-5" icon={"solar:graph-linear"} />,
-        //   current: false,
-        // },
       ];
       let userNavigation = [
         {
@@ -119,7 +94,7 @@ export default function NewLayout() {
       let selectedNavigation = isAdmin ? isAdminNavigation : userNavigation;
       setNavigation(selectedNavigation);
     }
-  }, [role]);
+  }, [role,isAdmin]);
 
   const resources = [
     {
@@ -147,8 +122,6 @@ export default function NewLayout() {
       current: false,
     },
   ];
-
-  const [onHover, setOnHover] = useState(false);
 
   return (
     <div>
@@ -272,7 +245,7 @@ export default function NewLayout() {
 
               {!isAdmin && <RotatingRefreshIcon />}
               <AnimatedThemeToggle />
-             {notifcation && <FlyoutNotification notifcation={notifcation.sort((a:any, b:any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())} />}
+             {notifcation && notifcation.length > 0 && <FlyoutNotification notifcation={notifcation.sort((a:any, b:any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())} />}
               <FlyoutProfile />
             </div>
           </div>

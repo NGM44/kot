@@ -2,7 +2,6 @@ import {
   UserEmailModel,
   SignInDetailsModel,
   SignResponseModel,
-  UserData,
   ResetPasswordDetailModel,
   SignUpDetailsModel,
   ChangePasswordDetailModelAuth,
@@ -10,18 +9,7 @@ import {
 } from "../types/auth";
 import api from "../queries/api";
 import { NotificationModel } from "../modal/SendNotification";
-
-export type CustomResponse<T> = {
-  message: string;
-  data: T;
-};
-
-interface BannerMessage {
-  id: string;
-  bannerMessage: string;
-  showBanner: boolean;
-  bannerLink: string;
-}
+import { BannerMessage, CustomResponse, UserData } from "../types/user";
 
 export async function signIn(
   signInDetails: SignInDetailsModel
