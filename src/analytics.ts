@@ -1,9 +1,3 @@
-import { init} from "@amplitude/analytics-browser";
-
-export const AmplitudeInit = () => {
-  init(process.env.REACT_APP_AMPLITUDE_KEY || "");
-};
-
 export function handleEventForTracking({
   eventName,
   eventType = "navigation",
