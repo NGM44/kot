@@ -4,30 +4,36 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { useAddClient } from "../queries/admin";
-import { useRef, useState } from "react";
+import { useAddClient, useEditClient } from "../queries/admin";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { queryClient } from "../queries/client";
 import { ClientModel } from "../types/user";
 
+const initialClientValues: ClientModel = {
+  name: "",
+  logo: "",
+  address: "",
+  email: "",
+  phone: "",
+  website: "",
+};
+
 export default function AddCompanyModal({
   isOpen,
   onClose,
+  clientData
 }: {
   isOpen: boolean;
   onClose: () => void;
+  clientData?:ClientModel
 }) {
   const inputFileRef = useRef<HTMLInputElement | null>(null);
-  const [clientModel, setClientModel] = useState<ClientModel>({
-    name: "",
-    logo: "",
-    address: "",
-    email: "",
-    phone: "",
-    website: "",
-  });
+  const [clientModel, setClientModel] = useState<ClientModel>(initialClientValues);
   const { mutate: addClient } = useAddClient();
+  const { mutate: editClient } = useEditClient();
+
   const handleLogoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -47,6 +53,8 @@ export default function AddCompanyModal({
       inputFileRef.current.click();
     }
   };
+
+  const isEditMode = !!clientData;
 
   return (
     <Transition show={isOpen}>
@@ -77,7 +85,7 @@ export default function AddCompanyModal({
                   <div className="space-y-2">
                     <div className="border-b border-gray-900/10 pb-2 flex flex-row items-center justify-between">
                       <h2 className="text-base font-semibold leading-7 text-gray-900">
-                        Add Company
+                        { isEditMode ? "Edit Client" : "Add Client"}
                       </h2>
                       <XMarkIcon
                         className="w-6 cursor-pointer h-6"
@@ -98,6 +106,7 @@ export default function AddCompanyModal({
                           </label>
                           <div className="mt-2">
                             <input
+                            value={clientModel.name}
                               id="name"
                               name="name"
                               type="name"
@@ -122,6 +131,7 @@ export default function AddCompanyModal({
                           </label>
                           <div className="mt-2">
                             <input
+                            value={clientModel.email}
                               id="email"
                               name="email"
                               type="email"
@@ -146,6 +156,7 @@ export default function AddCompanyModal({
                           </label>
                           <div className="mt-2">
                             <input
+                            value={clientModel.phone}
                               id="contactnumber"
                               name="contactnumber"
                               type="number"
@@ -171,6 +182,7 @@ export default function AddCompanyModal({
                           </label>
                           <div className="mt-2">
                             <input
+                            value={clientModel.website}
                               id="website"
                               onChange={(e) => {
                                 setClientModel({
@@ -228,7 +240,7 @@ export default function AddCompanyModal({
                               <button
                                 type="button"
                                 onClick={handleButtonClick}
-                                className="rounded-md cursor-pointer bg-white cursor-pointer px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                className="rounded-md bg-white cursor-pointer px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                               >
                                 <input
                                   ref={inputFileRef}
@@ -258,22 +270,43 @@ export default function AddCompanyModal({
                       type="submit"
                       onClick={(e) => {
                         e.preventDefault();
-                        addClient(clientModel, {
-                          onSuccess: (data) => {
-                            onClose();
-                            queryClient.invalidateQueries("get-all-clients");
-                            toast("Client Added Successfully", {
-                              type: "success",
-                              autoClose: 2000,
-                            });
-                          },
-                          onError: (data: any) => {
-                            toast(data?.error ?? "Something went wrong!", {
-                              type: "error",
-                              autoClose: 5000,
-                            });
-                          },
-                        });
+                        if(isEditMode){
+                          editClient(clientModel, {
+                            onSuccess: (data) => {
+                              onClose();
+                              queryClient.invalidateQueries("get-all-clients");
+                              queryClient.invalidateQueries(["get-client-detail", clientModel.id]);
+                              toast("Client Edited Successfully", {
+                                type: "success",
+                                autoClose: 2000,
+                              });
+                            },
+                            onError: (data: any) => {
+                              toast(data?.error ?? "Something went wrong!", {
+                                type: "error",
+                                autoClose: 5000,
+                              });
+                            },
+                          });
+                        }else{
+                          addClient(clientModel, {
+                            onSuccess: (data) => {
+                              onClose();
+                              queryClient.invalidateQueries("get-all-clients");
+                              toast("Client Added Successfully", {
+                                type: "success",
+                                autoClose: 2000,
+                              });
+                            },
+                            onError: (data: any) => {
+                              toast(data?.error ?? "Something went wrong!", {
+                                type: "error",
+                                autoClose: 5000,
+                              });
+                            },
+                          });
+                        }
+                        
                       }}
                       className="rounded-md cursor-pointer bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
