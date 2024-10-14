@@ -5,6 +5,7 @@ import {
   changeDeviceState,
   connectDeviceWithClient,
   deleteUser,
+  editClient,
   editGasMapping,
   generateCredentials,
   generateReport,
@@ -86,6 +87,29 @@ export function useAddClient() {
     },
   });
 }
+
+export function useEditClient() {
+  return useMutation({
+    mutationKey: "edit-client",
+    mutationFn: editClient,
+    onSuccess: () => {
+      handleEventForTracking({
+        eventName: "edit-client",
+        success: true,
+        eventType: "API",
+      });
+    },
+    onError: () => {
+      handleEventForTracking({
+        eventName: "edit-client",
+        success: false,
+        eventType: "API",
+      });
+    },
+  });
+}
+
+
 
 export function useGetAllClients() {
   return useQuery({

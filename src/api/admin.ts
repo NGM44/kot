@@ -25,6 +25,12 @@ export async function addClient(
   return api.post(`/client/create`, clientDetail).then((res) => res.data);
 }
 
+export async function editClient(
+  clientDetail: ClientModel
+): Promise<CustomResponse<any>> {
+  return api.post(`/client/update`, clientDetail).then((res) => res.data);
+}
+
 export async function getAllClients(): Promise<ClientDetailModel[]> {
   return api.get(`/client/all/details`).then((res) => res.data.data);
 }

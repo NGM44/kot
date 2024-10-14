@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { ICompanyModel } from "./CompanyPage";
+import AddCompanyModal from "../../modal/AddCompanyModal";
 
 const CompanyCard = ({
   companyDetails,
@@ -9,9 +11,18 @@ const CompanyCard = ({
   showBanner: boolean;
   onClick: () => void;
 }) => {
-
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   return (
     <div className="bg-white rounded-sm shadow-md mb-8 p-6">
+      <div className="flex flex-row justify-end">
+        <button
+          type="button"
+          onClick={() => setIsEditDialogOpen(true)}
+          className="rounded-md cursor-pointer bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Edit
+        </button>
+      </div>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-4">
           {companyDetails.logo ? (
@@ -49,25 +60,37 @@ const CompanyCard = ({
         </div>
       </div>
       <div className="space-y-2">
-        <p className="flex items-center">
-          <span className="mr-2">📍</span> {companyDetails.address}
-        </p>
-        <p className="flex items-center">
-          <span className="mr-2">✉️</span> {companyDetails.email}
-        </p>
-        <a
-          target={"blank"}
-          href={companyDetails.website}
-          className="flex items-center"
-        >
-          <span className="mr-2">🌐</span>{" "}
-          <span className="underline">{companyDetails.website}</span>
-        </a>
-
-        <div className="flex flex-row items-center justify-between">
+        {companyDetails.address && (
           <p className="flex items-center">
-            <span className="mr-2">📞</span> {companyDetails.phone}
-          </p>{" "}
+            <span className="mr-2">📍</span> {companyDetails.address}
+          </p>
+        )}
+        {companyDetails.email && (
+          <p className="flex items-center">
+            <span className="mr-2">✉️</span> {companyDetails.email}
+          </p>
+        )}
+        {companyDetails.website && (
+          <a
+            target={"blank"}
+            href={companyDetails.website}
+            className="flex items-center"
+          >
+            <span className="mr-2">🌐</span>{" "}
+            <span className="underline">{companyDetails.website}</span>
+          </a>
+        )}
+
+        <div
+          className={`flex flex-row items-center ${
+            !!companyDetails.phone ? "justify-between" : "justify-end"
+          }`}
+        >
+          {companyDetails.phone && (
+            <p className="flex items-center">
+              <span className="mr-2">📞</span> {companyDetails.phone}
+            </p>
+          )}
           <div className="flex items-center">
             <label
               htmlFor="showBanner"
@@ -86,6 +109,21 @@ const CompanyCard = ({
           </div>
         </div>
       </div>
+      {isEditDialogOpen && (
+        <AddCompanyModal
+          isOpen={isEditDialogOpen}
+          onClose={() => setIsEditDialogOpen(false)}
+          clientData={{
+            address: companyDetails.address,
+            email: companyDetails.email,
+            logo: companyDetails.logo,
+            name: companyDetails.name,
+            phone: companyDetails.phone,
+            website: companyDetails.website,
+            id: companyDetails.id,
+          }}
+        />
+      )}
     </div>
   );
 };

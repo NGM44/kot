@@ -3,7 +3,6 @@ import Router from "./routes";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import {
-  AmplitudeInit,
   handleClickForTracking,
   handlePageLoadForTracking,
 } from "./analytics";
@@ -17,7 +16,6 @@ import useMqttStore from "./store/useMqttStore";
 import { brokerUrl } from "./constant";
 
 function App() {
-  AmplitudeInit();
   useAuthStore();
   const location = useLocation();
 
