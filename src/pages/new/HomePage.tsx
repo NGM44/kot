@@ -14,6 +14,7 @@ import {
   CardModelOverview,
   extractDashboardOverViewValues,
 } from "./GenerateDashboardDataOverview";
+import { brokerUrl } from "../../constant";
 
 const HomePage = () => {
   const { deviceId } = useValueStore();
@@ -51,7 +52,6 @@ const HomePage = () => {
   const [listData, setListData] = useState<CardModelOverview[]>([]);
   useEffect(() => {
     if ((userPreference?.preference ?? []).length > 0) {
-   
       const value = extractDashboardOverViewValues(
         userPreference?.preference ?? [],
         liveData,
@@ -61,6 +61,15 @@ const HomePage = () => {
       setListData(value ?? []);
     }
   }, [userPreference, liveData]);
+
+  const { connectMqtt, disconnectMqtt } = useMqttStore();
+
+  useEffect(() => {
+    connectMqtt(brokerUrl);
+    return () => {
+      disconnectMqtt();
+    };
+  }, []);
   return (
     <VStack className="gap-6">
       <dl

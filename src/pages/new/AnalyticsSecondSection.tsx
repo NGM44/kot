@@ -21,7 +21,7 @@ const AnalyticsSecondSection = ({date}:{date:string}) => {
           />
         )}
         <VStack>
-          <p className="text-xl text-secondary font-semibold">Analytics</p>
+          <p className="text-xl text-secondary font-semibold">Insights</p>
           <p className="text-xs text-gray-600">
             Access a summary of key metrics and historic data points as of {date}
           </p>

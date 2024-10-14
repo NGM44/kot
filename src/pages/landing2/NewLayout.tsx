@@ -77,24 +77,24 @@ export default function NewLayout() {
           current: true,
         },
         {
-          name: "Data Analysis",
-          href: "/analytics",
+          name: "Insights",
+          href: "/insights",
           icon: <Icon className="w-5 h-5" icon={"solar:graph-linear"} />,
           current: false,
         },
 
-        {
-          name: "SenseMap",
-          href: "/grid",
-          icon: <Icon className="w-5 h-5" icon={"f7:circle-grid-hex"} />,
-          current: false,
-        },
+        // {
+        //   name: "SenseMap",
+        //   href: "/grid",
+        //   icon: <Icon className="w-5 h-5" icon={"f7:circle-grid-hex"} />,
+        //   current: false,
+        // },
       ];
 
       let selectedNavigation = isAdmin ? isAdminNavigation : userNavigation;
       setNavigation(selectedNavigation);
     }
-  }, [role,isAdmin]);
+  }, [role, isAdmin]);
 
   const resources = [
     {
@@ -203,7 +203,7 @@ export default function NewLayout() {
         />
       )}
       <div className="mt-4 mx-4">
-        <div className="sticky bg-[#f6f9fb] top-0 z-50 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8">
+        <div className="sticky bg-[#f6f9fb]  max-w-7xl mx-auto top-0 z-50 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 lg:hidden bg-white rounded-md cursor-pointer"
@@ -245,14 +245,22 @@ export default function NewLayout() {
 
               {!isAdmin && <RotatingRefreshIcon />}
               <AnimatedThemeToggle />
-             {notifcation && notifcation.length > 0 && <FlyoutNotification notifcation={notifcation.sort((a:any, b:any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())} />}
+              {notifcation && notifcation.length > 0 && (
+                <FlyoutNotification
+                  notifcation={notifcation.sort(
+                    (a: any, b: any) =>
+                      new Date(b.createdAt).getTime() -
+                      new Date(a.createdAt).getTime()
+                  )}
+                />
+              )}
               <FlyoutProfile />
             </div>
           </div>
         </div>
 
         <main className="py-6 pt-4">
-          <div className="px-2 sm:px-4 lg:px-8">
+          <div className="px-2 sm:px-4 lg:px-8 max-w-7xl mx-auto">
             <Outlet />
             <div className="mt-6">
               <FooterSection date={""} />

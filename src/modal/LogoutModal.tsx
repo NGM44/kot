@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { useValueStore } from "../store/useValueState";
 import useMqttStore from "../store/useMqttStore";
+import { queryClient } from "../queries/client";
 
 export default function LogoutModal({
   isOpen,
@@ -66,6 +67,8 @@ export default function LogoutModal({
                   valueClear();
                   mqttClear();
                   localStorage.clear();
+                  queryClient.clear();
+                  queryClient.invalidateQueries();
                   navigate("/login");
                 }}
                 className="inline-flex w-full cursor-pointer justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"

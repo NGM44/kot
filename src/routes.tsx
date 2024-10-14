@@ -59,7 +59,7 @@ export default function Router() {
             ]
           : [
               { path: "dashboard", element: <HomePage /> },
-              { path: "analytics", element: <AnalyticsPage /> },
+              { path: "insights", element: <AnalyticsPage /> },
               { path: "grid", element: <GridPage /> },
               { path: "support", element: <SupportPage /> },
               { path: "profile", element: <ProfilePage /> },

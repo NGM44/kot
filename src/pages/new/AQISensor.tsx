@@ -41,7 +41,7 @@ const AQISensor = ({ value, liveData }: { value: CardModel, liveData?: IWeatherD
       <HStack className="gap-2 mt-2">
         <p className="text-gray-500 text-xs1">{value.content}</p>
       </HStack>
-      <StackedBarChartsFullFledged value={80} />
+      {/* <StackedBarChartsFullFledged value={80} /> */}
       <InfoRow
         title="Temperature"
         subtitle="Calculated value based on formula"

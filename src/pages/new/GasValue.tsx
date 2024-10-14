@@ -38,7 +38,7 @@ const GasValues = ({ value, liveData }: { value: CardModel , liveData?: IWeather
       <HStack className="gap-2 mt-2">
         <p className="text-gray-500 text-xs1">{value.content}</p>
       </HStack>
-      <StackedBarChartsFullFledged value={80} />
+      {/* <StackedBarChartsFullFledged value={80} /> */}
       <InfoRow
         title="PM1"
         subtitle="Below 15 µg/m³ for optimal comfort"

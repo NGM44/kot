@@ -254,10 +254,10 @@ export const extractDashboardCardValues = (
       min: deviceRange?.odorMin ?? 0,
       max: deviceRange?.odorMax ?? 0,
       // change: "83.2%",
-      iconName: "akar-icons:air",
+      iconName: "fluent:mold-24-regular",
       info: "Odor",
       content: `${deviceRange?.odorMin ?? 0}-${
-        deviceRange?.odorMax ?? 100
+        deviceRange?.odorMax ?? 30
       } ppm for optimal comfort`,
       graph: "Line",
     },
@@ -266,9 +266,9 @@ export const extractDashboardCardValues = (
       value: `${(liveData?.moldGrowth ?? 0).toFixed(0) || "-"}`,
       unit: "%",
       min: deviceRange?.moldGrowthMin ?? 0,
-      max: deviceRange?.moldGrowthMax ?? 100,
+      max: deviceRange?.moldGrowthMax ?? 30,
       key: "MoldGrowth",
-      iconName: "akar-icons:air",
+      iconName: "fluent:mold-24-regular",
       info: "Mold Growth",
       // change: "83.2%",
       content: `${deviceRange?.moldGrowthMin ?? 0}-${

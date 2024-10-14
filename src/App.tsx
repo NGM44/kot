@@ -24,17 +24,7 @@ function App() {
   useEffect(() => {
     handlePageLoadForTracking("location");
   }, [location]);
-  const { 
-    connectMqtt, 
-    disconnectMqtt, 
-  } = useMqttStore();
-
-  useEffect(() => {
-    connectMqtt(brokerUrl);
-    return () => {
-      disconnectMqtt();
-    };
-  }, []);
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ScrollToTop />
