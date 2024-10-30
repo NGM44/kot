@@ -13,7 +13,7 @@ export const extractDashboardOverViewValues = (
   liveData?: IWeatherData,
   gasMapping?: IGasMapping
 ) => {
-  const differentialPressure = liveData?.pressure.toFixed(2) || "-";
+  const differentialPressure = liveData?.pressure.toFixed(0) || "-";
 
   const data: CardModelOverview[] = [
     {

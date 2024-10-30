@@ -112,6 +112,7 @@ export interface IWeatherDataRange {
 
 export interface ReportRequestDto {
   deviceId: string;
+  metrics: string[];
   to: string;
   from: string;
 }

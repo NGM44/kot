@@ -75,7 +75,7 @@ const HomePage = () => {
       <dl
         className={`w-full mx-auto grid ${
           gridCols[listData.length]
-        } gap-px bg-gray-900/5 border border-borderColor shadow-sm rounded-lg`}
+        } gap-px bg-gray-900/5 border border-borderColor shadow-sm rounded-lg whitespace-nowrap`}
       >
         {listData.map((stat, index) => (
           <div

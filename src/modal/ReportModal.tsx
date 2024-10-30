@@ -9,6 +9,7 @@ import { ReportRequestDto } from "../types/device";
 import { useGenerateReport } from "../queries/admin";
 import { toast } from "react-toastify";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { metrics } from "../pages/new/ChartSelection";
 
 export default function ReportModal({
   isOpen,
@@ -25,7 +26,7 @@ export default function ReportModal({
       // NGM to integrate with dropdown
       const to = format(new Date("2024-06-06"), "yyyy-MM-dd");
       const from = format(new Date("2024-06-01"), "yyyy-MM-dd");
-      const reportReqDto: ReportRequestDto = { deviceId, from, to };
+      const reportReqDto: ReportRequestDto = { deviceId, from, to, metrics: metrics.map(m => m.name) };
       generateReport(reportReqDto, {
         onSuccess() {
           toast("Report Generated successfully", {

@@ -8,8 +8,9 @@ import ChartSelection, { metrics } from "../new/ChartSelection";
 import { useValueStore } from "../../store/useValueState";
 import { filterWeatherData } from "./ContantData";
 import { IWeatherData } from "../../types/device";
+import ParameterSelectorReport from "../new/ParameterSelectorReport";
 
-const metricDataMapping: { [key: string]: keyof IWeatherData } = {
+export const metricDataMapping: { [key: string]: keyof IWeatherData } = {
   Temperature: "temperature",
   Humidity: "humidity",
   Pressure: "pressure",
@@ -165,6 +166,17 @@ const AnalyticsPage = () => {
               />
             )}
           </div>
+        </div>
+        <div className="bg-white rounded-xl shadow-box p-6">
+        <VStack>
+              <h2 className="text-xl font-bold">Report Generation</h2>
+              <p className="text-xs font-medium text-gray-500 ">
+                fill out below information to generate a report
+              </p>
+            </VStack>
+          <div className="grid col-span-2 gap-x-4 gap-y-10 pb-12">
+              <ParameterSelectorReport />
+            </div>
         </div>
       </VStack>
     </>
